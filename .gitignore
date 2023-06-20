@@ -1,3 +1,5 @@
+#secrets
+environment/*
 
 # History files
 .Rhistory
