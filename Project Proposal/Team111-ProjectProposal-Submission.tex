@@ -105,7 +105,7 @@ For liquidity providers (LPs), understanding this relationship helps optimize li
 \label{fig:binance-screenshot}
 \end{wrapfigure}
 
-Inspired by the \textit{“DeFi modelling and forecasting trading volume" (2023)}\footnote{\textit{“DeFi: modeling and forecasting trading volume on Uniswap v3 liquidity pools"} (2023), \url{https://ssrn.com/abstract=444535}.} paper, we source and construct trade information for at least 6 months with the following sources:
+Inspired by the \textit{"DeFi modeling and forecasting trading volume" (2023)}\footnote{\textit{"DeFi: modeling and forecasting trading volume on Uniswap v3 liquidity pools"} (2023), \url{https://ssrn.com/abstract=444535}.} paper, we sourced and constructed trade information for at least 6 months. Initial extraction work has already been performed, and you can refer to our GitHub repository\footnote{GitHub repository: \url{https://github.gatech.edu/MGT-6203-Summer-2023-Canvas/Team-111/tree/main/Code}} for further details and access to the code. The dataset consists of data obtained from the following sources:
 
 
 \subsection*{1. Uniswap's The Graph API\footnote{Uniswap's The Graph API: \url{https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3}}}
@@ -129,7 +129,7 @@ Data: Detailed information about each trade executed on the Binance platform, in
 \textbf{Independent Variable:} Liquidity pool trading volumes (amountUSD) over specific blocks.\\
 
 \textbf{Dependent Variables:}
-The dependent variables are derived from a set of features and can be categorized as follows:
+The dependent variables are derived from a set of features and is categorized as follows:
 \begin{enumerate}[label=\arabic*. ,itemsep=0pt, topsep=0pt]
 \item Direct pool features: volatility, rate, number of trades, average trade size, total value locked (TVL).
 \item Network spillover effects: trade flow imbalance.
