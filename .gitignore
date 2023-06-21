@@ -1,6 +1,9 @@
 #secrets
 environment/*
 
+#big files
+Code/binance/data/*
+
 # History files
 .Rhistory
 .Rapp.history
