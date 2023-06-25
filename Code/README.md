@@ -11,7 +11,7 @@ Additional attributes available from the API include transaction IDs, timestamps
 
 The count of daily transactions for pool 3000 were compared with volumes as displayed in https://www.geckoterminal.com/eth/pools/0xcbcdf9626bc03e24f779434178a73a0b4bad62ed
 
-More attributes are available - for a fuill list, refer to: https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3/graphql?query=query+MyQuery+%7B%0A++pools%0A%7D
+More attributes are available - for a full list, refer to: https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3/graphql?query=query+MyQuery+%7B%0A++pools%0A%7D
 transaction_data = {
             id
             timestamp

@@ -1,0 +1,64 @@
+You are looking to create a table from the provided text. Please find below the required table:
+
+| Label | Feature |
+| --- | --- |
+| blsame, blother | Distance in blocks of the previous l ∈ {1, 2, 3} mint operations on the same pool as the one where the mint of reference happened, or on the other pool. |
+| slsame, slother | Size in USD of the previous l ∈ {1, 2, 3} mint operations on the same pool as the one where the mint of reference happened, or on the other pool. |
+Ignoring for now -> | wlsame, wlother | Width in number of ticks of the previous l ∈ {1, 2, 3} mint operations on the same pool as the one where the mint of reference happened, or on the other pool. This feature might become significant due to the concentrated liquidity mechanism and possible just-in-time liquidity provision. |
+| s0, w0 | Size in USD, and width in number of ticks, of the current mint operation that we take as reference. |
+| vol0l | Volatility as the standard deviation of the pool price on the same pool as the mint of reference, during the expanding intervals of time 0el with l ∈ {1, 2, 3} that refer to the previous mint operations on the same pool. |
+| rate-USD-isame, rateUSD-iother | Rate of traded volume in USD on our WBTC-WETH pools of principal interest, for the intervals i ∈ {01 e , 12 e , 23 e } block ranges with respect to either the latest mint operations and swaps executed on the same pool, or on the other pool. |
+| rate-count-isame, ratecount-iother | Rate of count of trades on our WBTC-WETH pools of principal interest, for the intervals i ∈ {01 e , 12 e , 23 e } block ranges with respect to either the latest mint operations and swaps executed on the same pool, or on the other pool. |
+| avg-USD-isame, avg-USD-iother | Average traded volume in USD on our WBTC-WETH pools of principal interest, for the intervals i ∈ {01 e , 12 e , 23 e } block ranges with respect to either the latest mint operations and swaps executed on the same pool, or on the other pool. |
+| TVL3000-500, TVL3000/500 | Latest value of the TVL in the pool 3000 minus the TVL in the pool 500, and ratio of the two. |
+| eth500-USD-03, eth3000-USD-03 | Rate of traded volume in USD on the one-hop USDC-WETH pools, over the 03 time interval with e respect to the previous mint operations on the same pool as our mint of reference. |
+| btc500-USD-03, btc3000-USD-03 | Rate of traded volume in USD on the one-hop WBTC-USDC pools, over the 03 time interval with e respect to the previous mint operations on the same pool as our mint of reference. |
+| eth500-press-03, eth3000-press-03 | Rate of surplus WETH buying volume in USD on the one-hop USDC-WETH pools, over the 03 time interval e with respect to the previous mint operations on the same pool as our mint of reference. |
+| btc500-press-03, btc3000-press-03 | Rate of surplus WBTC buying volume in USD on the one-hop WBTC-USDC pools, over the 03 time interval e with respect to the previous mint operations on the same pool as our mint
+
+
+Certainly, when considering the previous l ∈ {1, 2, 3} operations, the variables unfold as follows:
+
+1. blsame_1, blsame_2, blsame_3
+2. blother_1, blother_2, blother_3
+3. slsame_1, slsame_2, slsame_3
+4. slother_1, slother_2, slother_3
+5. wlsame_1, wlsame_2, wlsame_3
+6. wlother_1, wlother_2, wlother_3
+7. s0
+8. w0
+9. vol0_1, vol0_2, vol0_3
+10. rate-USD-isame_01, rate-USD-isame_12, rate-USD-isame_23
+11. rateUSD-iother_01, rateUSD-iother_12, rateUSD-iother_23
+12. rate-count-isame_01, rate-count-isame_12, rate-count-isame_23
+13. ratecount-iother_01, ratecount-iother_12, ratecount-iother_23
+14. avg-USD-isame_01, avg-USD-isame_12, avg-USD-isame_23
+15. avg-USD-iother_01, avg-USD-iother_12, avg-USD-iother_23
+16. TVL3000-500
+17. TVL3000/500
+18. eth500-USD-03
+19. eth3000-USD-03
+20. btc500-USD-03
+21. btc3000-USD-03
+22. eth500-press-03
+23. eth3000-press-03
+24. btc500-press-03
+25. btc3000-press-03
+26. binance-btc-i_01, binance-btc-i_12, binance-btc-i_23
+27. binance-count-i_01, binance-count-i_12, binance-count-i_23
+28. ∆(Zsame, Zother)
+29. ∆(Zsame, ZBinance)
+
+The underscore followed by a number after each variable denotes the previous 'l' operation it refers to. For instance, 'blsame_1' refers to the first previous mint operation on the same pool, while 'blsame_2' refers to the second previous mint operation, and so on.
+
+
+Let's count the total variables:
+
+- For 'blsame', 'blother', 'slsame', 'slother', 'wlsame', 'wlother', and 'vol0', we have 3 instances each. That gives us 7 * 3 = 21 variables.
+- For 's0' and 'w0', there is one each, so 2 more variables.
+- For 'rate-USD-isame', 'rateUSD-iother', 'rate-count-isame', 'ratecount-iother', 'avg-USD-isame', 'avg-USD-iother', 'binance-btc-i', 'binance-count-i', we have 3 instances each, which gives us 8 * 3 = 24 variables.
+- For 'TVL3000-500' and 'TVL3000/500', we have one each, so 2 more variables.
+- For 'eth500-USD-03', 'eth3000-USD-03', 'btc500-USD-03', 'btc3000-USD-03', 'eth500-press-03', 'eth3000-press-03', 'btc500-press-03', 'btc3000-press-03', there is one each, giving us 8 variables.
+- Finally, for ∆(Zsame, Zother) and ∆(Zsame, ZBinance), we have one each, so that's 2 more variables.
+
+Summing these up, we get 21 + 2 + 24 + 2 + 8 + 2 = 59 variables in total.
