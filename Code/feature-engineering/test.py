@@ -1,6 +1,14 @@
 #%%
+"""
+Notes -> Have just developed the block number chain feature.
+Need to adapt all other functions to work at block level (as per mints)
+"""
+
+
 import pandas as pd
 import numpy as np
+
+import zlib
 # Read uniswap cleansed data
 df = pd.read_csv("Data/cleansed/uniswap.csv")
 
@@ -27,22 +35,37 @@ block_number_order_same = (df_sorted_timestamp['blockNumber'].values == df_sorte
 assert block_number_order_same, "Sorting by timestamp and block number does not result in the same block number order"
 
 
+def generate_hash(df):
+    # Convert timestamp column to datetime
+    df['timestamp'] = pd.to_datetime(df['timestamp'])
+
+    # Sort the DataFrame by timestamp in ascending order
+    df_sorted = df.sort_values(by='timestamp')
+
+    # Generate hashids based on the sorted index
+    df_sorted['hashid'] = df_sorted['id'].map(lambda x: zlib.crc32(str(x).encode()))
+
+    return df_sorted
+
 def calculate_intervals(df, pool_col, interval_col, l_values):
     dfs = []  # List to store the modified dataframes
     df = df[df['transaction_type'] == 'mints']
+    df_pool = df[['pool', 'blockNumber']].copy()
     for pool in df[pool_col].unique():
         df_pool = df[df[pool_col] == pool].copy()  # Create a copy of the slice
         for l in l_values:
             df_pool[f'{interval_col}_{l}'] = df_pool['blockNumber'].shift(l)
-        
+
         # Create a new column for the block number chain
         block_numbers = df_pool[[f'{interval_col}_{l}' for l in l_values]].apply(lambda row: sorted(row), axis=1)
         df_pool['blockNumberChain'] = block_numbers
-        
+
         dfs.append(df_pool)  # Append the modified dataframe to the list
-    
+
     df_merged = pd.concat(dfs)  # Concatenate all dataframes
-    return df_merged
+    df_hashed = generate_hash(df_merged)
+    
+    return df_hashed
 
 
 def calculate_size_previous_mints(df, pool_col, size_col, l_values):
