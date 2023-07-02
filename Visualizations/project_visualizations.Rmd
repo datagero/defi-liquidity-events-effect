@@ -18,8 +18,19 @@ binance = read.csv('../data/cleansed/binance.csv')
 etherscan = read.csv('../data/cleansed/etherscan.csv')
 uniswap = read.csv('../data/cleansed/uniswap.csv')
 
-# convert to time. Removes hour:min:sec to allow aggregating later.
-# binance$time = as.Date(binance$time)
+```
+
+# Binance Data Set
+
+The first case selected is the binance data set. This is a data set with `r dim(binance)[1]` rows. With several repeated parameters under the column 'id'. To make the data set more manageable, the `aggregate` function is used to consolidate the different columns under the same 'id' producing the `binance.agg` data set. The following aggregate functions are implemented:
+1. qty: sum
+2. time: min, to identify the start time of a transaction.
+3. quoteQty, sum
+4. price: mean
+
+```{r}
+
+head(binance)
 
 binance.agg = aggregate(qty ~ id, binance, sum)
 
@@ -27,24 +38,43 @@ binance.agg = cbind(binance.agg, aggregate(time ~ id, binance, min)[2])
 
 binance.agg = cbind(binance.agg, aggregate(quoteQty ~ id, binance, sum)[2])
 
-
 binance.agg = cbind(binance.agg, aggregate(price ~ id, binance, mean)[2])
 
 ```
 
-## R Markdown
+## Pair Plot
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+A pair plot is produced to identify correlated variables.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r}
+
+pairs(binance.agg[,c(2,4,5)])
+
+```
+
+As observed in the plots, 'qty' and 'quoteQty' are correlated.  With that, one of the two should be removed from any model to avoid multicollinearity.
+
+No correlation observed between 'price' and 'qty'.
+
+# uniswap Data Set
+
+First, the uniswap timestamp column needs to be converted from integer to a datetime format. According to the website thegraph.com, which hosts this API, 
+> the timestamps provided as integers in the APIs provided by The Graph can be interpreted as Unix timestamps, which represent the number of seconds that have elapsed since January 1, 1970, at 00:00:00 UTC.
+
+From this, follows:
+
 
 ```{r}
 
 
-ggplot(data = binance[1:1000,]) +
-  geom_point(aes(time, qty)) +
-  geom_bar(aes(qty))
+uniswap$timestamp = strftime(as_date(as_datetime(uniswap$timestamp)), format = "%Y-%m-%d %H:%M:%S")
+
+
+unique(strftime(as.Date(as.POSIXct(uniswap$timestamp, origin="1970-01-01")), format = "%Y-%m-%d %H:%M:%S"))
 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# etherscan
+
+etherscan merges with uniscan via 'accessList'
+
