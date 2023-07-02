@@ -1,0 +1,50 @@
+---
+title: "project_visualizations"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# clear environment
+rm(list = ls())
+
+library(ggplot2)
+library(stats)
+library(lubridate)
+
+binance = read.csv('../data/cleansed/binance.csv')
+etherscan = read.csv('../data/cleansed/etherscan.csv')
+uniswap = read.csv('../data/cleansed/uniswap.csv')
+
+# convert to time. Removes hour:min:sec to allow aggregating later.
+# binance$time = as.Date(binance$time)
+
+binance.agg = aggregate(qty ~ id, binance, sum)
+
+binance.agg = cbind(binance.agg, aggregate(time ~ id, binance, min)[2])
+
+binance.agg = cbind(binance.agg, aggregate(quoteQty ~ id, binance, sum)[2])
+
+
+binance.agg = cbind(binance.agg, aggregate(price ~ id, binance, mean)[2])
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+
+
+ggplot(data = binance[1:1000,]) +
+  geom_point(aes(time, qty)) +
+  geom_bar(aes(qty))
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
