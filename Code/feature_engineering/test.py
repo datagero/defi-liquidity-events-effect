@@ -81,7 +81,7 @@ def calculate_intervals(df, pool_col, interval_col, l_values):
     
     return df_hashed
 
-def create_interval_dataframes(df_blocks, df, end_col, start_col, column_mapping):
+def create_interval_dataframes(df_blocks, df, end_col, start_col, column_mapping, dataframes):
     """
     Create interval-based dataframes based on specified columns.
 
@@ -96,7 +96,6 @@ def create_interval_dataframes(df_blocks, df, end_col, start_col, column_mapping
         dict: A nested dictionary with interval-based dataframes, where the keys are the hash IDs.
 
     """
-    dataframes = {}
     for _, row in df_blocks.iterrows():
         interval_start = row[start_col]
         interval_end = row[end_col]
@@ -104,6 +103,8 @@ def create_interval_dataframes(df_blocks, df, end_col, start_col, column_mapping
             df_interval = df[(df['blockNumber'] > interval_start) & (df['blockNumber'] <= interval_end)].copy()
             if row['hashid'] not in dataframes:
                 dataframes[row['hashid']] = {}
+            else:
+                pass
             key = f"{column_mapping[end_col]}_{column_mapping[start_col]}"
             dataframes[row['hashid']][key] = df_interval
     return dataframes

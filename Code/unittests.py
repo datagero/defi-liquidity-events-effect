@@ -22,7 +22,7 @@ data = {
 df = pd.DataFrame(data)
 df['timestamp'] = pd.to_datetime(df['blockNumber'], unit='s')
 
-shift_periods = range(1, 4)
+shift_periods = range(0, 4)
 df_blocks = calculate_intervals(df, 'pool', 'interval', shift_periods)
 
 pass
@@ -30,7 +30,7 @@ pass
 # TODO - Do this for each pool separately
 # Call the function to create separate dataframes for interval_2 to interval_3
 interval_dataframes = {}
-interval_columns = ['blockNumber', 'interval_1', 'interval_2', 'interval_3']
+interval_columns = ['interval_0', 'interval_1', 'interval_2', 'interval_3']
 column_mapping = {column: index for index, column in enumerate(interval_columns)}
 
 # Iterate over the interval columns
@@ -39,11 +39,11 @@ for i in range(len(interval_columns) - 1):
     start_col = interval_columns[i + 1]
     
     # Create dataframes for each interval
-    interval_dataframes.update(create_interval_dataframes(df_blocks, df, end_col, start_col, column_mapping))
+    interval_dataframes.update(create_interval_dataframes(df_blocks, df, end_col, start_col, column_mapping, interval_dataframes))
 
 
-test = interval_dataframes[244787741]['0_1']
-# We got all 43 features
+test = interval_dataframes[1199144322]['0_1']
+# We got all Direct Pool 43 features
 
 # 3*3*2 = 18 features (same + other pool)
 #TODO- Distance
@@ -60,7 +60,10 @@ calculate_average_volume(test, 'amountUSD')
 
 # 1 feature
 # Need to check how to get the Total Value Locked (TVL)
-# To approximate the Total Value Locked (TVL) in the pools, you can compute the cumulative sum in USD of the mint and burn operations for both pools from May 2021, which is when Uniswap v3 was deployed. By summing up the USD values of the mint and burn operations, you can estimate the TVL in the pools over a specific period.
+# To approximate the Total Value Locked (TVL) in the pools,
+# you can compute the cumulative sum in USD of the mint and burn operations for both pools from May 2021,
+# which is when Uniswap v3 was deployed. By summing up the USD values of the mint and burn operations,
+# you can estimate the TVL in the pools over a specific period.
 # calculate_tvl_difference_ratio(test, pool_col, tvl_col)
 
 pass
