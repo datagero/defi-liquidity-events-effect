@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 
 def get_size(df, size_col):
@@ -22,7 +21,10 @@ def get_size(df, size_col):
     """
 
     size = df[size_col]
+    if size.shape[0] == 0:
+        return np.nan
     assert size.shape[0] == 1, "Size column contains more than one value"
+
     return size.values[0]
 
 
@@ -47,6 +49,8 @@ def get_width(df, width_col):
     """
 
     width = df[width_col]
+    if width.shape[0] == 0:
+        return np.nan
     assert width.shape[0] == 1, "Width column contains more than one value"
     return width.values[0]
 
@@ -62,6 +66,8 @@ def calculate_volatility(df, pool_price_col):
         float: Volatility value.
 
     """
+    #ignore where pool_price is nan
+    df = df[df[pool_price_col].notna()]
     returns = df[pool_price_col].pct_change()
     volatility = returns.std()
     return volatility
@@ -69,6 +75,7 @@ def calculate_volatility(df, pool_price_col):
 def calculate_traded_volume_rate(df, amount_usd_col):
     """
     Calculate the rate of traded volume in USD on the WBTC-WETH pools of principal interest.
+    with respect to the latest mint operations and swaps.
 
     Args:
         df (DataFrame): Input DataFrame filtered for the pool of interest.
@@ -78,14 +85,18 @@ def calculate_traded_volume_rate(df, amount_usd_col):
         float: Rate of traded volume in USD on the WBTC-WETH pools of principal interest.
 
     """
-    total_traded_volume = df[amount_usd_col].sum()
-    total_trading_days = df['timestamp'].nunique()
+    df_scope = df[df['transaction_type'] != 'burns']
+    total_traded_volume = df_scope[amount_usd_col].sum()
+    total_trading_days = df_scope['timestamp'].nunique()
+    if total_trading_days == 0:
+        return np.nan
     traded_volume_rate = total_traded_volume / total_trading_days
     return traded_volume_rate
 
 def calculate_trades_count(df):
     """
     Calculate the total count of trades on the WBTC-WETH pools of principal interest.
+    with respect to the latest mint operations and swaps.
 
     Args:
         df (DataFrame): Input DataFrame filtered for the pool of interest.
@@ -94,12 +105,14 @@ def calculate_trades_count(df):
         int: Total count of trades on the WBTC-WETH pools of principal interest.
 
     """
-    total_trades_count = len(df)
+    df_scope = df[df['transaction_type'] != 'burns']
+    total_trades_count = len(df_scope)
     return total_trades_count
 
 def calculate_average_volume(df, amount_usd_col):
     """
     Calculate the average traded volume in USD on the WBTC-WETH pools of principal interest.
+    with respect to the latest mint operations and swaps.
 
     Args:
         df (DataFrame): Input DataFrame filtered for the pool of interest.
@@ -109,12 +122,14 @@ def calculate_average_volume(df, amount_usd_col):
         float: Average traded volume in USD on the WBTC-WETH pools of principal interest.
 
     """
-    average_volume = df[amount_usd_col].mean()
+    df_scope = df[df['transaction_type'] != 'burns']
+    average_volume = df_scope[amount_usd_col].mean()
     return average_volume
 
 
 def calculate_tvl_difference_ratio(df, pool_col, tvl_col):
     """
+    NOTE -> Still in development, currently not used in the project.
     Calculate the difference and ratio of the latest TVL in pool 3000 and pool 500.
 
     Args:
