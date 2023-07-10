@@ -1,3 +1,5 @@
+# This script is in progress. It is used for PoC of linear regression on the data as reported on the progress report.
+
 
 import os
 import pandas as pd
@@ -145,13 +147,17 @@ for horizon in horizon_labels:
     horizon_values.append(horizon * 10)
     observation_counts.append(len(X))
 
+    if horizon == 20:
+        print(results.summary())
+
+
 fig, ax1 = plt.subplots()
 ax2 = ax1.twinx()
 
 ax1.scatter(horizon_values, r_squared_values, color='b')
-ax1.set_xlabel('Horizon')
+ax1.set_xlabel('Horizon (blocks)')
 ax1.set_ylabel('R-squared', color='b')
-ax1.set_ylim(0, 0.3)  # Set the y-axis range for R-squared
+ax1.set_ylim(0, 1)  # Set the y-axis range for R-squared
 
 ax2.plot(horizon_values, observation_counts, color='r')
 ax2.set_ylabel('Observation Count', color='r')

@@ -50,45 +50,35 @@
 
 \section*{\textbf{Problem Statement and Objective}}
 
-Decentralized Finance (DeFi), with a total value locked of approximately 48.78 billion USD (as of April 23, 2023 defillama.com), greatly depends on liquidity pools for efficient crypto trading. Liquidity pools, used in decentralized exchanges like Uniswap, function on an automated market maker model, unlike traditional exchanges that rely on intermediaries and order book systems. These pools generate income by collecting trading fees, which are subsequently distributed among liquidity providers based on their pool share.
+Decentralized Finance (DeFi), hosting about 48.78 billion USD in total value (as of April 23, 2023\footnote{\textit{"DefiLlama"} (2023), \url{https://defillama.com/}}), relies heavily on liquidity pools in decentralized exchanges like Uniswap for efficient crypto trading. These pools, using an automated market maker model, earn from trading fees distributed among liquidity providers based on their pool share.
 
-Different platforms in the DeFi space, such as Curve Finance and Balancer, specialize in various areas, with Uniswap being a popular choice due to its user-friendly interface and diverse token pairs. 
+This study primarily \textbf{aims to examine the influence of pool size on trading volume, specifically in BTC-ETH liquidity pools in exchanges like Uniswap}. It hypothesizes a direct correlation between pool size and trading volume, supported by existing studies. 
 
-The primary aim of this study is to \textbf{explore the impact of pool size on the trading volume, particularly focusing on BTC-ETH liquidity pools in decentralized exchanges like Uniswap}. We hypothesize a significant correlation between pool size and trading volume. Larger pools can theoretically support larger transactions and higher trading volumes due to the minimal price impact on large pools. This hypothesis is supported by DeFi: Modeling and Forecasting Trading Volume on Uniswap v3 Liquidity Pools2. 
+This understanding could optimize liquidity provision, enhance DeFi market efficiency, and benefit stakeholders. For instance, liquidity providers could improve fee returns and risk management, traders could refine strategies, and DeFi platforms could develop more effective liquidity pools.
 
-Understanding this relationship can help optimize liquidity provision strategies, improve the efficiency of DeFi markets, and benefit various stakeholders. For instance, liquidity providers can increase fee returns and mitigate risks, while traders can enhance their strategies and reduce slippage. Our findings could also aid DeFi platforms in creating more effective liquidity pools to boost user engagement and overall growth.
+\section*{\textbf{Uniswap Liquidity Pools: An Overview}}
 
-\section*{\textbf{Introduction to Uniswap Liquidity Pools}}
+Various DeFi platforms cater to different needs. Uniswap, a popular choice, provides a user-friendly interface and a broad spectrum of token pairs. Other platforms like Curve Finance and Balancer offer low-slippage trades and customizable pools, respectively.
 
-In the decentralized finance (DeFi) space, there are various platforms that cater to different needs and focus on specific functionalities. Uniswap stands out as a popular choice among users. It is known for its user-friendly interface and wide range of token pairs available for trading. Other options are Curve Finance (for stablecoin and low-slippage trades) and Balancer (customizable pools with multiple tokens).
+Uniswap, a decentralized exchange (DEX) on Ethereum, supports trading of Ethereum-native and wrapped non-native assets. It uses a Constant Product Market Maker (CPMM) model in which liquidity providers deposit two tokens, keeping a constant product of reserves.
 
-Uniswap is a decentralized exchange (DEX) on Ethereum that enables the trading of Ethereum-native and non-native assets (via wrapped coins like WBTC). Uniswap v3 utilizes a Constant Product Market Maker (CPMM) model where liquidity providers (LPs) deposit two tokens, maintaining a constant product of reserves. The prices are dynamically adjusted with trades, ensuring supply-demand balance.
-
-The CPMM formula and liquidity pool price in terms of Token Y are given by:
+The CPMM formula is given by:
 
 \[x \cdot y = k \quad \text{and} \quad price = \frac{y}{x}\]
 
-Here, \(x\) represents the quantity of Token X in the pool, \(y\) represents the quantity of Token Y in the pool, and \(k\) represents the constant product of the token reserves.
+Here, \(x\) and \(y\) denote the quantities of Token X and Y in the pool, and \(k\) is the constant product.
 
-DEXs, like Uniswap, operate without a central authority, providing privacy, control over funds, and access to a wide range of tokens. However, centralized exchanges (CEX) offer faster transaction speeds, better user interfaces, customer support, and often higher liquidity. Despite this, CEXs hold user funds, exposing them to security risks.
+Uniswap operates without a central authority, ensuring privacy, fund control, and a diverse range of tokens. Centralized exchanges (CEX), though offering faster transaction speeds and better customer support, may pose security risks as they hold user funds.
 
-Liquidity pools, mainly used in DEXs, allow traders to interact with smart contracts instead of other traders directly. This ensures constant liquidity availability but exposes LPs to risks such as impermanent loss. However, LPs receive transaction fee rewards proportional to their share in the pool.
+Liquidity pools in DEXs enable direct interaction with smart contracts, ensuring continuous liquidity but exposing liquidity providers to impermanent loss risks. Prices are influenced by trade size, market conditions, supply-demand dynamics, and external price changes. Swaps and liquidity provision events, such as token minting and burning, significantly impact trading volumes. Indirect effects from network correlations and arbitrage opportunities can also influence trading volumes across pools.
 
-
-Factors that influence prices include trade sizes, market conditions, token supply-demand dynamics, and external price changes.
-
-Swaps involve exchanging one token for another in a liquidity pool. Swaps impact token prices as they modify the pool's token balances. Large swaps can cause significant price changes due to the constant product formula, leading to price slippage. Moreover, swap operations consume liquidity, affecting the overall pool liquidity.
-
-Liquidity provision events, such as mints and burns, have a notable impact on trading volumes. Minting tokens increases liquidity, attracting more traders and potentially boosting trading volume. Conversely, burning tokens reduces liquidity and may result in decreased trading volume.
-
-While liquidity events in one pool do not directly affect others, indirect effects arising from network correlations and arbitrage opportunities can influence trading volumes across multiple pools. For instance, a substantial increase in liquidity in one pool can attract more traders across the network, indirectly affecting trading volumes in other pools.
 
 \section*{Dataset}
 
-Inspired by the \textit{"DeFi modeling and forecasting trading volume" (2023)}\footnote{\textit{"DeFi: modeling and forecasting trading volume on Uniswap v3 liquidity pools"} (2023), \url{https://ssrn.com/abstract=444535}.} paper, we sourced and constructed trade information for at least 6 months. Initial extraction work has already been performed, and you can refer to our GitHub repository\footnote{GitHub repository: \url{https://github.gatech.edu/MGT-6203-Summer-2023-Canvas/Team-111/tree/main/Code}} for further details and access to the code. The dataset consists of data obtained from the following sources:
-
+Inspired by the \textit{"DeFi modeling and forecasting trading volume" (2023)}\footnote{\textit{"DeFi: modeling and forecasting trading volume on Uniswap v3 liquidity pools"} (2023), \url{https://ssrn.com/abstract=444535}} paper, we sourced and constructed trade information for at least 6 months\footnote{\textit{Data Extracted and Cleansed}, \url{https://drive.google.com/drive/folders/1y5ZwLZK9GQYsCNYSY--4VQMg80dnuwuU?usp=sharing}}. Initial extraction work has already been performed, and you can refer to our GitHub repository\footnote{GitHub repository: \url{https://github.gatech.edu/MGT-6203-Summer-2023-Canvas/Team-111/tree/main/Code}} for further details and access to the code. The dataset consists of data obtained from the following sources:
 
 \begin{center}
+\small
 \begin{tabular}{|p{0.15\linewidth}|p{0.35\linewidth}|p{0.5\linewidth}|}
 \hline
 \textbf{Source} & \textbf{Description} & \textbf{Data} \\
@@ -107,17 +97,19 @@ Binance\footnote{Binance GitHub Repository: \url{https://github.com/binance/bina
 \textbf{Target Variable:} Liquidity pool trading volumes (amountUSD) over specific blocks. We consider different models for multiple time horizons to study the relationship change over time.
 
 \textbf{Independent Variables:}
-The dependent variables are derived from a set of features and are categorized as follows:
+The dependent variables are derived from a set of features and are categorized as follows [Mostly completed, refer to progress section]:
 \begin{enumerate}[label=\arabic*. ,itemsep=0pt, topsep=0pt]
-\item Direct pool features (43): volatility, rate, number of trades, average trade size, total value locked (TVL). [Mostly completed, refer to progress section]
-\item Network spillover effects (8): trade flow imbalance. [Not yet started]
-\item CEX spillover effects (6): actual coin trade volume. [Not yet started]
-\item Price divergences between the 500 and 3000 pools (2). [Not yet started]
+\item Direct pool features (43): volatility, rate, number of trades, average trade size, total value locked (TVL).
+\item Network spillover effects (8): trade flow imbalance.
+\item CEX spillover effects (6): actual coin trade volume.
+\item Price divergences between the 500 and 3000 pools (2).
 \end{enumerate}
 We will aim to include as many variables as possible, given the time constraints of our project.
 
 \section*{Approach and Progress}
-\section*{Progress Report}
+Overall, significant progress has been made in each stage of our approach. However, further analysis, evaluation, and optimization are required to successfully complete the project.
+
+Throughout this process, we aim to maintain rigorous documentation of our methodologies and findings, which will allow us to ensure the transparency and replicability of our research.
 
 \begin{table}[htbp]
 \centering
@@ -139,51 +131,46 @@ We will aim to include as many variables as possible, given the time constraints
 \textbf{Final Analysis and Conclusions:} In the final stages of analysis. Commencing with drawing conclusions and communicating findings. Preparing to provide quantitative-driven insights. \\
 \hline
 \end{tabularx}
+\caption{Approach and Progress}
+\label{fig:approach-progress}
 \end{table}
 
-
-
-
-Overall, significant progress has been made in each stage of our approach. However, further analysis, evaluation, and optimization are required to successfully complete the project.
-
-Throughout this process, we aim to maintain rigorous documentation of our methodologies and findings, which will allow us to ensure the transparency and replicability of our research.
-
+\vspace{-2em} % Reduce vertical spacing here
 \section*{Challenges and Insights}
 
-The engineering required to collect, merge and generate features has been more advanced than initially expected, and so considerable time and effort has been placed in this regard.
-In terms of data collection, API calls are built on Python (and circumvent request limitations) to gather the necessary data in JSON formats. Particularly challenging has been the Etherscan free-tier API rate limits, which takes several days to extract 6 months of transaction data. We are still running downloads, so our dataset remains incomplete, in particular for transactions on pool 3000.
+Data collection and processing required significant effort due to the advanced engineering involved. Notably, we faced challenges with the rate limits of the Etherscan free-tier API when gathering data via Python API calls.
 
-\begin{wrapfigure}[19]{r}{0.35\textwidth}
-\vspace{-35pt} % Adjust the vertical spacing as needed
+We've adopted two time concepts to analyze liquidity pool dynamics\footnote{\textit{"DeFi: modeling and forecasting trading volume on Uniswap v3 liquidity pools"} (2023), \url{https://ssrn.com/abstract=444535}}. The "trading clock", defined by a block containing a mint operation, captures data temporal dynamics. A "time horizon" concept was introduced, defined every ten blocks up to the next mint operation, providing insights into the predictive power of independent variables over different timeframes.
+
+Combined, these concepts allow a comprehensive exploration of short and long-term trends, informing decision-making and risk management in the DeFi ecosystem. Considering Uniswap operates on the Ethereum blockchain with a 14 seconds block time, these insights are invaluable.
+
+The complexities of liquidity pool mathematics\footnote{\textit{"Liquidity Math in Uniswap V3"} (2021), \url{https://atiselsts.github.io/pdfs/uniswap-v3-liquidity-math.pdf}}\footnote{\textit{"A Primer on Uniswap v3 Math: As Easy As 1, 2, v3"} (2023), \url{https://blog.uniswap.org/uniswap-v3-math-primer}} presented hurdles, but we've captured the formulas to our best understanding in calculations.py functions. Given more time, we aim to refine these for enhanced feature derivation.
+
+
+\section*{Progress}
+
+\subsection*{Engineering}
+
+The primary focus has been on the design of the Target Variable and determining its temporal horizons. Simultaneously, we addressed the challenge of feature engineering for the Direct pool features with finite lag. Despite the complexity, we are confident in meeting the remaining objectives within the timeline.
+\begin{wrapfigure}[22]{r}{0.30\textwidth}
+\vspace{-25pt} % Adjust the vertical spacing as needed
 \centering
 \includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram.drawio.png}
 \caption{Data Engineering}
 \label{fig:data-diagram}
 \end{wrapfigure}
 
-Particularly interesting to tackle but also complex and time-consuming has been to deal with two different concepts of time being used:
-First, the "trading clock" is defined by a block where a mint operation occurs (i.e., This is used to define a finite lag effect in the independent variables, capturing the temporal dynamics of the data or delay effects for events that change liquidity and pricing of pools).
-Secondly, a time horizon concept is formed that consists of every ten blocks, up to the next mint operation. This is used to study a temporal element in the target variable, facilitating a deeper understanding of the liquidity pool dynamics and helps identify patterns, trends, or variations in the predictive power of the independent variables for different horizons. 
+In terms of merging Uniswap transactions (txt) with Etherscan, we've observed a high match rate of transactions for the analysis period of six months. The transaction breakdown is as follows:
 
-Combined, the time series enables the exploration of short-term variations and long-term trends, enhancing the accuracy and depth of the analysis.  It provides valuable insights for decision-making, strategy optimization, and risk management in the decentralized finance ecosystem.
-It is important to note that in Ethereum, every block takes around 14 seconds and Uniswap operates on the Ethereum blockchain.
+\begin{itemize}[leftmargin=*,noitemsep,nolistsep]
+\small
+\item Uniswap txs: ((500, 'burns'), 4000), ((500, 'mints'), 3406), ((500, 'swaps'), 217821), ((3000, 'burns'), 5918), ((3000, 'mints'), 5046), ((3000, 'swaps'), 48592)
+\item Etherscan txs: ((500, 'burns'), 4000), ((500, 'mints'), 3242), ((500, 'swaps'), 217821), ((3000, 'burns'), 5918), ((3000, 'mints'), 4986), ((3000, 'swaps'), 48592)
+\end{itemize}
 
-The mathematics of liquidity pools have also proven to be a barrier-to-entry into this type of analysis. We aim to encapsulate the formulas to the best of our understanding in the calculations.py functions. Given more time, we would probably further explore and optimise the calculations for deriving more features.
+From the transaction data, we created 8,227 reference blocks that correspond to each mint operation, excluding one. These blocks were then used to engineer features to calculate metrics for the same pool and other pools. These features capture data about liquidity pools and calculate metrics such as volatility, traded volume rate, trades count, and average volume. To expand the analysis, we have also included lagged features for the previous three mint operations. Table \ref{tab:chains} serves as our block reference table.
 
-\section*{Progress}
-
-\subsection*{Engineering}
-
-The primary focus has been on the design of the Target Variable and the determination of its temporal horizons. Concurrently, we have tackled the challenging task of feature engineering for the Direct pool features with finite lag. Despite the complexity, we remain confident in our ability to meet the remaining objectives within the established timeline. 
-
-In terms of merging Uniswap transactions with Etherscan, we've observed a high match rate of transactions for the analysis period of six months. The transaction breakdown is as follows:
-
-Total uniswap transactions:
-[((500, 'burns'), 4000), ((500, 'mints'), 3406), ((500, 'swaps'), 217821), ((3000, 'burns'), 5918), ((3000, 'mints'), 5046), ((3000, 'swaps'), 48592)]
-Total uniswap<>etherscan transactions:
-[((500, 'burns'), 4000), ((500, 'mints'), 3242), ((500, 'swaps'), 217821), ((3000, 'burns'), 5918), ((3000, 'mints'), 4986), ((3000, 'swaps'), 48592)]
-
-From the transaction data, we created 8,227 reference blocks that correspond to each mint operation, excluding one. These blocks were then used to engineer features to calculate metrics for the same pool and other pools. These features capture data about liquidity pools and calculate metrics such as volatility, traded volume rate, trades count, and average volume. To expand the analysis, we have also included lagged features for the previous three mint operations. The table below serves as our block reference table:
+Before initiating the modeling phase, we need to address records with missing values in the independent variables. Notably, some null values have been identified in the volatility (same pool) and avg-USD/rate-USD (other pool) metrics. We have opted to remove these records temporarily to proceed with the analysis, with plans to reassess the calculations and mitigate the occurrence of null values likely resulting from lagged variables.
 
 \begin{table}[htbp]
   \centering
@@ -205,15 +192,12 @@ From the transaction data, we created 8,227 reference blocks that correspond to 
     3000 & 15649578 & [15649578, 15649565, 15649545, 15649246] & [15649578, 15649522, 15649347, 15649269] \\
     \hline
   \end{tabularx}
-  \caption{Your table caption}
-  \label{tab:my-table1}
+  \caption{BlockNumber Chains}
+  \label{tab:chains}
 \end{table}
 
-Before initiating the modeling phase, we need to address records with missing values in the independent variables. Notably, some null values have been identified in the volatility (same pool) and avg-USD/rate-USD (other pool) metrics. We have opted to remove these records temporarily to proceed with the analysis, with plans to reassess the calculations and mitigate the occurrence of null values likely resulting from lagged variables.
+Finally, we've constructed a base table \ref{tab:horizon} with the \texttt{start\_blockNumber} of each horizon and the \texttt{reference\_blockNumber}, defined by mint operations in the block. This base table is joined with the mint aggregated transaction data to generate our target variables and independent variables that are lagged.
 
-Finally, we've constructed a base table with the \texttt{start\_blockNumber} of each horizon and the \texttt{reference\_blockNumber}, defined by mint operations in the block. This base table is joined with the mint aggregated transaction data to generate our target variables and independent variables that are lagged.
-
-\vspace{2em} % Add some vertical spacing
 \begin{table}[htbp]
   \centering
   \small
@@ -229,13 +213,11 @@ Finally, we've constructed a base table with the \texttt{start\_blockNumber} of 
     ... & ... & ... & ... & ... \\
     109047 & 0 & 15555464 & 12 & 122730.731534 \\
     109048 & 0 & 15555464 & 13 & 123650.594764 \\
-    109049 & 0 & 15555464 & 14 & 123650.594764 \\
-    109050 & 1 & 15555597 & 1 & 104.152423 \\
-    109051 & 0 & 15555597 & 2 & 971.612926 \\
+
     \hline
   \end{tabular}
-  \caption{Your table caption}
-  \label{tab:my-table}
+  \caption{Reference and Horizon blocksn}
+  \label{tab:horizon}
 \end{table}
 
 \subsection*{Modelling}
@@ -248,8 +230,8 @@ We have commenced the development of a framework for our prediction models and h
 
 In this formula, \(\beta_0\), \(\beta_1\), \(\beta_2\), \(\beta_3\), etc., represent the coefficients associated with each spot lagged variable, while \(\epsilon\) denotes the error term or residual.
 
-\begin{wrapfigure}[12]{l}{0.35\textwidth}
-\vspace{-15pt} % Adjust the vertical spacing as needed
+\begin{wrapfigure}[16]{l}{0.35\textwidth}
+\vspace{0pt} % Adjust the vertical spacing as needed
 \centering
 \includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/R2Horizon.png}
 \caption{R2 best fit horizon}
@@ -262,24 +244,26 @@ Model selection will be based on the optimal combination of features for each ho
 
 \section*{Going Forward}
 
-Given the extensive nature of the data engineering activities involved in this project, we anticipate that these activities will continue throughout further feature engineering and feature selection processes.
-Similarly, our next steps in the modeling phase include:
+To summarize, the learnings from this project, particularly regarding data engineering and feature generation, are substantial. This largely unexplored field of financial technology presents vast opportunities for fresh findings and contributions to the existing body of knowledge. Our initial results are promising, and we're eager to delve into the forthcoming phases of our project, emphasizing model optimization and refining our analysis and conclusions.
+
+Our future steps in the modeling phase include:
 
 \begin{itemize}
-    \item Dataset Splitting: We will divide the dataset into training and test sets and conduct model metrics analysis and interpretations.
-    \item Analysis Scope: We will perform analysis on both Pool 500 and Pool 3000, specifically focusing on target variables related to volume on the same pool as the reference mint, the other pool, or both.
-    \item Experimentation: We will carry out experiments to identify the best combinations of features, horizons, and target variables that yield the most accurate predictions.
-    \item Feature selection: By using techniques such as step-wise or Principal Component Analysis, reduce the number of features to make the model less complex, reduce overfitting, and more interpretable.
+\item Dataset Splitting: Partitioning the dataset into training and test sets, performing model metrics analysis, and interpretation.
+\item Analysis Scope: Examining both Pool 500 and Pool 3000, with a focus on target variables related to volume on the same pool as the reference mint, the other pool, or both.
+\item Experimentation: Identifying the optimal combinations of features, horizons, and target variables for accurate predictions.
+\item Feature Selection: Using techniques like step-wise or Principal Component Analysis to reduce feature complexity, limit overfitting, and improve interpretability.
 \end{itemize}
 
-Some possible experiments we plan to conduct include trying different lag lengths, incorporating quadratic features and/or interaction terms, and accounting for structural breaks such as the Terra-Luna collapse in May 2022 and the Merge in September 2022.
+Our planned experiments include testing different lag lengths, incorporating quadratic features or interaction terms, and accounting for structural breaks, such as the Terra-Luna collapse (May 2022) and the Merge (Sep 2022).
 
-We aspire that a complete analysis allows us to provide quantitative-driven discussion on:
+We aspire here or on further work to drive a comprehensive analysis and quantitative discussion on:
+
 \begin{enumerate}[itemsep=0pt, topsep=0pt]
-\item What is the relationship between liquidity pool size and trading volume in BTC-ETH liquidity pools?
-\item How does the size of the liquidity pool influence the slippage in BTC-ETH trading pairs? (i.e., by analysing CEX spillover effects)
-\item How does BTC-ETH price volatility affect trading volume relative to liquidity pool size? (i.e., by analysing price divergence)
-\item Are there specific periods or events that significantly influence the relationship between the size of the BTC-ETH liquidity pool and its trading volume?
+\item The relationship between liquidity pool size and trading volume in BTC-ETH liquidity pools.
+\item The influence of the liquidity pool size on the slippage in BTC-ETH trading pairs, considering CEX spillover effects.
+\item Impact of BTC-ETH price volatility on trading volume relative to liquidity pool size, focusing on price divergence.
+\item Specific periods/events that significantly affect the relationship between BTC-ETH liquidity pool size and trading volume.
 \end{enumerate}
 
 
