@@ -17,7 +17,10 @@ def validate_block_number_order(df):
 def clean_uniswap_data(uniswap_filepath):
     df_uniswap = pd.read_csv(uniswap_filepath)
     df_uniswap['id'] = df_uniswap['id'].str.split('#').str[0]
+
+    #TODO -> Check why we have duplicated transaction IDs with different data.
     duplicates = df_uniswap[df_uniswap['id'].duplicated()]
+    df_uniswap[df_uniswap['id']==duplicates['id'].iloc[0]]
     return df_uniswap
 
 def clean_etherscan_data(etherscan_filepath):
@@ -25,6 +28,9 @@ def clean_etherscan_data(etherscan_filepath):
     return df_etherscan
 
 def merge_dataframes(uniswap_df, etherscan_df):
+    """
+    TODO - For now, do inner join. Once we have full 6 month data, plan is to change to left / do missing value analysis.
+    """
     df = pd.merge(uniswap_df, etherscan_df, how='inner', left_on='id', right_on='hash')
     return df
 
@@ -40,15 +46,25 @@ def preprocess_data(df):
 
 def clean_mint_transactions(df):
     df_reduced = reduce_mints(df[['timestamp', 'transaction_type', 'pool', 'blockNumber', 'size', 'width', 'pool_price', 'amountUSD']])
+
+    print('Total uniswap<>etherscan transactions:')
     pairs = [tuple(x) for x in df_reduced[['pool', 'transaction_type']].values]
+    pairs.sort()
     counter = Counter(pairs)
-    print(counter)
+    sorted_counter = sorted(counter.items(), key=lambda x: (x[0][0], x[0][1]))
+    print(sorted_counter)
     return df_reduced
 
 def infer_block_intervals(df_reduced):
+    """
+    Note -> For the blocks, the pair of reference blockNumber and pool should be unique.
+    This allow us to use this pair as the index/hashid for interval_dataframes.
+    This hash is then used for future reference to get the pool and reference blockNumber.
+    See the generate_hash() function in build_intervals.py for more details or to change the hash generation.
+    """
     df_blocks = calculate_intervals(df_reduced, 'pool', 'interval', SHIFT_PERIODS)
-    df_blocks_full = calculate_other_intervals(df_blocks, pool_same=SAME_POOL)
-    interval_dataframes = create_interval_dataframes(df_blocks_full, df_reduced, pool_same=SAME_POOL)
+    df_blocks_full = calculate_other_intervals(df_blocks, 'pool')
+    interval_dataframes = create_interval_dataframes(df_blocks_full, df_reduced, 'pool')
     return df_blocks, df_blocks_full, interval_dataframes
 
 def save_interim_results(df_reduced, df_blocks, df_blocks_full, interval_dataframes, results_dir):
@@ -64,6 +80,12 @@ def main():
     # Read uniswap cleansed data
     uniswap_filepath = "Data/cleansed/uniswap.csv"
     df_uniswap = clean_uniswap_data(uniswap_filepath)
+
+    print('Total uniswap transactions:')
+    pairs = [tuple(x) for x in df_uniswap[['pool', 'transaction_type']].values]
+    counter = Counter(pairs)
+    sorted_counter = sorted(counter.items(), key=lambda x: (x[0][0], x[0][1]))
+    print(sorted_counter)
 
     # Read etherscan cleansed data
     etherscan_filepath = "Data/cleansed/etherscan.csv"

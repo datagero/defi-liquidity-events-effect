@@ -15,8 +15,7 @@ def load_interval_dataframes(results_dir):
         interval_dataframes = pickle.load(pickle_file)
     return interval_dataframes
 
-
-def process_data(intervals_dict, pool_type):
+def process_data(intervals_dict, pool_type, pool_label=''):
     """
     Process the intervals dictionary and calculate metrics for each hash and interval.
 
@@ -66,7 +65,7 @@ def process_data(intervals_dict, pool_type):
     data = {}
 
     # Iterate over each hash and its corresponding intervals dictionary
-    for hash, intervals_dict in tqdm(intervals_dict.items(), desc=f'Processing Hashes ({pool_type})'):
+    for hash, intervals_dict in tqdm(intervals_dict.items(), desc=f'{pool_label}::Processing Hashes ({pool_type})'):
         # If the hash is not already in the data dictionary, add it as a new key with an empty nested dictionary
         if hash not in data:
             data[hash] = {}
@@ -145,7 +144,7 @@ def merge_nested_dicts(dict1, dict2):
     return merged_dict
 
 
-def process_pool_data(interval_dataframes, sample=False):
+def process_pool_data(interval_dataframes, sample=False, pool_label=''):
     """
     Process the interval dataframes and generate a DataFrame with the calculated metrics for each pool.
     Args:
@@ -160,8 +159,8 @@ def process_pool_data(interval_dataframes, sample=False):
         hashes = list(interval_dataframes['other'].keys())[:10]
         interval_dataframes['other'] = {k: v for k, v in interval_dataframes['other'].items() if k in hashes}
 
-    same_pool_data = process_data(interval_dataframes['same'], 'same')
-    other_pool_data = process_data(interval_dataframes['other'], 'other')
+    same_pool_data = process_data(interval_dataframes['same'], 'same', pool_label)
+    other_pool_data = process_data(interval_dataframes['other'], 'other', pool_label)
 
     data = merge_nested_dicts(same_pool_data, other_pool_data)
 
@@ -196,11 +195,21 @@ def main(write=False, sample=True):
     results_dir = "Data/interim_results"
     interval_dataframes = load_interval_dataframes(results_dir)
 
-    df_direct_pool = process_pool_data(interval_dataframes, sample=sample)
+    df_direct_pool = pd.DataFrame()
 
+    for pool in interval_dataframes:
+        interval_dataframes_pool = interval_dataframes[pool]
+        df_direct_pool_interim = process_pool_data(interval_dataframes_pool, sample=sample, pool_label=pool)
+        df_direct_pool = pd.concat([df_direct_pool, df_direct_pool_interim], axis=0)
+        
+    # Assert unique hashids
+    assert len(df_direct_pool.index.unique()) == len(df_direct_pool.index), "Hashids are not unique"
+
+    # NOT MAINTAINED - would need to update if needed
     # df_blocks_full = load_dataframes(results_dir)
-    # debug_functions(df_direct_pool, df_blocks_full, interval_dataframes, sample_hashid=4214004393)
+    # debug_functions(df_direct_pool, df_blocks_full, interval_dataframes_pool, sample_hashid=4214004393)
 
+    # Validate and order dataframe columns
     order_cols = ['s0', 'w0',
                 'blsame_1', 'slsame_1', 'wlsame_1',
                 'blsame_2', 'slsame_2', 'wlsame_2',

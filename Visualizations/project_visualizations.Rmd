@@ -14,9 +14,9 @@ library(ggplot2)
 library(stats)
 library(lubridate)
 
-binance = read.csv('../data/cleansed/binance.csv')
-etherscan = read.csv('../data/cleansed/etherscan.csv')
-uniswap = read.csv('../data/cleansed/uniswap.csv')
+binance = read.csv('Data/cleansed/binance.csv')
+etherscan = read.csv('Data/cleansed/etherscan.csv')
+uniswap = read.csv('Data/cleansed/uniswap.csv')
 
 ```
 

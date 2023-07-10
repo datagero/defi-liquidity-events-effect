@@ -2,7 +2,7 @@ import json
 import glob
 import pandas as pd
 
-file_pattern = "Data/failed/WBTC-WETH_etherscan*.json"  # Update the pattern to match your file naming convention
+file_pattern = "Data/all_etherscan/WBTC-WETH_etherscan*.json"  # Update the pattern to match your file naming convention
 data = {}
 # Iterate over the matched files
 for file_name in glob.glob(file_pattern):

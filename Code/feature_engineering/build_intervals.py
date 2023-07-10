@@ -18,7 +18,11 @@ def generate_hash(df):
     df_sorted = df.sort_values(by='timestamp')
 
     # Generate hashids based on the sorted index
-    df_sorted['hashid'] = df_sorted['blockNumberChain'].map(lambda x: zlib.crc32(str(x).encode()))
+    df_sorted['hashid'] = df_sorted.apply(lambda row: zlib.crc32((str(row['pool']) + str(row['blockNumber'])).encode()), axis=1)
+
+    # Validate uniqueness of reference blockNumber and pool
+    assert df_sorted[['blockNumber', 'pool']].duplicated().any() == False, "Reference blockNumber and pool are not unique"
+    assert df_sorted['hashid'].duplicated().any() == False, "hashid is not unique"
 
     return df_sorted
 
@@ -56,49 +60,55 @@ def calculate_intervals(df, pool_col, interval_col, l_values):
     
     return df_hashed[['hashid', 'pool', 'blockNumber', 'blockNumberChain']]
 
-def calculate_other_intervals(df, pool_same):
+def calculate_other_intervals(df, pool_col):
     """
     Calculate intervals and generate a hashed dataframe.
 
     Args:
         df (DataFrame): Input DataFrame.
         pool_col (str): Name of the column representing the pool.
-        interval_col (str): Name of the column to calculate intervals from.
-        l_values (list): List of values for calculating intervals.
-
     Returns:
-        DataFrame: Hashed dataframe containing the calculated intervals.
+        DataFrame: Dataframe containing the calculated intervals for 'other' pool.
 
     """
-    # Get same pool
-    df_same = df[df['pool'] == pool_same].copy().reset_index(drop=True).copy(deep=True)
-    df_other = df[df['pool'] != pool_same].copy().reset_index(drop=True).copy(deep=True)
+    # Initialise empty dataframe
+    result_df = pd.DataFrame()
 
-    # Calculate intervals for other pool
-    # Get length of blockNumberChain and set default other_blockNumberChain
-    chain_length = len(df['blockNumberChain'].iloc[0])
-    df_same['other_blockNumberChain'] = [[np.nan]*chain_length]*df_same.shape[0]
-    for i in range(len(df_same)):
-        reference_block = df_same.loc[i, 'blockNumber']
-        max_block_pool2 = df_other.loc[(df_other['blockNumber'] < reference_block), 'blockNumber'].max()
+    # Get unique pool values
+    unique_pools = df[pool_col].unique()
+    for pool_same in unique_pools:
 
-        other_chain_raw = df_other.loc[df_other['blockNumber'] == max_block_pool2, 'blockNumberChain'].values
-        if other_chain_raw.shape[0] == 0:
-            # leave default
-            other_chain = df_same.loc[i, 'other_blockNumberChain'][:]
-        else:
-            other_chain = other_chain_raw[0][:]
+        df_same = df[df['pool'] == pool_same].copy().reset_index(drop=True).copy(deep=True)
+        df_other = df[df['pool'] != pool_same].copy().reset_index(drop=True).copy(deep=True)
 
-        # insert reference block at the start of the chain
-        if np.isnan(other_chain[0]) or int(other_chain[0]) != reference_block:
-            other_chain.insert(0, reference_block)
-            other_chain = other_chain[:-1][:]
+        # Calculate intervals for other pool
+        # Get length of blockNumberChain and set default other_blockNumberChain
+        chain_length = len(df['blockNumberChain'].iloc[0])
+        df_same['other_blockNumberChain'] = [[np.nan]*chain_length]*df_same.shape[0]
+        for i in range(len(df_same)):
+            reference_block = df_same.loc[i, 'blockNumber']
+            max_block_pool2 = df_other.loc[(df_other['blockNumber'] < reference_block), 'blockNumber'].max()
 
-        df_same.loc[i, 'other_blockNumberChain'] = str(other_chain)
+            other_chain_raw = df_other.loc[df_other['blockNumber'] == max_block_pool2, 'blockNumberChain'].values
+            if other_chain_raw.shape[0] == 0:
+                # leave default
+                other_chain = df_same.loc[i, 'other_blockNumberChain'][:]
+            else:
+                other_chain = other_chain_raw[0][:]
 
-    return df_same
+            # insert reference block at the start of the chain
+            if np.isnan(other_chain[0]) or int(other_chain[0]) != reference_block:
+                other_chain.insert(0, reference_block)
+                other_chain = other_chain[:-1][:]
 
-def create_interval_dataframes(df_blocks, df, pool_same):
+            df_same.loc[i, 'other_blockNumberChain'] = str(other_chain)
+
+        # Append to result_df
+        result_df = pd.concat([result_df, df_same])
+
+    return result_df
+
+def create_interval_dataframes(df_blocks, df, pool_col):
     """
     Create interval-based dataframes based on specified columns.
 
@@ -106,8 +116,7 @@ def create_interval_dataframes(df_blocks, df, pool_same):
         df_blocks (DataFrame): DataFrame containing block information.
         df (DataFrame): DataFrame containing the main data.
         end_col (str): Name of the column representing the end of the interval.
-        start_col (str): Name of the column representing the start of the interval.
-        column_mapping (dict): Mapping of column names to their corresponding values.
+        pool_col (str): Name of the column representing the pool.
 
     Returns:
         dict: A nested dictionary with interval-based dataframes, where the keys are the hash IDs.
@@ -155,17 +164,29 @@ def create_interval_dataframes(df_blocks, df, pool_same):
         
         return dataframes
 
-    pools = {}
-    df = df.copy()
+    # Initialise empty dictionary store
+    interval_dataframes = {}
 
-    # Get same pool
-    df_same = df[df['pool'] == pool_same].copy().reset_index(drop=True)
-    df_other = df[df['pool'] != pool_same].copy().reset_index(drop=True)
-    
-    pools['same'] = update_interval('blockNumberChain', df_blocks, df_same)
-    pools['other'] = update_interval('other_blockNumberChain', df_blocks, df_other)
+    # Get unique pool values
+    unique_pools = df[pool_col].unique()
 
-    return pools
+    for pool_same in unique_pools:
+
+        pools = {}
+
+        # Get same and other pool dataframes (to get intervals)
+        df_same = df[df['pool'] == pool_same].copy(deep=True).reset_index(drop=True)
+        df_other = df[df['pool'] != pool_same].copy(deep=True).reset_index(drop=True)
+
+        # Get same pool blocks (these should already have  blockNumberChain and other_blockNumberChain)
+        df_blocks_same = df_blocks[df_blocks['pool'] == pool_same].copy(deep=True).reset_index(drop=True)
+        
+        pools['same'] = update_interval('blockNumberChain', df_blocks_same, df_same)
+        pools['other'] = update_interval('other_blockNumberChain', df_blocks_same, df_other)
+
+        interval_dataframes[pool_same] = pools
+
+    return interval_dataframes
 
 def reduce_mints(df):
     """
@@ -231,7 +252,7 @@ def calculate_horizons(df, step):
     df_expanded['horizon_label'] = df_expanded.groupby('reference_blockNumber').cumcount() + 1
     df_expanded['horizon_label_500'] = df_expanded.groupby('reference_blockNumber').cumcount() + 1
     df_expanded['horizon_label_3000'] = df_expanded.groupby('reference_blockNumber').cumcount() + 1
-
+    df_expanded = df_expanded.reset_index(drop=True)
 
     # Calculate cummulative incoming volume
     # For now, assume only for swaps.
@@ -240,9 +261,25 @@ def calculate_horizons(df, step):
     df_pivoted = df_grouped.pivot(index='blockNumber', columns=['pool'], values='amountUSD')
     df_pivoted.columns = ['volume_500', 'volume_3000']
 
-    df_merged = df_expanded.merge(df_pivoted, on='blockNumber', how='left')
+
+    df_pivoted = df_pivoted.reset_index()
+
+    # Get closest blockNumber from the base table
+    df_reference_sorted = df_expanded.sort_values('blockNumber')
+    indices = df_reference_sorted['blockNumber'].searchsorted(df_pivoted['blockNumber'], side='right') - 1
+    clipped_indices = np.clip(indices, 0, len(df_reference_sorted) - 1)
+    df_pivoted['closest_blockNumber'] = df_reference_sorted.loc[clipped_indices, 'blockNumber'].values
+    df_pivoted['closest_blockNumber'] = df_pivoted['closest_blockNumber'].astype(int)
+
+    # Aggregate sum incoming volume into the closest reference_blockNumber
+    df_volumes = df_pivoted.groupby('closest_blockNumber').sum().reset_index().drop(columns=['blockNumber'])
+
+    # Merge with base expanded dataframe for a complete view
+    df_merged = df_expanded.merge(df_volumes, left_on='blockNumber', right_on='closest_blockNumber', how='left')
+
     df_merged[['volume_500', 'volume_3000']] = df_merged[['volume_500', 'volume_3000']].fillna(0)
 
+    # Create cumulative volume columns for each reference_blockNumber
     df_merged['cum_volume_500'] = df_merged.groupby('reference_blockNumber')['volume_500'].cumsum()
     df_merged['cum_volume_3000'] = df_merged.groupby('reference_blockNumber')['volume_3000'].cumsum()
 
@@ -253,3 +290,12 @@ def calculate_horizons(df, step):
     df_merged['cum_volume_3000_ref3000'] = df_merged.groupby('reference_blockNumber_3000')['volume_3000'].cumsum()
 
     return df_merged
+
+
+#15552772-15555597#15555594 
+
+# df_pivoted[(df_pivoted.index>=15552764) & (df_pivoted.index <= 15555597)]
+
+
+# df = df_merged
+# df[(df['blockNumber']>=15552764) & (df['blockNumber'] <= 15555597)]

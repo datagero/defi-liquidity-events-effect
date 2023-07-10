@@ -18,7 +18,7 @@ all_transactions_df = pd.DataFrame()
 for transaction_type in transaction_types:
     # Initialize an empty list to store the transactions of this type
     transaction_data = []
-    
+
     # Iterate over each pool
     for pool, pool_data in data.items():
         # Check if this type of transaction exists for this pool
@@ -28,7 +28,7 @@ for transaction_type in transaction_types:
                 transaction['pool'] = pool
             # Extend the transaction data list
             transaction_data.extend(pool_data[transaction_type])
-    
+
     # Create a DataFrame from the list
     transaction_df = pd.json_normalize(transaction_data)
     # Add the transaction type as a new column

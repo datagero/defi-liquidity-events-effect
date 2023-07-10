@@ -1,0 +1,87 @@
+<mxfile host="app.diagrams.net" modified="2023-07-09T23:23:48.996Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="gKdPJ63pDBFLJQ_PIsix" version="21.5.0" type="device">
+  <diagram name="Page-1" id="KNf6OzwGtWnD-leoCAa8">
+    <mxGraphModel dx="1434" dy="699" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-1" value="Binance" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="10" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="tRO4EhnPfTdQn1ww5fM_-2" target="tRO4EhnPfTdQn1ww5fM_-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-2" value="Uniswap&lt;br&gt;(API&lt;br&gt;bulk date range)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-3" value="Etherscan&lt;br&gt;(API&lt;br&gt;transaction lookup)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-4" value="Block Number + Pool transactions" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="200" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tRO4EhnPfTdQn1ww5fM_-5" target="tRO4EhnPfTdQn1ww5fM_-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="190" />
+              <mxPoint x="300" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-5" value="basic cleaning" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="160" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tRO4EhnPfTdQn1ww5fM_-6" target="tRO4EhnPfTdQn1ww5fM_-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="190" />
+              <mxPoint x="300" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-6" value="basic cleaning" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="160" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tRO4EhnPfTdQn1ww5fM_-7" target="tRO4EhnPfTdQn1ww5fM_-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-7" value="basic cleaning and pre-processing" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="230" width="260" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tRO4EhnPfTdQn1ww5fM_-8" target="tRO4EhnPfTdQn1ww5fM_-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="320" />
+              <mxPoint x="220" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-8" value="Build &quot;trading clock&quot; intervals for reference mint operations (independent variables)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="270" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tRO4EhnPfTdQn1ww5fM_-11" target="tRO4EhnPfTdQn1ww5fM_-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="80" y="320" />
+              <mxPoint x="220" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-11" value="Build base horizon table" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="270" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="tRO4EhnPfTdQn1ww5fM_-13" target="tRO4EhnPfTdQn1ww5fM_-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-13" value="dataset with target variables (with horizon dimension) and&lt;br&gt;41 independent variables" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="340" width="420" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-14" value="not yet started" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="240" y="70" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="tRO4EhnPfTdQn1ww5fM_-20" value="OLS Model" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="170" y="410" width="100" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
