@@ -58,7 +58,7 @@ def calculate_intervals(df, pool_col, interval_col, l_values):
     df_merged = pd.concat(dfs)  # Concatenate all dataframes
     df_hashed = generate_hash(df_merged)
     
-    return df_hashed[['hashid', 'pool', 'blockNumber', 'blockNumberChain']]
+    return df_hashed[['hashid', 'pool', 'timestamp', 'blockNumber', 'blockNumberChain']]
 
 def calculate_other_intervals(df, pool_col):
     """

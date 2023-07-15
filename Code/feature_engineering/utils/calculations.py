@@ -72,7 +72,7 @@ def calculate_volatility(df, pool_price_col):
     volatility = returns.std()
     return volatility
 
-def calculate_traded_volume_rate(df, amount_usd_col):
+def calculate_traded_volume_rate(df, timestamp_col, amount_usd_col):
     """
     Calculate the rate of traded volume in USD on the WBTC-WETH pools of principal interest.
     with respect to the latest mint operations and swaps.
@@ -87,10 +87,10 @@ def calculate_traded_volume_rate(df, amount_usd_col):
     """
     df_scope = df[df['transaction_type'] != 'burns']
     total_traded_volume = df_scope[amount_usd_col].sum()
-    total_trading_days = df_scope['timestamp'].nunique()
-    if total_trading_days == 0:
+    total_trading_periods = df_scope[timestamp_col].nunique()
+    if total_trading_periods == 0:
         return np.nan
-    traded_volume_rate = total_traded_volume / total_trading_days
+    traded_volume_rate = total_traded_volume / total_trading_periods
     return traded_volume_rate
 
 def calculate_trades_count(df):

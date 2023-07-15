@@ -4,7 +4,7 @@
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
-from feature_engineering.build_intervals import calculate_horizons
+from feature_engineering.utils.build_intervals import calculate_horizons
 
 
 reference_pool_mint = 500
@@ -20,11 +20,26 @@ df_blocks_full = pd.read_csv(os.path.join(interim_results_dir, "df_blocks_full.c
 df_direct_pool = pd.read_csv(os.path.join(processed_results_dir, "direct_pool.csv"), index_col=0)
 
 
+
 mints_null_counts = df_direct_pool.isnull().sum()
 mints_null_counts.sort_values(ascending=False, inplace=True)
 
 # Calculate the horizons for the reduced DataFrame
 df_horizons = calculate_horizons(df_reduced, step=10)
+
+# ## CEX Data
+# # Read binance cleansed data
+# binance_filepath = "Data/cleansed/binance.csv"
+# df_binance = pd.read_csv(binance_filepath)
+# df_binance['time'] = pd.to_datetime(df_binance['time'])
+
+## Merge DEX and CEX data
+# df_ex = pd.merge(df_direct_pool, df_binance, how='inner', left_on='timestamp', right_on='time')
+# print('Data loss after merge with binance: ', len(df_direct_pool) - len(df_ex))
+
+
+
+
 
 # Filter df_blocks_full to only include the reference pool
 df_blocks = df_blocks_full[['hashid', 'blockNumber']].where(df_blocks_full['pool'] == reference_pool_mint)

@@ -2,12 +2,7 @@ import os
 import pickle
 import pandas as pd
 from tqdm import tqdm
-from feature_engineering.calculations import *
-
-
-def load_dataframes(results_dir):
-    df_blocks_full = pd.read_csv(os.path.join(results_dir, "df_blocks_full.csv"))
-    return df_blocks_full
+from utils.calculations import *
 
 def load_interval_dataframes(results_dir):
     pickle_filepath = os.path.join(results_dir, "interval_dataframes.pickle")
@@ -93,7 +88,7 @@ def process_data(intervals_dict, pool_type, pool_label=''):
             # Calculate the required metrics for the interval
             sl = get_size(df_interval[df_interval['transaction_type'] == 'mints'], 'size')
             wl = get_width(df_interval[df_interval['transaction_type'] == 'mints'], 'width')
-            rateUSD = calculate_traded_volume_rate(df_interval, 'amountUSD')
+            rateUSD = calculate_traded_volume_rate(df_interval, 'timestamp','amountUSD')
             rateCount = calculate_trades_count(df_interval)
             avgUSD = calculate_average_volume(df_interval, 'amountUSD')
 
@@ -168,29 +163,6 @@ def process_pool_data(interval_dataframes, sample=False, pool_label=''):
 
     return df_direct_pool
 
-def debug_functions(df_direct_pool, df_blocks_full, interval_dataframes, sample_hashid=None):
-    
-
-    if sample_hashid is not None:
-        print(df_blocks_full[df_blocks_full['hashid'] == sample_hashid])
-        print(df_direct_pool[df_direct_pool.index == sample_hashid])
-
-        for hash, intervals_dict in interval_dataframes['same'].items():
-            if hash == sample_hashid:
-                print("SAME")
-                for interval_debug, interval_dict_debug in intervals_dict.items():
-                    df_interval_debug = interval_dict_debug['df']
-                    print(interval_debug)
-                    print(df_interval_debug)
-
-        for hash, intervals_dict in interval_dataframes['other'].items():
-            if hash == sample_hashid:
-                print("OTHER")
-                for interval_debug, interval_dict_debug in intervals_dict.items():
-                    df_interval_debug = interval_dict_debug['df']
-                    print(interval_debug)
-                    print(df_interval_debug)
-
 def main(write=False, sample=True):
     results_dir = "Data/interim_results"
     interval_dataframes = load_interval_dataframes(results_dir)
@@ -201,13 +173,9 @@ def main(write=False, sample=True):
         interval_dataframes_pool = interval_dataframes[pool]
         df_direct_pool_interim = process_pool_data(interval_dataframes_pool, sample=sample, pool_label=pool)
         df_direct_pool = pd.concat([df_direct_pool, df_direct_pool_interim], axis=0)
-        
+
     # Assert unique hashids
     assert len(df_direct_pool.index.unique()) == len(df_direct_pool.index), "Hashids are not unique"
-
-    # NOT MAINTAINED - would need to update if needed
-    # df_blocks_full = load_dataframes(results_dir)
-    # debug_functions(df_direct_pool, df_blocks_full, interval_dataframes_pool, sample_hashid=4214004393)
 
     # Validate and order dataframe columns
     order_cols = ['s0', 'w0',

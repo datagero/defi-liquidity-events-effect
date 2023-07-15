@@ -49,7 +49,7 @@ transaction_data = {
 
 
 CEX - Binance data download.
-- Scripts were taken from the binance github repository to downlooad-trades: https://github.com/binance/binance-public-data/blob/master/python/README.md
+- Scripts were taken from the binance github repository to download-trades: https://github.com/binance/binance-public-data/blob/master/python/README.md
 - The following command was used to trigger downloads of daily zip trades: python Code/binance/download-trade.py -t "spot" -s "ETHBTC" -skip-monthly 1
 - Data was extracted and collated into a single file in: XXX
 
