@@ -68,8 +68,15 @@ def calculate_volatility(df, pool_price_col):
     """
     #ignore where pool_price is nan
     df = df[df[pool_price_col].notna()]
-    returns = df[pool_price_col].pct_change()
-    volatility = returns.std()
+
+    df['Diff'] = df[pool_price_col] -  df[pool_price_col].shift(-1)
+    df = df[df['Diff'].notna()]
+
+    df['Diff^2'] = df['Diff']**2
+    volatility = np.sqrt(sum(df['Diff^2']))/len(df['Diff^2'])
+
+    #returns = df[pool_price_col].pct_change()
+    #volatility = returns.std()
     return volatility
 
 def calculate_traded_volume_rate(df, amount_usd_col):
