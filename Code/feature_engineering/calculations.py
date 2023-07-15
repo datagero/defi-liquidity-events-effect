@@ -58,6 +58,12 @@ def calculate_volatility(df, pool_price_col):
     """
     Calculate volatility based on the pool price.
 
+    Note by Vitor:
+    How to find std from volatility:
+    Square each period's deviation. Sum the squared deviations. 
+    Divide this sum by the number of observations. The standard 
+    deviation is then equal to the square root of that number.
+
     Args:
         df (DataFrame): Input DataFrame.
         pool_price_col (str): Name of the column representing the pool price.
