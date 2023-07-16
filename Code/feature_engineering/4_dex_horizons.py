@@ -1,74 +1,20 @@
 import os
 import pandas as pd
-from utils.build_intervals import calculate_horizons, calculate_horizons_v02
 from utils.horizon_aggregates import organize_dex_data_on_horizons
 
 interim_results_dir = "Data/interim_results"
-binance_filepath = "Data/cleansed/binance.csv"
 
-# Load DEX and CEX data
-# DEX is at transaction_type // block level
-# CEX is at timestamp level
-df_dex = pd.read_csv(os.path.join(interim_results_dir, "df_reduced.csv"))
+# Load DEX transactions
+df_reduced = pd.read_csv(os.path.join(interim_results_dir, "df_reduced.csv"))
 
-# Calculate the horizons for the reduced DataFrame from the DEX
-df_horizons = calculate_horizons(df_dex, step=10)
-df_horizons_v02 = calculate_horizons_v02(df_dex, step=10, pool_flags=[500, 3000])
+# Load horizons
+df_horizons = pd.read_csv(os.path.join(interim_results_dir, "df_horizons.csv"))
 
-# TEMP -> This validates both versions are the same
-pools = ['base', '500', '3000']
-for pool in pools:
-
-    df2 = df_horizons_v02[pool]
-
-    df1_columns = df_horizons.columns
-    df2_reordered = df2.reindex(columns=df1_columns)
-
-
-    df_horizons_sorted = df_horizons.sort_values('blockNumber')
-    df2_sorted = df2.sort_values('blockNumber')
-
-    standard_cols = ['blockNumber', 'horizon', 'min_flag', 'reference_blockNumber', 'horizon_label']
-    if pool == 'base':
-        cols = ['blockNumber', 'horizon', 'min_flag', 'reference_blockNumber', 'horizon_label']
-    else:
-        cols = [f"{x}_{pool}" for x in ['min_flag', 'reference_blockNumber', 'horizon_label']]
-        cols.insert(0, 'blockNumber')
-        cols.insert(1, 'horizon')
-
-    df_horizons_subset = df_horizons[cols]
-
-    # Rename columns -0 horizons is base metric (i.e., a mint in any pool will make a horizon to be formed)
-    df_horizons_subset.columns = standard_cols
-
-    if pool != 'base':
-        # ignore horizon column
-        df_horizons_subset = df_horizons_subset.drop(columns=['horizon', 'horizon_label'])
-        df2 = df2.drop(columns=['horizon', 'horizon_label'])
-
-    if not df_horizons_subset.equals(df2):
-        # Compare the DataFrames and store the results
-        comparison_result = df_horizons_subset.compare(df2)
-        raise(comparison_result)
-
-
-# write to csv
-df_horizons.to_csv(os.path.join(interim_results_dir, "df_horizons.csv"), index=False)
-
-
-# Organise DEX data on horizons
-df_dex_horizons = organize_dex_data_on_horizons(df_dex, df_horizons)
+df_dex_horizons = organize_dex_data_on_horizons(df_reduced, df_horizons, step=10)
 
 
 
 
-df_cex = pd.read_csv(os.path.join(binance_filepath))
-df_cex['time'] = pd.to_datetime(df_cex['time'])
-
-# Organise CEX data on horizons
-df_cex_horizons = organize_cex_data_on_horizons(df_reduced, df_horizons)
-
-pass
 
 
 
