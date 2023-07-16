@@ -58,6 +58,12 @@ def calculate_volatility(df, pool_price_col):
     """
     Calculate volatility based on the pool price.
 
+    Note by Vitor:
+    How to find std from volatility:
+    Square each period's deviation. Sum the squared deviations. 
+    Divide this sum by the number of observations. The standard 
+    deviation is then equal to the square root of that number.
+
     Args:
         df (DataFrame): Input DataFrame.
         pool_price_col (str): Name of the column representing the pool price.
@@ -68,8 +74,15 @@ def calculate_volatility(df, pool_price_col):
     """
     #ignore where pool_price is nan
     df = df[df[pool_price_col].notna()]
-    returns = df[pool_price_col].pct_change()
-    volatility = returns.std()
+
+    df['Diff'] = df[pool_price_col] -  df[pool_price_col].shift(-1)
+    df = df[df['Diff'].notna()]
+
+    df['Diff^2'] = df['Diff']**2
+    volatility = np.sqrt(sum(df['Diff^2']))/len(df['Diff^2'])
+
+    #returns = df[pool_price_col].pct_change()
+    #volatility = returns.std()
     return volatility
 
 def calculate_traded_volume_rate(df, timestamp_col, amount_usd_col):
