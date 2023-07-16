@@ -24,7 +24,6 @@ y = subset_data[target_variable]
 # remove = ['vol_0_1', 'vol_0_2', 'vol_0_3', 'avg-USD-iother_01', 'rate-USD-iother_01']
 # X = X.drop(remove, axis=1)
 
-
 # Remove the rows that contain null values
 null_rows = X[X.isnull().any(axis=1)].index
 X = X.drop(null_rows, axis=0)
@@ -41,10 +40,17 @@ results = model.fit()
 # Retrieve the R-squared value
 r_squared = results.rsquared
 
+
+# identify multicollinearity
 vif = pd.DataFrame()
 vif["Variable"] = X.columns
 vif["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
 
+
+# remove cols with multicollinearity
+X_red = X.drop(columns = vif[vif['VIF'] > 10]['Variable'])
+
+# correlation before removing multicollinearity
 cols_sorted = X.columns.sort_values()
 X = X[cols_sorted]
 corr_matrix = X.corr()
@@ -55,7 +61,20 @@ sns.heatmap(corr_matrix, annot=False, cmap="coolwarm", linewidths=0.5, cbar=Fals
 
 plt.xticks(rotation=90, fontsize=8)  # Rotate and adjust the font size of the X-axis labels
 plt.yticks(fontsize=8)  # Adjust the font size of the Y-axis labels
-plt.title("Correlation Matrix of Independent Variables", fontsize=10)  # Adjust the font size of the title
+plt.title("Correlation Matrix of Independent Variables - Before Multicollinearity", fontsize=10)  # Adjust the font size of the title
 plt.show()
 
-pass
+
+# correlation after removing multicollinearity
+cols_sorted = X_red.columns.sort_values()
+X_red = X_red[cols_sorted]
+corr_matrix = X_red.corr()
+
+plt.figure(figsize=(8, 6))  # Adjust the figure size as per your preference
+
+sns.heatmap(corr_matrix, annot=False, cmap="coolwarm", linewidths=0.5, cbar=False)
+
+plt.xticks(rotation=90, fontsize=8)  # Rotate and adjust the font size of the X-axis labels
+plt.yticks(fontsize=8)  # Adjust the font size of the Y-axis labels
+plt.title("Correlation Matrix of Independent Variables - After Multicollinearity", fontsize=10)  # Adjust the font size of the title
+plt.show()
