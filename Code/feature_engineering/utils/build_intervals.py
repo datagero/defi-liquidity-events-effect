@@ -128,8 +128,8 @@ def create_interval_dataframes(df_blocks, df, pool_col):
         dataframes = {}
         for _, row in df_blocks.iterrows():
             ## For debugging specific hashes
-            if row['hashid'] == 576279937:
-                pass
+            # if row['hashid'] == 576279937:
+            #     pass
             chain = row[chain_col]
             if isinstance(chain, str): 
                 chain = chain.replace('nan', 'None')
@@ -175,11 +175,11 @@ def create_interval_dataframes(df_blocks, df, pool_col):
         pools = {}
 
         # Get same and other pool dataframes (to get intervals)
-        df_same = df[df['pool'] == pool_same].copy(deep=True).reset_index(drop=True)
-        df_other = df[df['pool'] != pool_same].copy(deep=True).reset_index(drop=True)
+        df_same = df[df[pool_col] == pool_same].copy(deep=True).reset_index(drop=True)
+        df_other = df[df[pool_col] != pool_same].copy(deep=True).reset_index(drop=True)
 
         # Get same pool blocks (these should already have  blockNumberChain and other_blockNumberChain)
-        df_blocks_same = df_blocks[df_blocks['pool'] == pool_same].copy(deep=True).reset_index(drop=True)
+        df_blocks_same = df_blocks[df_blocks[pool_col] == pool_same].copy(deep=True).reset_index(drop=True)
         
         pools['same'] = update_interval('blockNumberChain', df_blocks_same, df_same)
         pools['other'] = update_interval('other_blockNumberChain', df_blocks_same, df_other)
@@ -265,7 +265,11 @@ def calculate_horizons_v02(df, step, pool_flags):
         return pd.concat([pd.Series(np.concatenate(expanded_blocks)), pd.Series(block_numbers[-1])])
     
     def set_horizon_data(df_horizons, pool_flag):
-        
+        # Calculate the difference between consecutive block numbers and fill missing values with 0
+        # Set min_flag to 1 if the blockNumber is present in df_mints, otherwise set it to 0
+        # Set the reference_blockNumber to the blockNumber when min_flag is 1, and forward fill missing values
+        # Group the DataFrame by reference_blockNumber and calculate the cumulative count within each group, starting from 1
+
         df_horizons = df_horizons.copy()
 
         min_flag_key = 'min_flag'
@@ -296,7 +300,6 @@ def calculate_horizons_v02(df, step, pool_flags):
         horizons_dict[flag_key] = set_horizon_data(df_horizons, flag_key)
 
     return horizons_dict
-
 
 
 #15552772-15555597#15555594 

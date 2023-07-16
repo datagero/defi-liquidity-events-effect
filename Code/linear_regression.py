@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from feature_engineering.utils.build_intervals import calculate_horizons
+from feature_engineering.utils.horizon_aggregates import organize_dex_data_on_horizons
 
 
 reference_pool_mint = 500
@@ -26,6 +27,7 @@ mints_null_counts.sort_values(ascending=False, inplace=True)
 
 # Calculate the horizons for the reduced DataFrame
 df_horizons = calculate_horizons(df_reduced, step=10)
+df_horizons = organize_dex_data_on_horizons(df_reduced, df_horizons)
 
 # ## CEX Data
 # # Read binance cleansed data
@@ -52,6 +54,8 @@ df_reference = df_direct_pool.merge(df_blocks, how='left', left_index=True, righ
 
 # join df with df_reference on reference_blockNumber
 df = df_horizons.merge(df_reference, how='left', on=reference_block_label)
+df.to_csv(os.path.join(processed_results_dir, "df.csv"))
+
 null_counts = df.isnull().sum()
 
 
@@ -181,5 +185,6 @@ ax2.set_ylim(0, max(observation_counts) + 1000)  # Set the y-axis range for obse
 plt.title('R-squared and Observation Count vs. Horizon')
 plt.suptitle(f'Mint of reference on Pool: {reference_pool_mint}')
 plt.show()
+
 
 pass

@@ -1,7 +1,90 @@
 import os
 import pandas as pd
 from utils.build_intervals import calculate_horizons, calculate_horizons_v02
-from utils.horizon_aggregates import organize_dex_data_on_horizons
+from utils.horizon_aggregates import organize_dex_data_on_horizons, organize_dex_data_on_horizons_v02, organize_cex_data_on_horizons
+
+def validator_horizons(df1, dict2):
+    """
+    Validates that the horizons in df1 and dict2 are the same for each pool.
+
+    Parameters:
+    df1 (pd.DataFrame): First dataframe to compare.
+    dict2 (dict): Dictionary of dataframes to compare.
+
+    Returns:
+    None. Raises exception if any of the comparisons fail.
+    """
+    def prepare_df_for_comparison(df, pool_flag, standard_cols):
+        if pool_flag == 'base':
+            return df[standard_cols]
+        else:
+            cols = [f"{x}_{pool_flag}" for x in ['min_flag', 'reference_blockNumber', 'horizon_label']]
+            cols.insert(0, 'blockNumber')
+            cols.insert(1, 'horizon')
+
+            df_subset = df[cols]
+            df_subset.columns = standard_cols
+            return df_subset.drop(columns=['horizon', 'horizon_label'])
+
+    standard_cols = ['blockNumber', 'horizon', 'min_flag', 'reference_blockNumber', 'horizon_label']
+
+    for pool_flag, df2 in dict2.items():
+        df1_prepared = prepare_df_for_comparison(df1, pool_flag, standard_cols)
+        df2_prepared = df2 if pool_flag == 'base' else df2.drop(columns=['horizon', 'horizon_label'])
+
+        if not df1_prepared.equals(df2_prepared):
+            comparison_result = df1_prepared.compare(df2_prepared)
+            raise ValueError(f'Dataframes not equal for pool {pool_flag}:\n{comparison_result}')
+
+
+
+def validator_dex_horizons(df1, dict2):
+    """
+    Validates that the DEX horizons in df1 and df2 are the same.
+
+    Parameters:
+    df1 (pd.DataFrame): First dataframe to compare.
+    df2 (pd.DataFrame): Second dataframe to compare.
+
+    Returns:
+    None. Raises exception if any of the comparisons fail.
+    """
+    def prepare_df_for_comparison(df, pool_flag, standard_cols):
+        standard_cols_extended = standard_cols.copy()
+        extended = ['volume_500', 'volume_3000', 'cum_volume_500', 'cum_volume_3000']
+        standard_cols_extended.extend(extended)
+
+        if pool_flag == 'base':
+            return df[standard_cols_extended]
+        else:
+            dups = ['min_flag', 'reference_blockNumber']
+            cols = [f"{x}_{pool_flag}" for x in dups]
+            cols.insert(0, 'blockNumber')
+            cols.insert(1, 'horizon')
+            cols.extend(['horizon_label', 'closest_blockNumber'])
+            cols.extend(extended)
+            
+            # cols.extend(keep)
+            # keep_cols = [x for x in cols if x not in dups]
+
+
+            df_subset = df[cols]
+            df_subset.columns = [x for x in standard_cols_extended]# if x not in ['closest_blockNumber']]
+            return df_subset
+
+    standard_cols = ['blockNumber', 'horizon', 'min_flag', 'reference_blockNumber', 'horizon_label', 'closest_blockNumber']
+
+    for pool_flag, df2 in dict2.items():
+        df1_prepared = prepare_df_for_comparison(df1, pool_flag, standard_cols)
+        df2_prepared = df2 #.drop(columns=['horizon_label'])
+        # df2_prepared = df2 if pool_flag == 'base' else df2.drop(columns=['horizon', 'horizon_label'])
+
+        if not df1_prepared.equals(df2_prepared):
+            comparison_result = df1_prepared.compare(df2_prepared)
+            raise ValueError(f'Dataframes not equal for pool {pool_flag}:\n{comparison_result}')
+
+
+
 
 interim_results_dir = "Data/interim_results"
 binance_filepath = "Data/cleansed/binance.csv"
@@ -13,57 +96,47 @@ df_dex = pd.read_csv(os.path.join(interim_results_dir, "df_reduced.csv"))
 
 # Calculate the horizons for the reduced DataFrame from the DEX
 df_horizons = calculate_horizons(df_dex, step=10)
-df_horizons_v02 = calculate_horizons_v02(df_dex, step=10, pool_flags=[500, 3000])
+dict_horizons = calculate_horizons_v02(df_dex, step=10, pool_flags=[500, 3000])
+assert validator_horizons(df_horizons, dict_horizons) is None
+#Returns -> pools = ['base', '500', '3000']
 
-# TEMP -> This validates both versions are the same
-pools = ['base', '500', '3000']
-for pool in pools:
+# Organise DEX data on horizons
+df_dex_horizons = organize_dex_data_on_horizons(df_dex, df_horizons)
+dict_dex_horizons = organize_dex_data_on_horizons_v02(df_dex, dict_horizons)
+# assert validator_dex_horizons(df_dex_horizons, dict_dex_horizons) is None
 
-    df2 = df_horizons_v02[pool]
+# # Organize CEX data on horizons
+# df_cex = pd.read_csv(os.path.join(binance_filepath))#, nrows=100000)
+# df_cex['time'] = pd.to_datetime(df_cex['time'])
+# block_times_map = df_dex[['blockNumber', 'timestamp']].drop_duplicates().set_index('timestamp').to_dict()
+# dict_cex_horizons = organize_cex_data_on_horizons(df_cex, dict_horizons, block_times_map)
 
-    df1_columns = df_horizons.columns
-    df2_reordered = df2.reindex(columns=df1_columns)
+pass
 
 
-    df_horizons_sorted = df_horizons.sort_values('blockNumber')
-    df2_sorted = df2.sort_values('blockNumber')
 
-    standard_cols = ['blockNumber', 'horizon', 'min_flag', 'reference_blockNumber', 'horizon_label']
-    if pool == 'base':
-        cols = ['blockNumber', 'horizon', 'min_flag', 'reference_blockNumber', 'horizon_label']
-    else:
-        cols = [f"{x}_{pool}" for x in ['min_flag', 'reference_blockNumber', 'horizon_label']]
-        cols.insert(0, 'blockNumber')
-        cols.insert(1, 'horizon')
 
-    df_horizons_subset = df_horizons[cols]
 
-    # Rename columns -0 horizons is base metric (i.e., a mint in any pool will make a horizon to be formed)
-    df_horizons_subset.columns = standard_cols
 
-    if pool != 'base':
-        # ignore horizon column
-        df_horizons_subset = df_horizons_subset.drop(columns=['horizon', 'horizon_label'])
-        df2 = df2.drop(columns=['horizon', 'horizon_label'])
 
-    if not df_horizons_subset.equals(df2):
-        # Compare the DataFrames and store the results
-        comparison_result = df_horizons_subset.compare(df2)
-        raise(comparison_result)
+
+
+
+
+
+
 
 
 # write to csv
 df_horizons.to_csv(os.path.join(interim_results_dir, "df_horizons.csv"), index=False)
 
 
-# Organise DEX data on horizons
-df_dex_horizons = organize_dex_data_on_horizons(df_dex, df_horizons)
 
 
 
 
-df_cex = pd.read_csv(os.path.join(binance_filepath))
-df_cex['time'] = pd.to_datetime(df_cex['time'])
+
+
 
 # Organise CEX data on horizons
 df_cex_horizons = organize_cex_data_on_horizons(df_reduced, df_horizons)
