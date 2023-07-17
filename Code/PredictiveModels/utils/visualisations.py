@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 import math
 
 def print_heatmap(corr_matrix, title: str):
@@ -26,88 +27,52 @@ def print_highest_corr(corr_matrix):
     print(top_correlations[:15])
 
 
-def load_multiple_r2_figs(r_squared_values, horizon_values, observation_counts, reference_pool):
-    fig, ax1 = plt.subplots()
-    ax2 = ax1.twinx()
+def get_values_from_tuple(tuple_data, i):
+    return [item[i] for item in tuple_data]
 
-    ax1.scatter(horizon_values, r_squared_values, color='b')
-    ax1.set_xlabel('Horizon (blocks)')
-    ax1.set_ylabel('R-squared', color='b')
-    ax1.set_ylim(0, 1)  # Set the y-axis range for R-squared
+def plot_dataframes(return_args, df_pool_counter_dict, adjusted_r_squared=False):
+    num_pools = len(return_args)
+    max_run_types = max(len(run_types) for run_types in return_args.values())
+    max_split_types = max(len(split_types) for run_types in return_args.values() for split_types in run_types.values())
 
-    ax2.plot(horizon_values, observation_counts, color='r')
-    ax2.set_ylabel('Observation Count', color='r')
-    ax2.set_ylim(0, max(observation_counts) + 1000)  # Set the y-axis range for observation count
+    fig, axs = plt.subplots(num_pools*max_split_types, max_run_types, figsize=(10*max_run_types, 6*num_pools*max_split_types))
 
-    plt.title('R-squared and Observation Count vs. Horizon')
-    plt.suptitle(f'Mint of reference on Pool: {reference_pool}')
-    # plt.text(0.5, 0.95, f'Best horizon R2: {horizon_values[r_squared_values.index(max(r_squared_values))]}', ha='center', va='center', transform=plt.gca().transAxes, fontsize=10)
-    return fig
-    #plt.show(block=False)
+    for i, (reference_pool, run_types) in enumerate(return_args.items()):
+        for j, (run_type, split_types) in enumerate(run_types.items()):
+            for k, (split_type, target_variables) in enumerate(split_types.items()):
+                ax = axs[i*max_split_types + k, j]
 
+                ax2 = ax.twinx()
+                df_pool_counter = df_pool_counter_dict[split_type]
+                bottom = np.zeros(len(df_pool_counter))
+                for pool in df_pool_counter.columns:
+                    ax2.bar(df_pool_counter.index, df_pool_counter[pool], bottom=bottom, alpha=0.3, label=f'Pool {pool}', width=8)
+                    bottom += df_pool_counter[pool]
 
-def display_figures(figures):
-    num_figs = len(figures)
-    nrows = math.ceil(num_figs / 6)  # Adjust this value to change the number of rows
-    ncols = 6  # Two plots per row
+                for target_variable in target_variables:
+                    model_returns = return_args[reference_pool][run_type][split_type][target_variable]
+                    if adjusted_r_squared:
+                        r_squared_values = get_values_from_tuple(model_returns, 3)
+                        r2_label = 'R-squared (adjusted)'
+                    else:
+                        r_squared_values = get_values_from_tuple(model_returns, 2)
+                        r2_label = 'R-squared'
+                    horizon_values = get_values_from_tuple(model_returns, 0)
+                    
+                    ax.plot(horizon_values, r_squared_values, label=target_variable)
 
-    fig, axs = plt.subplots(nrows, ncols, figsize=(15, 5*nrows))
-    axs = axs.flatten()  # Flatten the array of axes to easily iterate over
-    
-    for idx, fig in enumerate(figures):
-        ax1 = axs[idx]
-        ax2 = ax1.twinx()
-        
-        ax1.scatter(fig["horizon_values"], fig["r_squared_values"], color='b')
-        ax1.set_xlabel('Horizon (blocks)')
-        ax1.set_ylabel('R-squared', color='b')
-        ax1.set_ylim(0, 1)  # Set the y-axis range for R-squared
+                ax.set_xlabel('Horizon (blocks)')
+                ax.set_ylabel(r2_label)
+                ax.set_ylim(0, 1)
+                ax.legend(loc='upper left')
 
-        ax2.plot(fig["horizon_values"], fig["observation_counts"], color='r')
-        ax2.set_ylabel('Observation Count', color='r')
-        ax2.set_ylim(0, max(fig["observation_counts"]) + 1000)  # Set the y-axis range for observation count
+                ax2.set_ylabel('Observation Count')
+                ax2.set_ylim(0, df_pool_counter.sum(axis=1).max() + 1000)
+                ax2.legend(loc='upper right')
 
-        plt.title(f'{fig["reference_pool"]}', fontsize=8)
-        plt.suptitle('R-squared and Observation Count vs. Horizon')
-    
+                ax.set_title(f'{split_type} - Reference pool: {reference_pool} - {run_type}', fontsize=14)
+
     plt.tight_layout()
-    plt.show()
+    plt.show(block=False)
 
-import numpy as np
-import numpy as np
-import matplotlib.pyplot as plt
 
-def plot_dataframes(return_args, df_pool_counter):
-    for reference_pool, run_types in return_args.items():
-        for run_type, target_variables in run_types.items():
-            # Initialize a new figure for the current reference pool and run type
-            fig, ax1 = plt.subplots(figsize=(10, 6))
-            ax2 = ax1.twinx()
-
-            # Plot the observation counts for this reference pool
-            bottom = np.zeros(len(df_pool_counter))  # Initialize the bottom values to 0 for the first layer of the stack
-
-            for pool in df_pool_counter.columns:
-                ax2.bar(df_pool_counter.index, df_pool_counter[pool], bottom=bottom, alpha=0.3, label=f'Pool {pool}', width=8)
-                bottom += df_pool_counter[pool]  # Update the bottom values for the next layer
-            
-            for target_variable in target_variables:
-                r_squared_values = return_args[reference_pool][run_type][target_variable][0]
-                horizon_values = return_args[reference_pool][run_type][target_variable][2]
-
-                # Plot r_squared_values for this target variable
-                ax1.plot(horizon_values, r_squared_values, label=target_variable)
-
-            # Set labels, title and limits for the plot
-            ax1.set_xlabel('Horizon (blocks)')
-            ax1.set_ylabel('R-squared')
-            ax1.set_ylim(0, 1)  # Set the y-axis range for R-squared
-            ax1.legend(loc='upper left')
-
-            ax2.set_ylabel('Observation Count')
-            ax2.set_ylim(0, df_pool_counter.sum(axis=1).max() + 1000)  # Set the y-axis range for observation count
-            ax2.legend(loc='upper right')
-
-            plt.title(f'Reference pool: {reference_pool} - {run_type}', fontsize=14)
-            plt.tight_layout()
-            plt.show(block=False)
