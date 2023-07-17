@@ -3,7 +3,7 @@ import statsmodels.api as sm
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def run_for_all_horizons(df, target_variable, explainable_variables, reference_pool='Not Defined'):
+def run_for_all_horizons(df, target_variable, explainable_variables):
 
     # Limit the data to the first 30 horizons (i.e., 300 blocks) The average block time for Ethereum is approximately 13-15 seconds. 300*15=4500 seconds = 75 minutes
     horizon_labels = df['horizon_label'].unique() 
@@ -41,7 +41,7 @@ def stepwise_selection(df, target, explanatory_vars, significance_level=0.05):
 
     while len(initial_features) > 0:
         remaining_features = list(set(initial_features) - set(best_features))
-        new_pval = pd.Series(index=remaining_features)
+        new_pval = pd.Series(index=remaining_features, dtype='float64')
         for new_column in remaining_features:
             model = sm.OLS(target, sm.add_constant(df[best_features+[new_column]])).fit()
             new_pval[new_column] = model.pvalues[new_column]

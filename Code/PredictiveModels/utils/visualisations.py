@@ -74,39 +74,40 @@ def display_figures(figures):
     plt.show()
 
 import numpy as np
+import numpy as np
+import matplotlib.pyplot as plt
+
 def plot_dataframes(return_args, df_pool_counter):
+    for reference_pool, run_types in return_args.items():
+        for run_type, target_variables in run_types.items():
+            # Initialize a new figure for the current reference pool and run type
+            fig, ax1 = plt.subplots(figsize=(10, 6))
+            ax2 = ax1.twinx()
 
-    for reference_pool, target_variables in return_args.items():
-        # Initialize a new figure for the current reference pool
-        fig, ax1 = plt.subplots(figsize=(10, 6))
-        ax2 = ax1.twinx()
+            # Plot the observation counts for this reference pool
+            bottom = np.zeros(len(df_pool_counter))  # Initialize the bottom values to 0 for the first layer of the stack
 
-        for target_variable in target_variables:
-            r_squared_values = return_args[reference_pool][target_variable]['all_features'][0]
-            horizon_values = return_args[reference_pool][target_variable]['all_features'][2]
+            for pool in df_pool_counter.columns:
+                ax2.bar(df_pool_counter.index, df_pool_counter[pool], bottom=bottom, alpha=0.3, label=f'Pool {pool}', width=8)
+                bottom += df_pool_counter[pool]  # Update the bottom values for the next layer
+            
+            for target_variable in target_variables:
+                r_squared_values = return_args[reference_pool][run_type][target_variable][0]
+                horizon_values = return_args[reference_pool][run_type][target_variable][2]
 
-            # Plot r_squared_values for this target variable
-            ax1.plot(horizon_values, r_squared_values, label=target_variable)
+                # Plot r_squared_values for this target variable
+                ax1.plot(horizon_values, r_squared_values, label=target_variable)
 
-        # Plot the observation counts for this reference pool
-        bottom = np.zeros(len(df_pool_counter))  # Initialize the bottom values to 0 for the first layer of the stack
+            # Set labels, title and limits for the plot
+            ax1.set_xlabel('Horizon (blocks)')
+            ax1.set_ylabel('R-squared')
+            ax1.set_ylim(0, 1)  # Set the y-axis range for R-squared
+            ax1.legend(loc='upper left')
 
-        for pool in df_pool_counter.columns:
-            ax2.bar(df_pool_counter.index, df_pool_counter[pool], bottom=bottom, alpha=0.3, label=f'Pool {pool}', width=8)
-            bottom += df_pool_counter[pool]  # Update the bottom values for the next layer
+            ax2.set_ylabel('Observation Count')
+            ax2.set_ylim(0, df_pool_counter.sum(axis=1).max() + 1000)  # Set the y-axis range for observation count
+            ax2.legend(loc='upper right')
 
-        # Set labels, title and limits for the plot
-        ax1.set_xlabel('Horizon (blocks)')
-        ax1.set_ylabel('R-squared')
-        ax1.set_ylim(0, 1)  # Set the y-axis range for R-squared
-        ax1.legend(loc='upper left')
-
-        ax2.set_ylabel('Observation Count')
-        ax2.set_ylim(0, df_pool_counter.sum(axis=1).max() + 1000)  # Set the y-axis range for observation count
-
-        # ax2.set_ylim(0, df_pivot.values.max()*2)  # Set the y-axis range for observation count
-        ax2.legend(loc='upper right')
-
-        plt.title(f'Reference pool: {reference_pool}', fontsize=14)
-        plt.tight_layout()
-        plt.show(block=False)
+            plt.title(f'Reference pool: {reference_pool} - {run_type}', fontsize=14)
+            plt.tight_layout()
+            plt.show(block=False)

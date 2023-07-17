@@ -28,9 +28,9 @@ def prepare_dataframe_engineered(df_raw, remove_list, aggregate_list):
     return df_aggregated, explainable_variables_filtered_aggregated
 
 
-def run_and_store_ols_results(df, target_variable, explainable_variables, return_args_dict, key):
+def run_and_store_ols_results(df, target_variable, explainable_variables):
     """Run OLS for all horizons and store results in the dictionary."""
-    return_args_dict[key] = ols.run_for_all_horizons(df, target_variable, explainable_variables)
+    return ols.run_for_all_horizons(df, target_variable, explainable_variables)
 
 
 def create_figures_dict(r_squared_values, horizon_values, observation_counts, reference_pool, title):
@@ -56,26 +56,26 @@ remove_list = ['vol_0_1', 'vol_0_2', 'vol_0_3', 'avg-USD-iother_01', 'rate-USD-i
 
 for reference_pool, target_variables in run_args.items():
     return_args[reference_pool] = {}
-
+    return_args[reference_pool]['all_features'] = {}
+    return_args[reference_pool]['reduced_multicollinearity'] = {}
     for target_variable in target_variables:
-        return_args[reference_pool][target_variable] = {}
 
         df_raw = pd.read_csv(f"Data/processed/features/df_features_raw_ref{reference_pool}.csv")
         df, explainable_variables_filtered = prepare_dataframe(df_raw, remove_list)
-        run_and_store_ols_results(df, target_variable, explainable_variables_filtered, return_args[reference_pool][target_variable], 'all_features')
+        return_args[reference_pool]['all_features'][target_variable] = run_and_store_ols_results(df, target_variable, explainable_variables_filtered)
 
         # Further feature engineering
         df_raw2 = pd.read_csv(f"Data/processed/features/df_features_raw_ref{reference_pool}.csv")
         df2, _ = prepare_dataframe(df_raw2, [])
         df_engineered, explainable_variables_filtered_aggregated = prepare_dataframe_engineered(df2, cols_drop_correlated, cols_aggregate_intervals_range)
-        run_and_store_ols_results(df_engineered, target_variable, explainable_variables_filtered_aggregated, return_args[reference_pool][target_variable], 'reduced_multicollinearity')
+        return_args[reference_pool]['reduced_multicollinearity'][target_variable] = run_and_store_ols_results(df_engineered, target_variable, explainable_variables_filtered_aggregated)
 
-        # Step-wise feature selection
-        df_raw3 = pd.read_csv(f"Data/processed/features/df_features_raw_ref{reference_pool}.csv")
-        df3, _ = prepare_dataframe(df_raw3, [])
-        df_engineered, explainable_variables_filtered_aggregated = prepare_dataframe_engineered(df3, cols_drop_correlated, cols_aggregate_intervals_range)
-        selected_features = ols.stepwise_selection(df, df[target_variable], explainable_variables_filtered)
-
+        # # Step-wise feature selection
+        # df_raw3 = pd.read_csv(f"Data/processed/features/df_features_raw_ref{reference_pool}.csv")
+        # df3, _ = prepare_dataframe(df_raw3, [])
+        # df_engineered, explainable_variables_filtered_aggregated = prepare_dataframe_engineered(df3, cols_drop_correlated, cols_aggregate_intervals_range)
+        # selected_features = ols.stepwise_selection(df3, df3[target_variable], explainable_variables_filtered_aggregated)
+        # run_and_store_ols_results(df_engineered, target_variable, selected_features, return_args[reference_pool][target_variable], 'step-wise')
         pass
 
 base_df = pd.read_csv(f"Data/processed/features/df_features_raw_refbase.csv")
