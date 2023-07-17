@@ -23,6 +23,8 @@ explainable_variables = [
 
 # This columns where defined after initial analysis
 
+cols_replace_nulls = ['rate-USD-iother_01', 'avg-USD-iother_01', 'vol_0_1', 'vol_0_2', 'vol_0_3']
+
 # High correlation columns
 cols_drop_correlated = ['blsame_2', 'blsame_3', 'blother_2', 'blother_3', 'vol_0_1', 'vol_0_2',
                         'binance-count-01', 'binance-count-12', 'binance-count-23',

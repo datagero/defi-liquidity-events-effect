@@ -3,7 +3,8 @@ environment/*
 
 #big files
 Code/DataSourcingCleaning/binance/data/*
-Data/*
+DataIterim/*
+Data/processed/features/*
 
 # History files
 .Rhistory

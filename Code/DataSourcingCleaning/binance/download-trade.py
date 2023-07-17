@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """
+  Script taken from the binance github repository to download-trades: https://github.com/binance/binance-public-data/blob/master/python/README.md
   script to download trades.
   set the absoluate path destination folder for STORE_DIRECTORY, and run
 

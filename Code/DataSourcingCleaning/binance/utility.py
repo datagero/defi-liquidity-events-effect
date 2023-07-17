@@ -1,3 +1,4 @@
+#Script taken from the binance github repository to download-trades: https://github.com/binance/binance-public-data/blob/master/python/README.md
 import os, sys, re, shutil
 import json
 from pathlib import Path

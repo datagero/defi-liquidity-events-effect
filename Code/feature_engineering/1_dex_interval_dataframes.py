@@ -1,7 +1,7 @@
 """
-This script performs cleaning, preprocessing, merging, and analysis operations on Uniswap, Etherscan, and Binance data. It also logs information about data loss and transaction types. The inferred block intervals are saved as interim results for further analysis.
+This script performs cleaning, preprocessing, merging, and analysis operations on Uniswap and Etherscan. It also logs information about data loss and transaction types. The inferred block intervals are saved as interim results for further analysis.
 
-The provided code performs data processing and interval analysis on Uniswap, Etherscan, and Binance datasets. Here is a summary of the main functionalities:
+The provided code performs data processing and interval analysis on Uniswap and Etherscan. Here is a summary of the main functionalities:
 
 1. Clean Uniswap Data: The code reads and cleans the Uniswap data, removing any additional information after the '#' symbol in the 'id' column.
 2. Clean Etherscan Data: The code reads and cleans the Etherscan data.
@@ -22,8 +22,12 @@ import numpy as np
 from collections import Counter
 from utils.build_intervals import calculate_intervals, calculate_other_intervals, create_interval_dataframes, reduce_mints
 
-# Define shift periods for the intervals
-SHIFT_PERIODS = range(0, 4)
+# Constants
+SHIFT_PERIODS = range(0, 4) # Define shift periods for the intervals
+UNISWAP_FILEPATH = "Data/cleansed/uniswap.csv"
+ETHERSCAN_FILEPATH = "Data/cleansed/etherscan.csv"
+RESULTS_DIR = "Data/interim_results"
+
 
 def validate_block_number_order(df):
     df_sorted_timestamp = df.sort_values(by='timestamp')
@@ -32,6 +36,14 @@ def validate_block_number_order(df):
     assert block_number_order_same, "Sorting by timestamp and block number does not result in the same block number order"
 
 def clean_uniswap_data(uniswap_filepath):
+    """Loads and cleans Uniswap data.
+
+    Args:
+        filepath (str): Path to the Uniswap data file.
+
+    Returns:
+        pd.DataFrame: Cleaned Uniswap data.
+    """
     df_uniswap = pd.read_csv(uniswap_filepath)
     df_uniswap['id'] = df_uniswap['id'].str.split('#').str[0]
 
@@ -41,10 +53,26 @@ def clean_uniswap_data(uniswap_filepath):
     return df_uniswap
 
 def clean_etherscan_data(etherscan_filepath):
+    """Loads and cleans Etherscan data.
+
+    Args:
+        filepath (str): Path to the Etherscan data file.
+
+    Returns:
+        pd.DataFrame: Cleaned Etherscan data.
+    """
     df_etherscan = pd.read_csv(etherscan_filepath)
     return df_etherscan
 
 def preprocess_data(df):
+    """Performs preprocessing operations on the data.
+
+    Args:
+        df (pd.DataFrame): Data to preprocess.
+
+    Returns:
+        pd.DataFrame: Preprocessed data.
+    """
     df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s').dt.tz_localize('UTC')
     df.sort_values(by='timestamp', inplace=True)
     df['blockNumber'] = df['blockNumber'].apply(lambda x: int(x, 16))
@@ -55,11 +83,27 @@ def preprocess_data(df):
     return df
 
 def clean_mint_transactions(df):
+    """Cleans mint transactions.
+    Multiple mint transactions on the same block are reduced to a single transaction.
+
+    Args:
+        df (pd.DataFrame): Data to clean.
+
+    Returns:
+        pd.DataFrame: Data with cleaned mint transactions.
+    """
     df_reduced = reduce_mints(df[['timestamp', 'transaction_type', 'pool', 'blockNumber', 'size', 'width', 'pool_price', 'amountUSD']])
     return df_reduced
 
 def infer_block_intervals(df_reduced):
-    """
+    """Infers block intervals and creates interval-based dataframes.
+
+    Args:
+        df_reduced (pd.DataFrame): Reduced data to calculate intervals.
+
+    Returns:
+        Tuple[pd.DataFrame, pd.DataFrame, Dict[str, pd.DataFrame]]: Dataframes with block intervals and interval-based dataframes.
+
     Overall, this process involves calculating intervals based on specified columns, creating interval-based dataframes, and organizing them in a dictionary structure for further analysis and processing.
 
     Note -> For the blocks, the pair of reference blockNumber and pool should be unique.
@@ -73,6 +117,15 @@ def infer_block_intervals(df_reduced):
     return df_blocks, df_blocks_full, interval_dataframes
 
 def save_interim_results(df_reduced, df_blocks, df_blocks_full, interval_dataframes, results_dir):
+    """Saves the interim results to CSV files and a pickle file.
+
+    Args:
+        df_reduced (pd.DataFrame): Reduced data.
+        df_blocks (pd.DataFrame): Data with block intervals.
+        df_blocks_full (pd.DataFrame): Full data with block intervals.
+        interval_dataframes (Dict[str, pd.DataFrame]): Interval-based dataframes.
+        results_dir (str): Directory to save the results.
+    """
     os.makedirs(results_dir, exist_ok=True)
     df_reduced.to_csv(os.path.join(results_dir, "df_reduced.csv"), index=False)
     df_blocks.to_csv(os.path.join(results_dir, "df_blocks.csv"), index=False)
@@ -82,6 +135,12 @@ def save_interim_results(df_reduced, df_blocks, df_blocks_full, interval_datafra
         pickle.dump(interval_dataframes, pickle_file)
 
 def log_count_transaction_types(df, log_comment=''):
+    """Logs the count of transaction types.
+
+    Args:
+        df (pd.DataFrame): Data to log.
+        log_comment (str): Additional comment to include in the log.
+    """
     print('Total transactions - {}:'.format(log_comment))
     pairs = [tuple(x) for x in df[['pool', 'transaction_type']].values]
     counter = Counter(pairs)
@@ -117,9 +176,8 @@ def main():
     print('Mint loss in percentage: ', (len(df_uniswap_mints) - len(df_reduced_mints)) / len(df_uniswap_mints) * 100)
 
     # Infer block intervals and save results
-    results_dir = "Data/interim_results"
     df_blocks, df_blocks_full, interval_dataframes = infer_block_intervals(df_dex_reduced)
-    save_interim_results(df_dex_reduced, df_blocks, df_blocks_full, interval_dataframes, results_dir)
+    save_interim_results(df_dex_reduced, df_blocks, df_blocks_full, interval_dataframes, RESULTS_DIR)
 
 if __name__ == "__main__":
     main()

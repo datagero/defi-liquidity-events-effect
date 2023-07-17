@@ -1,5 +1,6 @@
 
 import statsmodels.api as sm
+import pandas as pd
 import matplotlib.pyplot as plt
 
 def run_for_all_horizons(df, target_variable, explainable_variables, reference_pool='Not Defined'):
@@ -33,3 +34,32 @@ def run_for_all_horizons(df, target_variable, explainable_variables, reference_p
 
 
     return r_squared_values, r_squared_adj_values, horizon_values, observation_counts
+
+def stepwise_selection(df, target, explanatory_vars, significance_level=0.05):
+    initial_features = explanatory_vars.copy()
+    best_features = []
+
+    while len(initial_features) > 0:
+        remaining_features = list(set(initial_features) - set(best_features))
+        new_pval = pd.Series(index=remaining_features)
+        for new_column in remaining_features:
+            model = sm.OLS(target, sm.add_constant(df[best_features+[new_column]])).fit()
+            new_pval[new_column] = model.pvalues[new_column]
+        min_p_value = new_pval.min()
+        if min_p_value < significance_level:
+            best_features.append(new_pval.idxmin())
+        else:
+            break
+
+    # Backward elimination
+    while len(best_features) > 0:
+        best_features_with_constant = sm.add_constant(df[best_features])
+        p_values = sm.OLS(target, best_features_with_constant).fit().pvalues[1:]  # Exclude intercept
+        max_p_value = p_values.max()
+        if max_p_value >= significance_level:
+            excluded_feature = p_values.idxmax()
+            best_features.remove(excluded_feature)
+        else:
+            break 
+
+    return best_features

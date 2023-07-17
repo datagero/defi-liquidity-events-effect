@@ -153,3 +153,35 @@ df_direct_pool = pd.read_csv('Data/processed/direct_pool.csv', index_col=0)
 # Residual n − p − 1 TSS − RSS RSS/(n − p − 1)
 # Total n − 1 TSS
 
+
+
+
+
+
+
+
+
+# best horizon for marginal gain r-squared
+
+# Balance R-squared and Observation Counts: Find a balance between R-squared and observation counts. 
+# A higher R-squared with a reasonable number of observations generally indicates a stronger model. 
+# However, a high R-squared with a very low observation count may indicate overfitting, 
+# where the model is fitting the noise or idiosyncrasies of the limited data rather than capturing meaningful patterns.
+
+# def select_model(r_squared_values, observation_counts):
+#     if len(r_squared_values) != len(observation_counts):
+#         raise ValueError("Lengths of input lists must match.")
+
+#     best_ratio = r_squared_values[1] / observation_counts[1]  # Initialize with the second model
+#     best_model_index = 1
+
+#     for i in range(2, len(r_squared_values)):  # Start from the second model
+#         ratio = r_squared_values[i] / observation_counts[i]
+#         if ratio > best_ratio:
+#             best_ratio = ratio
+#             best_model_index = i
+
+#     best_r_squared = r_squared_values[best_model_index]
+#     best_observation_count = observation_counts[best_model_index]
+
+#     return best_model_index, best_r_squared, best_observation_count

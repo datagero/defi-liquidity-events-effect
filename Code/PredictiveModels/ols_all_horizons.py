@@ -1,117 +1,90 @@
-
-import pandas as  pd
+import pandas as pd
+from utils.visualisations import display_figures, plot_dataframes
+from utils.clean_independent import replace_nulls, remove_nulls, aggregate_columns_by_interval
+from utils.cols_management import explainable_variables, cols_drop_correlated, cols_aggregate_intervals_range, cols_replace_nulls
+import utils.ols as ols
 import matplotlib.pyplot as plt
 
-from utils.visualisations import print_heatmap, print_highest_corr, load_multiple_r2_figs, display_figures
-from utils.clean_independent import replace_nulls, remove_nulls, aggregate_columns_by_interval
-
-# Variable families
-from utils.cols_management import explainable_variables, cols_drop_correlated, cols_aggregate_intervals_range
-
-import utils.ols as ols
+def filter_explainable_variables(variables, remove_list):
+    """Remove specified variables from the list of explainable variables."""
+    return [var for var in variables if var not in remove_list]
 
 
-run_args = {
-    3000: 'cum_volume_500',
-    500: 'cum_volume_3000'
-}
-
-return_args = {}
-all_figs = []
-
-for reference_pool, target_variable in run_args.items():
-    return_args[reference_pool] = {}
-
-    # Read df_features_raw
-    df = pd.read_csv(f"Data/processed/df_features_raw_ref{reference_pool}.csv")
-    df = replace_nulls(df)
-
+def prepare_dataframe(df_raw, remove_list):
+    """Prepare dataframe by cleaning and removing unnecessary columns."""
+    df = replace_nulls(df_raw, cols_replace_nulls)
     df_filtered = df[df['horizon_label'] <= 30]
+    explainable_variables_filtered = filter_explainable_variables(explainable_variables, remove_list)
+    df_dropped = df_filtered.drop(remove_list, axis=1)
+    return remove_nulls(df_dropped, explainable_variables_filtered, logs=True), explainable_variables_filtered
 
-    # Remove the columns that are not needed or pending further cleaning
-    remove = ['vol_0_1', 'vol_0_2', 'vol_0_3', 'avg-USD-iother_01', 'rate-USD-iother_01']
-    explainable_variables_filtered = [x for x in explainable_variables if x not in remove]
-    df_dropped = df_filtered.drop(remove, axis=1)
+def prepare_dataframe_engineered(df_raw, remove_list, aggregate_list):
+    """Prepare dataframe with further feature engineering."""
+    df_dropped = df_raw.drop(columns=remove_list)
+    explainable_variables_filtered = filter_explainable_variables(explainable_variables, remove_list)
     df_na = remove_nulls(df_dropped, explainable_variables_filtered, logs=True)
-
-    return_args[reference_pool]['all_features'] = ols.run_for_all_horizons(df_na, target_variable, explainable_variables_filtered)
-
-    # Further feature engineer
-    df2_dropped = df_filtered.drop(columns=cols_drop_correlated)
-    explainable_variables_filtered2 = [x for x in explainable_variables if x not in cols_drop_correlated]
-    df2_na = remove_nulls(df2_dropped, explainable_variables_filtered2, logs=True)
-    df2_aggregated, dropped = aggregate_columns_by_interval(df2_na, cols_aggregate_intervals_range)
-    explainable_variables_filtered2_2 = [x for x in explainable_variables_filtered2 if x not in dropped]
-
-    return_args[reference_pool]['reduced_multicollinearity'] = ols.run_for_all_horizons(df2_aggregated, target_variable, explainable_variables_filtered2_2)
+    df_aggregated, dropped = aggregate_columns_by_interval(df_na, aggregate_list)
+    explainable_variables_filtered_aggregated = filter_explainable_variables(explainable_variables_filtered, dropped)
+    return df_aggregated, explainable_variables_filtered_aggregated
 
 
-    r_squared_values, r_squared_adj_values, horizon_values, observation_counts = return_args[reference_pool]['all_features']
-    r_squared_values2, r_squared_adj_values2, horizon_values2, observation_counts2 = return_args[reference_pool]['reduced_multicollinearity']
+def run_and_store_ols_results(df, target_variable, explainable_variables, return_args_dict, key):
+    """Run OLS for all horizons and store results in the dictionary."""
+    return_args_dict[key] = ols.run_for_all_horizons(df, target_variable, explainable_variables)
 
-    fig1 = {
+
+def create_figures_dict(r_squared_values, horizon_values, observation_counts, reference_pool, title):
+    """Create dictionary of figure data."""
+    return {
         "r_squared_values": r_squared_values, 
         "horizon_values": horizon_values, 
         "observation_counts": observation_counts, 
-        "reference_pool": "All Features - " + str(reference_pool)
+        "reference_pool": title + str(reference_pool)
     }
 
-    fig2 = {
-        "r_squared_values": r_squared_values2, 
-        "horizon_values": horizon_values2, 
-        "observation_counts": observation_counts2, 
-        "reference_pool": "Reduced Multicollinearity - " + str(reference_pool)
-    }
 
-    all_figs.extend([fig1, fig2])
+target_variables = ['cum_volume_500', 'cum_volume_3000', 'cum_volume_base']
 
-display_figures(all_figs)
+run_args = {
+    3000: target_variables,
+    500: target_variables
+}
+return_args = {}
+all_figs = []
 
+remove_list = ['vol_0_1', 'vol_0_2', 'vol_0_3', 'avg-USD-iother_01', 'rate-USD-iother_01']
 
+for reference_pool, target_variables in run_args.items():
+    return_args[reference_pool] = {}
 
-    # fig1 = load_multiple_r2_figs(r_squared_values, horizon_values, observation_counts, "All Features - " + str(reference_pool))
-    # fig2 = load_multiple_r2_figs(r_squared_values2, horizon_values2, observation_counts2, "Reduced Multicollinearity - " + str(reference_pool))
+    for target_variable in target_variables:
+        return_args[reference_pool][target_variable] = {}
 
-    # all_figs.append(fig1)
-    # all_figs.append(fig2)
+        df_raw = pd.read_csv(f"Data/processed/features/df_features_raw_ref{reference_pool}.csv")
+        df, explainable_variables_filtered = prepare_dataframe(df_raw, remove_list)
+        run_and_store_ols_results(df, target_variable, explainable_variables_filtered, return_args[reference_pool][target_variable], 'all_features')
 
+        # Further feature engineering
+        df_raw2 = pd.read_csv(f"Data/processed/features/df_features_raw_ref{reference_pool}.csv")
+        df2, _ = prepare_dataframe(df_raw2, [])
+        df_engineered, explainable_variables_filtered_aggregated = prepare_dataframe_engineered(df2, cols_drop_correlated, cols_aggregate_intervals_range)
+        run_and_store_ols_results(df_engineered, target_variable, explainable_variables_filtered_aggregated, return_args[reference_pool][target_variable], 'reduced_multicollinearity')
 
-    # # Display all the figures together
-    # for fig in all_figs:
-    #     plt.show()
+        # Step-wise feature selection
+        df_raw3 = pd.read_csv(f"Data/processed/features/df_features_raw_ref{reference_pool}.csv")
+        df3, _ = prepare_dataframe(df_raw3, [])
+        df_engineered, explainable_variables_filtered_aggregated = prepare_dataframe_engineered(df3, cols_drop_correlated, cols_aggregate_intervals_range)
+        selected_features = ols.stepwise_selection(df, df[target_variable], explainable_variables_filtered)
 
+        pass
 
-# Split the data into target variable and explanatory variables
+base_df = pd.read_csv(f"Data/processed/features/df_features_raw_refbase.csv")
+base_df = base_df[base_df['horizon_label'] <= 30]
+base_df['blocks'] = base_df['horizon_label'] * 10
+df_pool_counter = base_df.groupby(['pool', 'blocks'])['reference_blockNumber'].count().reset_index()
+df_pool_counter_pivot = df_pool_counter.pivot(index='blocks', columns='pool', values='reference_blockNumber')
 
-
-
-
-# best horizon for marginal gain r-squared
-
-# Balance R-squared and Observation Counts: Find a balance between R-squared and observation counts. 
-# A higher R-squared with a reasonable number of observations generally indicates a stronger model. 
-# However, a high R-squared with a very low observation count may indicate overfitting, 
-# where the model is fitting the noise or idiosyncrasies of the limited data rather than capturing meaningful patterns.
-
-# def select_model(r_squared_values, observation_counts):
-#     if len(r_squared_values) != len(observation_counts):
-#         raise ValueError("Lengths of input lists must match.")
-
-#     best_ratio = r_squared_values[1] / observation_counts[1]  # Initialize with the second model
-#     best_model_index = 1
-
-#     for i in range(2, len(r_squared_values)):  # Start from the second model
-#         ratio = r_squared_values[i] / observation_counts[i]
-#         if ratio > best_ratio:
-#             best_ratio = ratio
-#             best_model_index = i
-
-#     best_r_squared = r_squared_values[best_model_index]
-#     best_observation_count = observation_counts[best_model_index]
-
-#     return best_model_index, best_r_squared, best_observation_count
-
-
-
+# Replace `run_args` with your actual dictionary
+plot_dataframes(return_args, df_pool_counter_pivot)
 
 pass
