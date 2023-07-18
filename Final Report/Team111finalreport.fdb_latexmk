@@ -1,8 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1689682615 "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" "Team111finalreport.pdf" "Team111finalreport" 1689682616 0
-  "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1689681710 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
+["pdflatex"] 1689707692 "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" "Team111finalreport.pdf" "Team111finalreport" 1689707694 0
+  "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1689693664 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm0900.pk" 1687381430 10472 b62726e0930eee5876c074c8197100aa ""
-  "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1687377911 11548 45a50d5d71b91b1c40c5ac7c5666d27c ""
   "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1687377907 10334209 fa6ea665a32e9accfb57992c6fdba13b ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/tcrm0900.tfm" 993062508 1444 b1efc6b76338296f8076c1701e4660f3 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/tcrm1000.tfm" 993062508 1436 c7f957a372ef2fbe93c0982f96625e12 ""
@@ -31,6 +30,7 @@
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.pfb" 1247596667 32298 c6d25bb16d1eac01ebdc6d7084126a1e ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1247596667 30251 6afa5cb1d0204815a708a080681d4674 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1247596667 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
+  "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1247596667 36281 c355509802a035cadc5f15869451dcee ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1247596667 35752 024fb6c41858982481f6968b5fc26508 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1247596667 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1247596667 32734 69e00a6b65cedb993666e42eedb3d48f ""
@@ -38,6 +38,7 @@
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1247596667 32726 39f0f9e62e84beb801509898a605dbd5 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1247596666 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1247596666 32716 08e384dc442464e7285e891af9f45947 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1247596667 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti8.pfb" 1247596666 35660 fb24af7afbadb71801619f1415838111 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1247596667 31099 342ef5a582aacbd3346f3cf4579679fa ""
@@ -105,10 +106,11 @@
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656236890 56148 51a9a8571c07b9921892ae11063ae853 ""
   "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/R2Horizon.png" 1688946090 35453 61547627fa50e51ed253109f3e965ba7 ""
-  "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram.drawio.png" 1688944747 34511 08d96e42b7df7d39fa252979721387bc ""
-  "Team111finalreport.aux" 1689682615 1012 e1a15e15e53dd3650f7b62fadc421a9b "pdflatex"
-  "Team111finalreport.tex" 1689682613 20351 f7f751ec222abe9818ad6cf1b3d8fa34 ""
-  "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" 1689682613 20351 f7f751ec222abe9818ad6cf1b3d8fa34 ""
+  "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram/engineer.png" 1689702356 70785 85083390583e12602aaba5624be3ef49 ""
+  "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram/features.png" 1689702374 78539 d36b6a5f5e1c087b35fff7033b4e0090 ""
+  "Team111finalreport.aux" 1689707694 1395 b02ca724489cbee4428d7897feb63d14 "pdflatex"
+  "Team111finalreport.tex" 1689707692 30130 6ea47ce6f5d97993895f7984483564d6 ""
+  "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" 1689707692 30130 6ea47ce6f5d97993895f7984483564d6 ""
   (generated)
   "Team111finalreport.aux"
   "Team111finalreport.log"

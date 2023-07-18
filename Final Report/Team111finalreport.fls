@@ -545,23 +545,30 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\ams
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti8.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt8.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+OUTPUT Team111finalreport.pdf
+INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi9.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy9.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx9.tfm
-OUTPUT Team111finalreport.pdf
-INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram.drawio.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram.drawio.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram.drawio.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram.drawio.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram.drawio.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram.drawio.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram.drawio.png
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm0900.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
@@ -573,8 +580,6 @@ INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Res
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\R2Horizon.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\R2Horizon.png
 INPUT Team111finalreport.aux
-INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
-INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
 INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm0900.pk
 INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm0900.pk
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
@@ -587,6 +592,8 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\a
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi7.pfb
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi7.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
@@ -601,6 +608,8 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\a
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr9.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy7.pfb
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy7.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmti10.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmti10.pfb
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmti8.pfb
