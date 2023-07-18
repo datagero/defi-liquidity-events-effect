@@ -1,7 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1689707692 "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" "Team111finalreport.pdf" "Team111finalreport" 1689707694 0
+["pdflatex"] 1689712266 "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" "Team111finalreport.pdf" "Team111finalreport" 1689712267 0
   "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1689693664 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm0900.pk" 1687381430 10472 b62726e0930eee5876c074c8197100aa ""
+  "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1687377911 11548 45a50d5d71b91b1c40c5ac7c5666d27c ""
   "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1687377907 10334209 fa6ea665a32e9accfb57992c6fdba13b ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/tcrm0900.tfm" 993062508 1444 b1efc6b76338296f8076c1701e4660f3 ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/tcrm1000.tfm" 993062508 1436 c7f957a372ef2fbe93c0982f96625e12 ""
@@ -108,9 +109,9 @@
   "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/R2Horizon.png" 1688946090 35453 61547627fa50e51ed253109f3e965ba7 ""
   "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram/engineer.png" 1689702356 70785 85083390583e12602aaba5624be3ef49 ""
   "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram/features.png" 1689702374 78539 d36b6a5f5e1c087b35fff7033b4e0090 ""
-  "Team111finalreport.aux" 1689707694 1395 b02ca724489cbee4428d7897feb63d14 "pdflatex"
-  "Team111finalreport.tex" 1689707692 30130 6ea47ce6f5d97993895f7984483564d6 ""
-  "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" 1689707692 30130 6ea47ce6f5d97993895f7984483564d6 ""
+  "Team111finalreport.aux" 1689712267 1622 874d67cc375739a577d4eb944b509d7e "pdflatex"
+  "Team111finalreport.tex" 1689712265 27625 fcae7dbb0124c9596480509544fd2cce ""
+  "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" 1689712265 27625 fcae7dbb0124c9596480509544fd2cce ""
   (generated)
   "Team111finalreport.aux"
   "Team111finalreport.log"

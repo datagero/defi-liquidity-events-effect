@@ -72,72 +72,65 @@ Uniswap operates without a central authority, ensuring privacy, fund control, an
 
 Liquidity pools in DEXs enable direct interaction with smart contracts, ensuring continuous liquidity but exposing liquidity providers to impermanent loss risks. Prices are influenced by trade size, market conditions, supply-demand dynamics, and external price changes. Swaps and liquidity provision events, such as token minting and burning, significantly impact trading volumes. Indirect effects from network correlations and arbitrage opportunities can also influence trading volumes across pools.
 
-\section*{\textbf{Introduction to Techniques Used to Solve the Problem}}
-
-To address the problem statement and achieve our objectives, we will employ various techniques in our analysis. These techniques are commonly used in data analytics and quantitative research to explore relationships, make predictions, and gain insights from complex datasets. In this section, we provide an overview of the key techniques we will utilize in our study.
-
-\subsection*{Regression Analysis}
-
-Regression analysis is a widely used statistical technique for examining the relationship between a dependent variable and one or more independent variables. In our study, we will employ regression models, specifically Ordinary Least Squares (OLS) regression, to investigate the impact of liquidity pool size on trading volume. OLS regression allows us to estimate the coefficients of the independent variables and assess their significance in explaining the variation in the dependent variable.
-
-\subsection*{Feature Engineering}
-
-Feature engineering is the process of creating new features from existing data to improve the performance of machine learning models. In our analysis, we will perform feature engineering to construct additional variables that capture relevant information about liquidity pool dynamics, spillover effects, and price divergences. These engineered features will enhance the predictive power of our models and enable us to uncover meaningful patterns and relationships in the data.
-
-\subsection*{Exploratory Data Analysis}
-
-Exploratory Data Analysis (EDA) is an essential step in understanding and summarizing the main characteristics of a dataset. We will conduct EDA to generate descriptive statistics, visualizations, and correlation analyses. EDA will help us identify trends, outliers, and relationships between variables, providing valuable insights into the behavior of liquidity pool size and trading volume in BTC-ETH pools.
-
-\subsection*{Model Evaluation and Optimization}
-
-Model evaluation and optimization are crucial steps in developing accurate and robust predictive models. We will evaluate the performance of our regression models using metrics such as R-squared, which measures the proportion of variance in the dependent variable explained by the independent variables. Through model optimization, we will refine our feature selection, address multicollinearity, and explore alternative functional forms to improve the accuracy and interpretability of the models.
-
-These techniques, along with our structured methodology, will enable us to analyze the relationship between liquidity pool size and trading volume in BTC-ETH pools effectively. By leveraging these techniques, we aim to provide valuable insights and recommendations to enhance liquidity provision, optimize trading strategies, and improve the efficiency of DeFi marketplaces.
 
 
 
+\section*{\textbf{Analytical Methodology and Achievements}}
 
-\section*{Approach and Progress}
-Overall, significant progress has been made in each stage of our approach. However, further analysis, evaluation, and optimization are required to successfully complete the project.
-
-Throughout this process, we aim to maintain rigorous documentation of our methodologies and findings, which will allow us to ensure the transparency and replicability of our research.
+To tackle the problem statement and fulfill our objectives, our study utilized an array of techniques, including regression analysis, feature engineering, exploratory data analysis (EDA), and model evaluation and optimization. These methods were instrumental in deciphering the complex datasets and extracting valuable insights.
 
 \begin{table}[htbp]
 \centering
 \small
 \begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|}
 \hline
-\textbf{Data Collection:} Sourced data from multiple APIs (Uniswap, Binance) for liquidity pool sizes, trading volumes, and relevant variables. Data has been associated with Ethereum block numbers for consistent time measurement. Despite API rate limits, most of the data has been collected successfully. \\
+\textbf{Feature Engineering:} Our models' predictive power was enhanced by creating new features from existing data. This process effectively captured crucial information about liquidity pool dynamics, spillover effects, and price divergences. \\
 \hline
-\textbf{Data Preprocessing:} Cleaned, formatted, and addressed missing values in the dataset. Data consistency ensured and discrepancies from multiple sources addressed. Preprocessing completed with further examination of missing values in independent variables. Records with null values temporarily removed for continued analysis. \\
+\textbf{Modelling and Optimization:} Through the application of Ordinary Least Squares (OLS) regression, we examined the relationship between liquidity pool size and trading volume, which offered profound insights into their interplay. Model performance was assessed using metrics such as R-squared, while we optimized feature selection, corrected multicollinearity, and explored alternative functional forms for improved model accuracy and interpretability. \\
 \hline
-\textbf{Feature Engineering:} Constructed features to capture historical patterns, spillover effects, and price divergences utilizing a block-based time-series analysis framework. Feature engineering mostly complete, handling most direct pool features with finite lag. A review is planned to reduce the number of null values, include other feature categories, and perform feature selection. \\
-\hline
-\textbf{Exploratory Data Analysis:} Generated descriptive statistics, visualizations, and performed correlation analyses to uncover patterns, trends, and relationships between variables. In-depth exploratory data analysis will be performed once all features have been engineered, with various correlations and trends identified among the variables. \\
-\hline
-\textbf{Model Selection and Development:} Implemented a multivariate regression model (OLS) to investigate the pool size-trading volume relationship. Predicted target variables at different horizons with the application of lagged variables. OLS regression models have been developed and tested. Additional model testing and optimization in progress. \\
-\hline
-\textbf{Model Evaluation and Optimization:} Models evaluated using R-squared metric. Initial analyses indicate that model performance can be enhanced through further feature engineering/selection and reducing multicollinearity. Conducting correlation analysis and Variance Inflation Factor (VIF) for the final features. \\
-\hline
-\textbf{Final Analysis and Conclusions:} In the final stages of analysis. Commencing with drawing conclusions and communicating findings. Preparing to provide quantitative-driven insights. \\
+\textbf{Innovations:} Building on the reference paper, we implemented the underlying code in Python, thus creating a robust data model to explore interactions between two liquidity pools more effectively. Furthermore, we developed a mathematical language to facilitate the data engineering aspects of the data model. \\
 \hline
 \end{tabularx}
-\caption{Approach and Progress}
-\label{fig:approach-progress}
+\caption{Analytical Techniques and Main Contributions}
+\label{fig:analytical-techniques}
 \end{table}
 
+Substantial accomplishments were achieved at each stage, leading to a robust analysis and valuable results.
 
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|}
+\hline
+\textbf{Data Collection:} We sourced data from multiple APIs (Uniswap, Binance) successfully, and associated this data with Ethereum block numbers for consistent time measurement. \\
+\hline
+\textbf{Data Preprocessing:} We maintained data consistency, addressed discrepancies from different sources, and efficiently cleaned, formatted, and handled missing values in the dataset. \\
+\hline
+\textbf{Exploratory Data Analysis (EDA):} Utilizing EDA, we generated descriptive statistics, visualizations, and correlation analyses. This approach facilitated the identification of trends, outliers, and the relationships between variables. \\
+\hline
+\textbf{Final Analysis and Conclusions:} We articulated our findings and conclusions, providing quantitatively-driven insights with the potential to enhance liquidity provision, optimize trading strategies, and improve the efficiency of DeFi marketplaces. \\
+\hline
+\textbf{Confirmation of Results:} Our results largely coincide with those in the reference paper, with minor discrepancies likely due to the techniques used and features available. Notably, we utilized fewer features and feature categories than the reference paper, which might explain the minor divergences observed in our results. \\
+\hline
+\end{tabularx}
+\caption{Supporting Work and Confirmation of Results}
+\label{fig:approach-accomplishments}
+\end{table}
 
-\vspace{-2em} % Reduce vertical spacing here
+Our work provides a significant contribution by offering an open framework that allows other researchers and professionals to conduct further research in this field. This outcome not only answers our problem statement but also opens avenues for future exploration.
+
 \section*{Challenges and Insights}
 
-Data collection and processing required significant effort due to the advanced engineering involved. Notably, we faced challenges with the rate limits of the Etherscan free-tier API when gathering data via Python API calls.
+Our main challenges were data collection and processing due to intricate engineering and the rate limits of the Etherscan free-tier API. Nonetheless, we overcame these hurdles and made significant progress in understanding liquidity pool dynamics.
 
-We've adopted two time concepts to analyze liquidity pool dynamics\footnote{\textit{"DeFi: modeling and forecasting trading volume on Uniswap v3 liquidity pools"} (2023), \url{https://ssrn.com/abstract=444535}}. The "trading clock", defined by a block containing a mint operation, captures data temporal dynamics. A "time horizon" concept was introduced, defined every ten blocks up to the next mint operation, providing insights into the predictive power of independent variables over different timeframes.
+We embraced two time concepts—"trading clock" and "time horizon"—which enabled us to thoroughly explore both short and long-term trends. This detailed analysis offered invaluable insights for decision-making and risk management in the DeFi ecosystem.
 
-Combined, these concepts allow a comprehensive exploration of short and long-term trends, informing decision-making and risk management in the DeFi ecosystem. Considering Uniswap operates on the Ethereum blockchain with a 14 seconds block time, these insights are invaluable.
+We successfully addressed complexities in understanding entry-level liquidity pool mathematics and integrated the associated formulas into calculations.py functions. This step significantly enriched our feature derivation and bolstered our overall analysis.
 
-The complexities of liquidity pool mathematics\footnote{\textit{"Liquidity Math in Uniswap V3"} (2021), \url{https://atiselsts.github.io/pdfs/uniswap-v3-liquidity-math.pdf}}\footnote{\textit{"A Primer on Uniswap v3 Math: As Easy As 1, 2, v3"} (2023), \url{https://blog.uniswap.org/uniswap-v3-math-primer}} presented hurdles, but we've captured the formulas to our best understanding in calculations.py functions. Given more time, we aim to refine these for enhanced feature derivation.
+\textbf{Key Note:}
+\begin{itemize}
+\item Our main focus during the development process was programming and data structure, leading to our code's modular design. Consequently, the mathematical formulas used in the feature engineering stage were not rigorously tested or based on an in-depth understanding of the underlying liquidity mathematics. There is room for improvement, and we encourage peer-review of the calculations.py module. The modular nature of our model presents a prime opportunity for further research.
+\end{itemize}
 
 
 
