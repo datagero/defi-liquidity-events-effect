@@ -45,53 +45,6 @@ def create_figures_dict(r_squared_values, horizon_values, observation_counts, re
         "reference_pool": title + str(reference_pool)
     }
 
-
-# def predict_for_all_horizons(models, df, target_variable, explainable_variables):
-#     horizon_labels = df['horizon_label'].unique() 
-
-#     y_pred_values = []
-#     y_true_values = []
-#     r_squared_values = []
-#     r_squared_adj_values = []
-#     horizon_values = []
-#     observation_counts = []
-
-#     for horizon in horizon_labels:
-#         subset_data = df[df['horizon_label'] == horizon]
-#         X = subset_data[explainable_variables]
-#         y = subset_data[target_variable]
-
-#         # Predict the data
-#         y_pred = models[horizon].predict(X)
-#         y_pred_values.append(y_pred)
-#         y_true_values.append(y)
-
-
-#         # Total Sum of Squares (TSS)
-#         y_mean = np.mean(y)
-#         TSS = np.sum((y - y_mean)**2)
-
-#         # Residual Sum of Squares (RSS)
-#         residuals = y - y_pred
-#         RSS = np.sum(residuals**2)
-
-#         # R-squared
-#         r_squared = 1 - (RSS / TSS)
-
-#         # Adjusted R-squared
-#         n = len(y)  # number of observations
-#         p = len(explainable_variables)  # number of predictors
-#         r_squared_adj = 1 - (1 - r_squared) * ((n - 1) / (n - p - 1))
-
-#         # Save the results
-#         r_squared_values.append(r_squared)
-#         r_squared_adj_values.append(r_squared_adj)
-#         horizon_values.append(horizon * 10)
-#         observation_counts.append(len(X))
-
-#     return (model, (r_squared_values, r_squared_adj_values, horizon_values, observation_counts))
-
-
 def split_data(df, test_size=0.2):
     unique_block_numbers = df['reference_blockNumber'].unique()
     train_block_numbers, test_block_numbers = train_test_split(unique_block_numbers, test_size=test_size, random_state=42)
