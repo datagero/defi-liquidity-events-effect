@@ -146,8 +146,7 @@ def create_interval_dataframes(df_blocks, df, pool_col):
                     if row['hashid'] not in dataframes:
                         dataframes[row['hashid']] = {}
 
-                    #key = f"{i}_{i+1}"
-                    key = f"{i}"
+                    key = i
                     dataframes[row['hashid']][key] = {
                         'blockTime': reference_start - interval_end,
                         'df': df_interval}

@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Team111finalreport.aux
+Reallocating 'name_of_file' (item size: 1) to 6 items.
+The style file: alpha.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Database file #1: references.bib
+Warning--I didn't find a database entry for "defipaper2023"
+You've used 14 entries,
+            2543 wiz_defined-function locations,
+            609 strings with 6224 characters,
+and the built_in function-call counts, 3885 in all, are:
+= -- 381
+> -- 123
+< -- 13
++ -- 41
+- -- 32
+* -- 174
+:= -- 650
+add.period$ -- 49
+call.type$ -- 14
+change.case$ -- 71
+chr.to.int$ -- 6
+cite$ -- 14
+duplicate$ -- 178
+empty$ -- 327
+format.name$ -- 59
+if$ -- 798
+int.to.chr$ -- 9
+int.to.str$ -- 0
+missing$ -- 7
+newline$ -- 80
+num.names$ -- 42
+pop$ -- 114
+preamble$ -- 1
+purify$ -- 85
+quote$ -- 0
+skip$ -- 137
+stack$ -- 0
+substring$ -- 99
+swap$ -- 15
+text.length$ -- 13
+text.prefix$ -- 13
+top$ -- 0
+type$ -- 112
+warning$ -- 0
+while$ -- 29
+width$ -- 18
+write$ -- 181
+(There was 1 warning)

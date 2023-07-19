@@ -1,0 +1,90 @@
+\begin{thebibliography}{Ano23h}
+
+\bibitem[Ano23a]{defi-characterisation-2023}
+Anonymous.
+\newblock Defi: Data-driven characterisation of uniswap v3 ecosystem.
+\newblock In {\em Proceedings of the XYZ Conference on DeFi}, 2023.
+
+\bibitem[Ano23b]{defi2023uniswap}
+Anonymous.
+\newblock Defi: Modeling and forecasting trading volume on uniswap v3 liquidity
+  pools.
+\newblock \url{https://ssrn.com/abstract=444535}, 2023.
+\newblock \par Note: This project is inspired by the above paper, from which
+  the main methodology is borrowed, replicated, and expanded.
+
+\bibitem[Ano23c]{defi-modeling-2023}
+Anonymous.
+\newblock Defi: Modeling and forecasting trading volume on uniswap v3 liquidity
+  pools.
+\newblock \url{https://ssrn.com/abstract=444535}, 2023.
+\newblock \par Note: This project is inspired by the above paper, from which
+  the main methodology is borrowed, replicated, and expanded.
+
+\bibitem[Ano23d]{github-repo}
+Anonymous.
+\newblock Github repository.
+\newblock
+  \url{https://github.gatech.edu/MGT-6203-Summer-2023-Canvas/Team-111/tree/main/Code},
+  2023.
+\newblock \par Note: The GitHub repository associated with this project
+  contains the code and additional details.
+
+\bibitem[Ano23e]{impermanentloss2023}
+Anonymous.
+\newblock Impermanent loss and risk profile of a liquidity provider.
+\newblock {\em Journal of Decentralized Finance}, 2023.
+
+\bibitem[Ano23f]{uniswapv3math2023}
+Anonymous.
+\newblock Mathematical analysis of uniswap v3 liquidity pools.
+\newblock {\em Journal of Mathematical Cryptoeconomics}, 2023.
+
+\bibitem[Ano23g]{yield_farming_protocols}
+Anonymous.
+\newblock Reap the harvest on blockchain: A survey of yield farming protocols.
+\newblock {\em Journal of Cryptoeconomic Systems}, 2023.
+
+\bibitem[Ano23h]{risks_returns_uniswap}
+Anonymous.
+\newblock Risks and returns of uniswap v3 liquidity providers.
+\newblock {\em Journal of Cryptocurrency and DeFi Studies}, 2023.
+
+\bibitem[Ano23i]{risksreturns2023}
+Anonymous.
+\newblock Risks and returns of uniswap v3 liquidity providers.
+\newblock {\em Journal of Cryptocurrency and DeFi Studies}, 2023.
+
+\bibitem[Anown]{defillama}
+Anonymous.
+\newblock Defillama.
+\newblock \url{https://defillama.com/}, Year Unknown.
+\newblock \par Note: DefiLlama is a popular platform that provides real-time
+  data and analytics for decentralized finance (DeFi) protocols and liquidity
+  pools.
+
+\bibitem[Bin]{binance_cex_data}
+Binance.
+\newblock Cex data for ethbtc.
+\newblock
+  \url{https://github.com/binance/binance-public-data/blob/master/python/README.md}.
+\newblock Accessed: yyyy-mm-dd.
+
+\bibitem[Eth]{etherscan_api}
+Etherscan.
+\newblock Api.
+\newblock \url{https://api.etherscan.io/api}.
+\newblock Accessed: yyyy-mm-dd.
+
+\bibitem[MS21]{makarov2021cryptocurrencies}
+Igor Makarov and Antoinette Schoar.
+\newblock Cryptocurrencies and decentralized finance (defi).
+\newblock {\em NBER Working Paper No. 28955}, 2021.
+
+\bibitem[Uni]{uniswap_graph_api}
+Uniswap.
+\newblock The graph api.
+\newblock \url{https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3}.
+\newblock Accessed: yyyy-mm-dd.
+
+\end{thebibliography}

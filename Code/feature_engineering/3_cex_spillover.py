@@ -4,8 +4,12 @@ import numpy as np
 from tqdm import tqdm
 from utils.build_intervals import create_interval_dataframes
 
+CLEANSED_FILEPATH = "DataIterim/cleansed"
+ITERIM_RESULTS_DIR = "DataIterim/interim_results"
+PROCESSED_DIR = "Data/processed"
+
 class CEX_SpilloverProcessor:
-    def __init__(self, interim_results_dir="Data/interim_results", binance_filepath="Data/cleansed/binance.csv"):
+    def __init__(self, interim_results_dir=ITERIM_RESULTS_DIR, binance_filepath=os.path.join(CLEANSED_FILEPATH, "binance.csv")):
         self.interim_results_dir = interim_results_dir
         self.binance_filepath = binance_filepath
 
@@ -103,7 +107,7 @@ class CEX_SpilloverProcessor:
 
         df_cex_spillovers = df_cex_spillovers[order_cols]
         if write:
-            df_cex_spillovers.to_csv('Data/processed/cex_spillovers.csv')
+            df_cex_spillovers.to_csv(os.path.join(PROCESSED_DIR, 'cex_spillovers.csv'))
 
 if __name__ == '__main__':
     processor = CEX_SpilloverProcessor()

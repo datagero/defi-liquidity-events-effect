@@ -24,9 +24,8 @@ from utils.build_intervals import calculate_intervals, calculate_other_intervals
 
 # Constants
 SHIFT_PERIODS = range(0, 4) # Define shift periods for the intervals
-UNISWAP_FILEPATH = "Data/cleansed/uniswap.csv"
-ETHERSCAN_FILEPATH = "Data/cleansed/etherscan.csv"
-RESULTS_DIR = "Data/interim_results"
+CLEANSED_FILEPATH = "DataIterim/cleansed"
+RESULTS_DIR = "DataIterim/interim_results"
 
 
 def validate_block_number_order(df):
@@ -151,12 +150,10 @@ def log_count_transaction_types(df, log_comment=''):
 def main():
     ## DEX Data
     # Read uniswap cleansed data
-    uniswap_filepath = "Data/cleansed/uniswap.csv"
-    df_uniswap = clean_uniswap_data(uniswap_filepath)
+    df_uniswap = clean_uniswap_data(os.path.join(CLEANSED_FILEPATH, "uniswap.csv"))
 
     # Read etherscan cleansed data
-    etherscan_filepath = "Data/cleansed/etherscan.csv"
-    df_etherscan = clean_etherscan_data(etherscan_filepath)
+    df_etherscan = clean_etherscan_data(os.path.join(CLEANSED_FILEPATH, "etherscan.csv"))
 
     # Merge uniswap and etherscan dataframes
     df_dex = pd.merge(df_uniswap, df_etherscan, how='inner', left_on='id', right_on='hash')
@@ -180,7 +177,4 @@ def main():
     save_interim_results(df_dex_reduced, df_blocks, df_blocks_full, interval_dataframes, RESULTS_DIR)
 
 if __name__ == "__main__":
-    main()
-
-
-
+   main()

@@ -2,6 +2,8 @@ import pandas as pd
 from utils.visualisations import plot_dataframes
 from utils.cols_management import cols_drop_correlated, cols_aggregate_intervals_range
 import utils.ols as ols
+import itertools
+
 
 
 target_variables = ['cum_volume_500', 'cum_volume_3000', 'cum_volume_base']
@@ -11,6 +13,14 @@ run_args = {
     500: target_variables
 }
 return_args = {}
+
+print("All Inscope combinations for target_variables and run_args:")
+print("Reference Pool, Target Variable")
+for arg_value, arg_targets in run_args.items():
+    combinations = list(itertools.product([arg_value], arg_targets))
+    print(combinations)
+
+
 all_figs = []
 
 remove_list = ['vol_0_1', 'vol_0_2', 'vol_0_3', 'avg-USD-iother_01', 'rate-USD-iother_01']
@@ -27,10 +37,12 @@ for reference_pool, target_variables in run_args.items():
     return_args[reference_pool]['reduced_multicollinearity'] = {'train': {}, 'test': {}}
     # return_args[reference_pool]['step-wise'] = {'train': {}, 'test_data': {}}
     for target_variable in target_variables:
+        print("\n=========================================================")
+        print("Processing: {}-{}".format(reference_pool, target_variable))
 
         if 'all_features' in return_args[reference_pool]:
             df_raw = pd.read_csv(f"Data/processed/features/df_features_raw_ref{reference_pool}.csv")
-            df, explainable_variables_filtered = ols.prepare_dataframe(df_raw, remove_list)
+            df, explainable_variables_filtered = ols.prepare_dataframe(df_raw, remove_list) # Exclusive for "all_features" model - A standard remove list due to multicollinearity and high number of nulls
             models, train_metrics, test_metrics = train_and_predict_for_all_horizons(df, target_variable, explainable_variables_filtered)
             return_args[reference_pool]['all_features']['train'][target_variable] = train_metrics
             return_args[reference_pool]['all_features']['test'][target_variable] = ols.cross_validate_for_all_horizons(df, target_variable, explainable_variables_filtered, k=5)
