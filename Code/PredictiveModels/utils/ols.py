@@ -1,19 +1,23 @@
 
-import statsmodels.api as sm
 from sklearn.model_selection import train_test_split
-import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from scipy.stats import t
-import numpy as np
 from utils.clean_independent import replace_nulls, remove_nulls, aggregate_columns_by_interval
 from utils.cols_management import explainable_variables, cols_replace_nulls
+
+
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
 from sklearn.model_selection import GroupKFold
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from scipy.stats import t
 
-def filter_explainable_variables(variables, remove_list):
+
+def filter_explainable_variables(variables, remove_list, new_list=[]):
     """Remove specified variables from the list of explainable variables."""
-    return [var for var in variables if var not in remove_list]
-
+    inscope = [var for var in variables if var not in remove_list]
+    to_add = [var for var in new_list if var not in inscope]
+    return inscope + to_add
 
 def prepare_dataframe(df_raw, remove_list):
     """Prepare dataframe by cleaning and removing unnecessary columns."""
@@ -31,8 +35,8 @@ def prepare_dataframe_engineered(df_raw, remove_list, aggregate_list):
     df_filtered = df_dropped[df_dropped['horizon_label'] <= 30]
     explainable_variables_filtered = filter_explainable_variables(explainable_variables, remove_list)
     df_na = remove_nulls(df_filtered, explainable_variables_filtered, logs=True)
-    df_aggregated, dropped = aggregate_columns_by_interval(df_na, aggregate_list)
-    explainable_variables_filtered_aggregated = filter_explainable_variables(explainable_variables_filtered, dropped)
+    df_aggregated, dropped, new = aggregate_columns_by_interval(df_na, aggregate_list)
+    explainable_variables_filtered_aggregated = filter_explainable_variables(explainable_variables_filtered, dropped, new)
     return df_aggregated, explainable_variables_filtered_aggregated
 
 
@@ -109,11 +113,15 @@ def train_and_predict_for_all_horizons(df, target_variable, explainable_variable
 
     return trained_models, train_metrics, test_metrics
 
-def cross_validate_for_all_horizons(df, target_variable, explainable_variables, k=5):
+def cross_validate_for_all_horizons(df, target_variable, explainable_variables, k=5, log_target=True):
     horizon_labels = df['horizon_label'].unique()
 
     trained_models = {}
-    metrics = []
+    train_metrics = []  # List to store train metrics
+    test_metrics = []  # List to store test metrics
+
+    test_data = []  # List to store test data
+    test_predictions = []
 
     gkf = GroupKFold(n_splits=k)
 
@@ -124,12 +132,31 @@ def cross_validate_for_all_horizons(df, target_variable, explainable_variables, 
 
         groups = subset['reference_blockNumber']  # Groups for GroupKFold
 
-        r_squared_values = []
-        r_squared_adj_values = []
+        train_r_squared_values = []
+        train_r_squared_adj_values = []
+        test_r_squared_values = []
+        test_r_squared_adj_values = []
 
         for train_index, test_index in gkf.split(X, y, groups):
             X_train, X_test = X[train_index], X[test_index]
             y_train, y_test = y[train_index], y[test_index]
+
+            #compute the standard deviation of the features in the train set, and we divide both the train and test sets by these values
+            X_train_std = np.std(X_train, axis=0)
+            X_train = X_train / X_train_std
+            X_test = X_test / X_train_std
+
+            # Replace zeros with very small values
+            y_train[y_train == 0] = 1e-10
+            y_test[y_test == 0] = 1e-10
+            
+            if log_target:
+                # Taking the logarithm in base 10 of our responses
+                y_train = np.log10(y_train)
+                y_test = np.log10(y_test)
+
+            X_train = sm.add_constant(X_train)
+            X_test = sm.add_constant(X_test)
 
             # Fit the OLS model
             model = sm.OLS(y_train, X_train)
@@ -137,35 +164,51 @@ def cross_validate_for_all_horizons(df, target_variable, explainable_variables, 
 
             trained_models[horizon] = results
 
+            # Predict the train data
+            y_train_pred = results.predict(X_train)
             # Predict the test data
-            y_pred = results.predict(X_test)
+            y_test_pred = results.predict(X_test)
 
             # Total Sum of Squares (TSS)
-            y_mean = np.mean(y_test)
-            TSS = np.sum((y_test - y_mean)**2)
+            y_train_mean = np.mean(y_train)
+            TSS_train = np.sum((y_train - y_train_mean)**2)
+            y_test_mean = np.mean(y_test)
+            TSS_test = np.sum((y_test - y_test_mean)**2)
 
             # Residual Sum of Squares (RSS)
-            residuals = y_test - y_pred
-            RSS = np.sum(residuals**2)
+            train_residuals = y_train - y_train_pred
+            RSS_train = np.sum(train_residuals**2)
+            test_residuals = y_test - y_test_pred
+            RSS_test = np.sum(test_residuals**2)
 
             # R-squared
-            r_squared_test = 1 - (RSS / TSS)
+            train_r_squared = 1 - (RSS_train / TSS_train)
+            test_r_squared = 1 - (RSS_test / TSS_test)
 
             # Adjusted R-squared
-            n = len(y_test)  # number of observations
+            n_train = len(y_train)  # number of train observations
             p = len(explainable_variables)  # number of predictors
-            r_squared_adj_test = 1 - (1 - r_squared_test) * ((n - 1) / (n - p - 1))
+            train_r_squared_adj = 1 - (1 - train_r_squared) * ((n_train - 1) / (n_train - p - 1))
+            n_test = len(y_test)  # number of test observations
+            test_r_squared_adj = 1 - (1 - test_r_squared) * ((n_test - 1) / (n_test - p - 1))
 
-            r_squared_values.append(r_squared_test)
-            r_squared_adj_values.append(r_squared_adj_test)
+            train_r_squared_values.append(train_r_squared)
+            train_r_squared_adj_values.append(train_r_squared_adj)
+            test_r_squared_values.append(test_r_squared)
+            test_r_squared_adj_values.append(test_r_squared_adj)
 
-        metrics.append((horizon * 10, len(X), np.mean(r_squared_values), np.mean(r_squared_adj_values)))
+            # Store the test data and predictions from the last fold
+            test_data.append((X_test, y_test))
+            test_predictions.append(y_test_pred)
 
-    return metrics
+        train_metrics.append((horizon * 10, len(X), np.mean(train_r_squared_values), np.mean(train_r_squared_adj_values)))
+        test_metrics.append((horizon * 10, len(X), np.mean(test_r_squared_values), np.mean(test_r_squared_adj_values)))
+
+    return trained_models, train_metrics, test_metrics, test_data, test_predictions
 
 
 
-def stepwise_selection(df, target, explanatory_vars, significance_level=0.05):
+def stepwise_selection(df, target, explanatory_vars, significance_level=0.10):
     initial_features = explanatory_vars.copy()
     best_features = []
 

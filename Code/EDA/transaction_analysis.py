@@ -50,7 +50,9 @@ def get_interval_metrics(data):
 
                     df = interval_metrics.get('df')
                     if not df.empty:
-                        size = len(df)
+                        size = df.shape[0]
+                        if size == 1115:
+                            pass
                         if size < interval_ranges[interval]['row_count']['min']:
                             interval_ranges[interval]['row_count']['min'] = size
                         if size > interval_ranges[interval]['row_count']['max']:
@@ -60,11 +62,11 @@ def get_interval_metrics(data):
 
     return pool_ranges
 
-# with open(os.path.join(RESULTS_DIR, "interval_dataframes.pickle"), "rb") as pickle_file:
-#     data = pickle.load(pickle_file)
+with open(os.path.join(RESULTS_DIR, "interval_dataframes.pickle"), "rb") as pickle_file:
+    data = pickle.load(pickle_file)
 
-# metrics = get_interval_metrics(data)
-# print(metrics)
+metrics = get_interval_metrics(data)
+print(metrics)
 
 
 
@@ -77,7 +79,7 @@ def analyse_transaction_counts():
     df_reduced = pd.read_csv(os.path.join(results_dir, "df_reduced.csv"))
 
     df_reduced['timestamp'] = pd.to_datetime(df_reduced['timestamp'])
-    df_reduced['date'] = df_reduced['timestamp'].dt.month
+    df_reduced['date'] = df_reduced['timestamp'].dt.date
 
     # Group the data by timestamp and pool and count the number of transactions
     grouped = df_reduced.groupby(['date', 'pool', 'transaction_type']).size().reset_index(name='transaction_count')

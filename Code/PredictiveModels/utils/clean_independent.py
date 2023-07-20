@@ -83,10 +83,11 @@ def aggregate_columns_by_interval(df, cols_aggregate_intervals_range):
         List of dropped columns after aggregation.
     """
     dropped_cols = []
+    new_cols = []
     for interval in cols_aggregate_intervals_range:
         cols_aggregate_intervals = [col for col in df.columns if col.startswith(interval)]
         df[interval + '03'] = df[cols_aggregate_intervals].sum(axis=1)
         df = df.drop(columns=cols_aggregate_intervals)
         dropped_cols.extend(cols_aggregate_intervals)
-
-    return df, dropped_cols
+        new_cols.append(interval + '03')
+    return df, dropped_cols, new_cols
