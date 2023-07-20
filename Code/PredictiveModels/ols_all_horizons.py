@@ -66,6 +66,11 @@ for reference_pool, target_variables in run_args.items():
             return_args[reference_pool]['step-wise']['train'][target_variable] = train_metrics
             return_args[reference_pool]['step-wise']['test'][target_variable] = test_metrics
 
+print("Number of Features for each model:")
+print("All Features: {}".format(len(explainable_variables_filtered)))
+print("Reduced Multicollinearity: {}".format(len(explainable_variables_filtered_aggregated2)))
+print("Step-wise: {}".format(len(selected_features3)))
+
 # Iterim, get rough count of train and tests datasets per pool
 base_df = pd.read_csv(f"Data/processed/features/df_features_raw_refbase.csv")
 base_df = base_df[base_df['horizon_label'] <= 30]

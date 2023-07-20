@@ -802,6 +802,7 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
+INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr6.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi9.tfm
@@ -813,7 +814,6 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\ams
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx9.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
-INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
@@ -829,7 +829,6 @@ INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Res
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
@@ -838,31 +837,39 @@ INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Res
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\transaction_counts.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\transaction_counts.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\transaction_counts.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\transaction_counts.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\transaction_counts.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\transaction_counts.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\transaction_counts.png
 INPUT .\Team111finalreport.bbl
 INPUT .\Team111finalreport.bbl
 INPUT .\Team111finalreport.bbl
