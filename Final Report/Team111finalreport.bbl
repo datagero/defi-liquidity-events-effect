@@ -5,13 +5,6 @@ binance-public-data.
 \newblock
   \url{https://github.com/binance/binance-public-data/blob/master/python/README.md}.
 
-\bibitem{defillama}
-defillama.
-\newblock \url{https://defillama.com/}.
-\newblock \par Note: DefiLlama is a popular platform that provides real-time
-  data and analytics for decentralized finance (DeFi) protocols and liquidity
-  pools.
-
 \bibitem{etherscanAPI}
 etherscanapi.
 \newblock \url{https://api.etherscan.io/api}.

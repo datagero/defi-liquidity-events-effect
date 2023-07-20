@@ -41,40 +41,40 @@
   Team \#111 \\
    \scriptsize Matias Vizcaino (avizcaino3) | Walter Jack Simmons (wsimmons35) | Vítor de Matos Castilho (vcastilho3)
 }
-\date{09 July 2023}
+\date{20 July 2023}
 \maketitle
 
 \noindent
 % {\setlength{\tabcolsep}{4pt} % Reduce column spacing
 
 
-\section*{\textbf{Problem Statement and Objective}}
+\begin{abstract}
+  This paper investigates the dynamics of BTC-ETH liquidity pools on the Uniswap decentralized exchange, with a specific emphasis on the relationship between liquidity pool size and cumulative trading volume. Using an ordinary least squares regression model with lagged explanatory variables, we analyze the activity in the WBTC-WETH 3000 and 500 tick pools on Uniswap v3. We employ a data-driven approach, engineering features from Uniswap and Etherscan data, and take into account spillover effects from the Binance centralized exchange. Our findings confirm a direct correlation between liquidity pool size, increased mint frequency, immediate trading volumes, and cumulative trading volume. We also identify a significant spillover effect from centralized exchange activity on decentralized exchange pools. These insights offer important strategic guidance for liquidity providers, traders, and architects of decentralized exchanges. However, the potential multicollinearity of features and a predominantly linear modeling assumption call for caution in interpretation. Future work should consider employing nonlinear models and exploring other factors such as price divergences, impermanent loss, and inherent risk factors.
+\end{abstract}
+  
+\section*{\textbf{Introduction}}
 
-Decentralized Finance (DeFi), hosting about 48.78 billion USD in total value (as of April 23, 2023\cite{defillama}), relies heavily on liquidity pools in decentralized exchanges like Uniswap for efficient crypto trading. These pools, using an automated market maker model, earn from trading fees, participation rewards, and interest, distributed among liquidity providers based on their pool share\cite{Miori2022,Aigner2021,Xu2023}.
+Decentralized Finance (DeFi) has rapidly evolved into a crucial segment of the blockchain ecosystem, contributing significantly to the democratization of financial services. At its core, DeFi is governed by a network of decentralized exchanges (DEXs), such as Uniswap, which rely extensively on liquidity pools for the efficient operation of trading activities. Liquidity pools, empowered by an automated market maker model, are one of the vital cogs in the DeFi machine, underpinning the entire transaction mechanism on these platforms\cite{Miori2022,Aigner2021,Xu2023}.
 
-This study primarily \textbf{aims to examine the influence of pool size on trading volume, specifically in BTC-ETH liquidity pools in exchanges like Uniswap}. It hypothesizes a direct correlation between pool size and trading volume, supported by existing studies\cite{Miori2022,Heimbach2022}. Our study confirms a strong relationship between liquidity pool sizes and trading volumes in BTC-ETH pools, providing valuable insights for market participants and future research. This understanding could optimize liquidity provision, enhance DeFi market efficiency, and benefit stakeholders. For instance, liquidity providers could improve fee returns and risk management, traders could refine strategies, and DeFi platforms could develop more effective liquidity pools\cite{Makarov2022,Miori2023}.
+Given the centrality of liquidity pools in the DeFi landscape, understanding their dynamics and operational parameters is crucial. Notably, the WBTC-WETH liquidity pools on Uniswap serve as a significant focus, due to the considerable trading volume and liquidity they command. Therefore, this study delves into the exploration of these liquidity pools, investigating their intrinsic dynamics and external influences.
+
+This study investigates these pools, specifically how pool size affects trading volume. Our research and code offers insights and practical value for liquidity providers, traders, and DeFi platform architects. Further research could benefit from broader analysis, exploration of additional variables, and consideration of non-linear models and industry events.
 
 \section{\textbf{Uniswap Liquidity Pools: An Overview}}
 
-Various DeFi platforms cater to different needs. Uniswap, a popular choice, provides a user-friendly interface and a broad spectrum of token pairs. Other platforms like Curve Finance and Balancer offer low-slippage trades and customizable pools, respectively\cite{Xu2023}.
+Various DeFi platforms, including Uniswap, cater to unique needs within the blockchain ecosystem\cite{Xu2023}. Uniswap, a widely-used Ethereum-based DEX, employs a Constant Product Market Maker (CPMM) model supporting a broad spectrum of Ethereum-native and wrapped non-native asset trades\cite{Miori2023, Heimbach2022}.
 
-Uniswap, a decentralized exchange (DEX) on Ethereum, supports trading of Ethereum-native and wrapped non-native assets. It uses a Constant Product Market Maker (CPMM) model in which liquidity providers deposit two tokens, keeping a constant product of reserves\cite{Miori2023, Heimbach2022,Miori2023}.
-
-Uniswap v3 introduced the concept of "virtual" versus "real" reserves, where virtual reserves behave as if all liquidity is concentrated at the current price range \cite{Elsts2021}. The unique mechanism allows more efficient capital usage and offers liquidity providers the ability to customize their price exposure. Precise calculations of position holdings and pool's parameters are possible through the equations provided by the Uniswap v3 liquidity math paper \cite{Elsts2021,Miori2023}. Uniswap V3's liquidity pools and the constant product market maker (CPMM) model are at the heart of the study of BTC-ETH pools. Research conducted in this area provides key insights and methodologies for predicting trading volume based on various activities within these pools \cite{Miori2023}. A detailed understanding of decentralized finance (DeFi) and how it differs from traditional financial structures is crucial in order to fully comprehend the mechanics of automated market makers (AMMs) and the operation of liquidity pools \cite{Makarov2022}
-
-The CPMM formula is given by:
+Uniswap v3 further refined this model with "virtual" and "real" reserves, enabling more efficient capital usage and offering liquidity providers customization options for their price exposure\cite{Elsts2021}. The CPMM equation is pivotal to this:
 
 \[x \cdot y = k \quad \text{and} \quad price = \frac{y}{x}\]
 
-Here, \(x\) and \(y\) denote the quantities of Token X and Y in the pool, and \(k\) is the constant product\cite{Makarov2022,Miori2023}.
+where \(x\) and \(y\) represent token quantities in the pool and \(k\) maintains the constant product\cite{Makarov2022,Miori2023}.
 
-Uniswap operates without a central authority, ensuring privacy, fund control, and a diverse range of tokens\cite{Miori2023}. Centralized exchanges (CEX), though offering faster transaction speeds and better customer support, may pose security risks as they hold user funds\cite{Makarov2022}. Liquidity pools in DEXs enable direct interaction with smart contracts, ensuring continuous liquidity but exposing liquidity providers to impermanent loss risks\cite{Aigner2021, Heimbach2022}. Prices are influenced by trade size, market conditions, supply-demand dynamics, and external price changes\cite{Miori2022,Heimbach2022,Miori2023}.
+Operating without a central authority, Uniswap offers privacy, fund control, and a variety of tokens\cite{Miori2023}. In Uniswap transactions, "swaps" involve trading one token for another, while "mints" and "burns" pertain to liquidity providers adding or withdrawing funds from a pool respectively. Mints create liquidity tokens representing a provider's pool share, and burns destroy these tokens to facilitate fund withdrawal. Despite its advantages, DEXs pose impermanent loss risks to liquidity providers, a contrast to centralized exchanges which, while offering higher transaction speeds, can present security issues\cite{Aigner2021, Heimbach2022, Makarov2022}.
 
-In Uniswap v3, liquidity providers can set custom price ranges for their capital. The advantage is that liquidity providers have better capital efficiency, but the tradeoff is that it requires more active management. In Uniswap v3, these price ranges are defined by ticks, and the tick spacing is the gap between two ticks. It is important to note that Wrapped Bitcoin (WBTC) is an ERC-20 token on the Ethereum blockchain that represents Bitcoin. One WBTC is equivalent to one BTC. WBTC allows for Bitcoin transfers to be conducted quicker on the Ethereum blockchain and also allows BTC holders to interact with smart contracts and decentralized applications (dApps) on Ethereum. A  similar concept is developed for ETH (as WETH) and other wrapped tokens.
+WBTC-WETH represents a liquidity pool between Wrapped Bitcoin (WBTC) and Wrapped Ethereum (WETH) on the Uniswap platform. WBTC is an ERC-20 token on the Ethereum blockchain that represents Bitcoin (1 WBTC equals 1 BTC). Similarly, WETH is an Ethereum token that represents Ether. These "wrapped" versions allow Bitcoin and Ether to be traded more quickly on the Ethereum blockchain and enable holders to interact with smart contracts and decentralized applications (dApps).
 
-So, the WBTC-WETH 3000 pool and WBTC-WETH 500 pool differ in the price ranges or tick spacing chosen by the liquidity providers. This could influence the capital efficiency and potential returns of the liquidity providers, as well as the slippage experienced by the traders. The WBTC-WETH 3000 pool has a narrower tick spacing and a tighter price range compared to the WBTC-WETH 500 pool. This results in higher capital efficiency and potentially lower slippage for traders in the WBTC-WETH 3000 pool. The wider tick spacing in WBTC-WETH 500 pool allows for a greater range of price fluctuations, which can lead to larger price disparities and potential profit opportunities for liquidity providers and traders.
-
-Our analysis will focus on the WBTC-WETH 3000 pool and WBTC-WETH 500 pools.
+Uniswap v3 allows liquidity providers to set custom price ranges for their capital, indicated by ticks. These ticks influence capital efficiency and require active management\cite{Elsts2021}. The study focuses on WBTC-WETH 3000 and 500 pools, which differ in their tick spacing, impacting capital efficiency, potential returns, and slippage for liquidity providers and traders.
 
 \section{\textbf{Analytical Methodology}}
 
@@ -129,7 +129,7 @@ We embraced two time concepts—"trading clock" and "time horizon"—which enabl
 We successfully addressed complexities in understanding entry-level liquidity pool mathematics and integrated the associated formulas into calculations.py functions. This step significantly enriched our feature derivation and bolstered our overall analysis\cite{Elsts2021,Aigner2021}.
 For instance, we tackled the complexity of tick math, which involves mapping discrete ticks to continuous prices. This step, guided by the Uniswap v3 liquidity math paper, was essential for interpreting Uniswap data and indeces \cite{Elsts2021}. In addition, we adjusted raw price ratios for token decimals to get human-readable prices, a process critical for presenting our analysis \cite{Elsts2021}.
 
-\textbf{Key Note:} Our models and code implementation have been designed with a focus on programming and data structure, and while they provide valuable insights, further improvement is needed to enhance the accuracy and completeness of our results. We encourage peer review and rigorous testing of our calculations.py module, as well as a deeper understanding of the underlying liquidity mathematics as outlined in the Uniswap v3 liquidity math paper \cite{Elsts2021,Miori2023}.
+\textbf{Key Note:} Our models and code implementation have been designed with a focus on programming and data structure, and while they provide valuable insights, further improvement is needed to enhance the accuracy and completeness of our results. Due to the novelty of the topic and methodologies, we encourage peer review and rigorous testing of our calculations.py module, as well as a deeper understanding of the underlying liquidity mathematics as outlined in the Uniswap v3 liquidity math paper \cite{Elsts2021,Miori2023}.
 
 \section{\textbf{Engineering Ecosystem}}
 
@@ -137,13 +137,13 @@ Data engineering and feature extraction are crucial elements for building robust
 
 First, let's consider the nature of the data we are dealing with. Uniswap is a decentralized exchange that operates on an automated market-making (AMM) model, and its Version 3 (v3) utilizes a novel mechanism of concentrated liquidity pools. The structure and dynamics of these liquidity pools play a crucial role in trading volumes \cite{Miori2023}. We must extract relevant data from these pools, including their sizes, trading volumes, and related metrics, for accurate analysis. Understanding DeFi's goals and mechanisms from a broad perspective is also valuable \cite{Makarov2022}.
 
-Moreover, it's important to incorporate data from different sources, considering not just the pools of interest but also neighboring pools and other prominent exchanges such as Binance. This kind of broad-spectrum data helps in capturing spillover effects, which are significant drivers of trading volume \cite{Miori2023}. For example, we can study the effects of trading volume and the activities from interconnected DeFi protocols and stablecoins \cite{Miori2022}.
+Moreover, it's important to incorporate data from different sources, considering not just the pools of interest but also neighboring pools and other prominent exchanges such as Binance. This kind of broad-spectrum data helps in capturing spillover effects, which are significant drivers of trading volume \cite{Miori2023}. For example, we could study the effects of trading volume and the activities from interconnected DeFi protocols and stablecoins \cite{Miori2022}.
 
 Feature selection is a crucial part of the process. Stepwise regression can be an effective tool for optimizing the model and refining the set of independent variables \cite{Miori2023}. We should also account for factors like network effects, economies of scale, and concentration issues that can influence liquidity provision \cite{Makarov2022, Miori2022}.
 
-From a risk perspective, we should account for external risks to liquidity providers like arbitrage opportunities, fraudulent DEXs, regulatory risks, censorship risks, etc. \cite{Aigner2021}. Systemic risks from interconnected DeFi protocols and stablecoins could also impact trading activity \cite{Makarov2022}. Additionally, economic risks like yield dilution, conversion risk, exchange risk, counterparty risk, and liquidation risk pose challenges and should be considered \cite{Xu2023}.
+From a risk perspective, we should ideally account for external risks to liquidity providers like arbitrage opportunities, fraudulent DEXs, regulatory risks, censorship risks, etc. \cite{Aigner2021}. Systemic risks from interconnected DeFi protocols and stablecoins could also impact trading activity \cite{Makarov2022}. Additionally, economic risks like yield dilution, conversion risk, exchange risk, counterparty risk, and liquidation risk pose challenges and should be considered \cite{Xu2023}.
 
-For the implementation part, we can take advantage of mathematical equations and formulations. For example, we can use equations to calculate the amounts of assets based on liquidity, price range, and the current price \cite{Elsts2021}. Formulas for calculating impermanent loss and changes in holdings after a price change could also be useful in our analysis \cite{Elsts2021, Aigner2021, Heimbach2022}.
+For the implementation part, we can take advantage of mathematical equations and formulations. For example, we could use equations to calculate the amounts of assets based on liquidity, price range, and the current price \cite{Elsts2021}. Formulas for calculating impermanent loss and changes in holdings after a price change could also be useful in the analysis of this problem \cite{Elsts2021, Aigner2021, Heimbach2022}.
 
 \subsection{\textbf{Data Sources}}
 
@@ -185,47 +185,41 @@ We limit the CEX data to consider only WBTC-WETH 3000 pool and 500 pool activity
 
 \section{\textbf{In-Depth: Feature Engineering}}
 
-Feature engineering is key in deciphering the intricate dynamics between variables in our analysis, with particular focus on historical patterns in the Decentralized Exchange (DEX) pools and the influence of Centralized Exchange (CEX) activities.
-
-Initially, we define all blocks within our analysis scope. Subsequently, we establish the Reference blocks, followed by determining the interval between reference blocks, encompassing all blocks within this range.
-
-Let's symbolize the entire sequence of blocks within our analysis scope as $B$ and denote the total number of blocks under scrutiny as $K$. We can represent this in the following manner:
+Feature engineering is key in deciphering the intricate dynamics between variables in our analysis, with particular focus on temporal patterns in the DEX pools and the influence of CEX activities. We define the sequence of blocks within our scope as $B$ and the total number of these blocks as $K$. For the construction of a time-series model, "Reference Blocks" act as time markers, identified by Mint Operations in Uniswap DEX. They are classified into "same" and "other" pools and arranged in reverse chronological order.
 
 \begin{equation}
-B = \{b_k\}_{k=1}^{K} \text{ where each } b_k \text{ is a block within the scope of analysis}
-\end{equation}
-
-In the construction of a time-series data model, the "Reference Block" serves as a time marker. These blocks, identified by Mint Operations, act as pivot points within the blockchain when users infuse liquidity into different pools on the DEX, such as Uniswap. Since we aim to study the iteraction and effects within and across pools, the Reference Blocks are further classified into "same" and "other" pools, arranged in reverse chronological order, with the latest block placed at the top and assigned an index of 0.
-
-\begin{equation}
-R_{s} = \{b_{s}\}_{s=1}^{S} \text{ where each } b_{s} \text{ is a block in } B \text{ and serves as a reference block in the "same" pool}
+B = \{b_k\}_{k=1}^{K} \text{ with } b_k \text{ a block within the scope of analysis}
 \end{equation}
 
 \begin{equation}
-R_{o} = \{b_{o}\}_{o=1}^{O} \text{ where each } b_{o} \text{ is a block in } B \text{ and serves as a reference block in the "other" pool}
+R_{s} = \{b_{s}\}_{s=1}^{S} \text{ with } b_{s} \text{ a reference block in the "same" pool}
 \end{equation}
 
-Here, $S$ and $O$ represent the total count of reference blocks in the "same" and "other" pools respectively.
+\begin{equation}
+R_{o} = \{b_{o}\}_{o=1}^{O} \text{ with } b_{o} \text{ a reference block in the "other" pool}
+\end{equation}
 
-The intervals between these reference blocks can be represented as a sequence of block numbers between $b_i$ and $b_j$ (including $b_i$). This is defined as:
+The intervals between these reference blocks, represented as sequences of block numbers between $b_i$ and $b_j$. 
 
 \begin{equation}
 I = \{b_{ij}\}_{\substack{i=0,j=i+1 \ i,j\leq N}}^N
 \end{equation}
 
-Here, $b_{ij}$ refers to the sequence of blocks from $b_i$ to $b_{j-1}$, including $b_i$ but excluding $b_j$, accurately encapsulating the concept of an interval.
-
-Block Reference Interval chains (Appendix Table \ref{tab:chains}) derived from the "same" and "other" pools' mint operations generate sequences of block numbers, encompassing the last T reference blocks and every block between them, where T denotes the number of lags or intervals assessed for the direct features. We denote these chains of "same" and "other" pools as $C_{s}$ and $C_{o}$ respectively, and they can be defined as follows:
+Block Reference Interval chains (Appendix Table \ref{tab:chains}), derived from \(R_{s}\) and \(R_{o}\), generate sequences of block numbers, encompassing the last T reference blocks and every block between them. Future periods or time horizons are constructed for predictions or analyses by incrementing the block count by M from the first Reference Block until the next one is reached. M directly impacts the construction of the dependent variable.
 
 \begin{equation}
-C = \{b_{i}\}_{i=0}^{N} \text{ where each } b_{i} \text{ is a block} \in \{R_s, R_o\} \text{ and } b_{i} > b_{i+1} \text{ for } i \in \{0,1,...,T-1\}
+C = \{b_{i}\}_{i=0}^{N} \text{ with each } b_{i} \in \{R_s, R_o\} \text{ and } b_{i} > b_{i+1} \text{ for } i \in \{0,1,...,T-1\}
 \end{equation}
-
-Future periods, or time horizons, are constructed for predictions or analyses of target variables by commencing from the first Reference Block and incrementing the block count by M until the succeeding reference block is reached. Here, M signifies the number of blocks or periods between reference points, shaping the construction of the dependent variable. The optimal choice of M determines the time horizon length and granularity, impacting the analysis' detail level and prediction accuracy.
 
 \begin{equation}
 H_{M} = \{b_{0}+kM\}_{k=0}^{K} \text{ with } K = \min \left( K_{\text{max}}, \left\lfloor \frac{\text{distance to next reference block}}{M} \right\rfloor \right)
 \end{equation}
+
+The Horizon Block Table (Appendix Table \ref{tab:horizon-table}) encapsulates relationships between "same," "other," and "both" pools by assessing their variables and features at different horizons and lags. The granularity level varies for each component  \ref{tab:granularity}; this distinction in granularity unravels the cooperative or competitive dynamics between the "same" and "other" pools over the time series, enabling a comprehensive examination of pool behaviors and interactions
+
+\begin{equation}
+  HBT = \{ (H_{M}, F_{\text{DEX}}, F_{\text{DP}}, F_{\text{CEX}}) \} \text{ for each horizon } H_{M} 
+  \end{equation}
 
 \begin{figure}[htbp]
   \begin{minipage}{0.5\textwidth}
@@ -240,14 +234,10 @@ H_{M} = \{b_{0}+kM\}_{k=0}^{K} \text{ with } K = \min \left( K_{\text{max}}, \le
   \caption{Feature Engineering}
   \label{fig:data-diagram-features}
   \end{minipage}
-  \end{figure}
+\end{figure}
 
-The Horizon Block Table (Appendix Table \ref{tab:horizon-table}) encapsulates the dynamics and relationships between the "same," "other," and "both" pools by assessing their respective target variables and features at different horizons and lags. The granularity level varies for each component within the Horizon Block Table, as illustrated in the following table:
-
-\begin{equation}
-HBT = \{ (H_{M}, F_{\text{DEX}}, F_{\text{DP}}, F_{\text{CEX}}) \} \text{ for each horizon } H_{M} 
-\end{equation}
-
+  
+  
 \begin{table}[htbp]
 \centering
 \begin{tabular}{|c|c|}
@@ -262,10 +252,9 @@ CEX spillover features & Horizon block level \\
 \hline
 \end{tabular}
 \caption{Granularity Level of Components in Horizon Block Table}
-\label{table:granularity}
+\label{tab:granularity}
 \end{table}
 
-This granularity distinction enables a comprehensive examination of the "same" and "other" pool behaviors and interactions at various levels within the time-series data model. The Horizon Block Table illuminates the data dynamics, unraveling the cooperative or competitive dynamics between the "same" and "other" pools over the time series.
 
 \section{Data Profiling Report}
 
