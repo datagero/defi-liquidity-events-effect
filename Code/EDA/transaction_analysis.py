@@ -123,6 +123,9 @@ def analyse_transaction_counts():
     # Adjust spacing between subplots
     plt.tight_layout()
 
+    # Save the plot
+    plt.savefig(os.path.join("Other Resources", "transaction_counts.png"))
+
     # Display the plot
     plt.show()
 

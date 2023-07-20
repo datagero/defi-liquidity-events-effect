@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Team111finalreport"] 1689829270 "Team111finalreport.aux" "Team111finalreport.bbl" "Team111finalreport" 1689829973 0
+["bibtex Team111finalreport"] 1689831489 "Team111finalreport.aux" "Team111finalreport.bbl" "Team111finalreport" 1689831496 0
   "./export.bib" 1689769344 11583 a54d01bdc573b47c097b22fe437c233c ""
   "C:/Users/MatiasVizcaino/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "Team111finalreport.aux" 1689829972 9990 26fd14c191cd8d47bd646a9304e5e243 "pdflatex"
+  "Team111finalreport.aux" 1689831494 9865 8257f48b15e708cc2c9d83769ee5872a "pdflatex"
   (generated)
   "Team111finalreport.bbl"
   "Team111finalreport.blg"
   (rewritten before read)
-["pdflatex"] 1689829970 "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" "Team111finalreport.pdf" "Team111finalreport" 1689829973 0
+["pdflatex"] 1689831490 "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" "Team111finalreport.pdf" "Team111finalreport" 1689831496 0
   "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1689766762 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1687377911 11548 45a50d5d71b91b1c40c5ac7c5666d27c ""
   "C:/Users/MatiasVizcaino/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1687377907 10334209 fa6ea665a32e9accfb57992c6fdba13b ""
@@ -136,11 +136,11 @@
   "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram/features.png" 1689702374 78539 d36b6a5f5e1c087b35fff7033b4e0090 ""
   "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/residuals.png" 1689816507 53307 9953070d3f406e10c2943d8d2810e730 ""
   "C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/residuals_all_horizons.png" 1689816524 112738 8f106ee2a29f1c451d3d9c979725db35 ""
-  "Team111finalreport.aux" 1689829972 9990 26fd14c191cd8d47bd646a9304e5e243 "pdflatex"
-  "Team111finalreport.bbl" 1689829270 2552 8ad86ca1822b942ffcf4e3d27dfa9fe7 "bibtex Team111finalreport"
-  "Team111finalreport.out" 1689829972 6329 3e633aef2f4a5381e84326180f6bdcfc "pdflatex"
-  "Team111finalreport.tex" 1689829969 55716 f6206e0ab5431af397b1f05d538a172d ""
-  "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" 1689829969 55716 f6206e0ab5431af397b1f05d538a172d ""
+  "Team111finalreport.aux" 1689831494 9865 8257f48b15e708cc2c9d83769ee5872a "pdflatex"
+  "Team111finalreport.bbl" 1689831489 2552 8ad86ca1822b942ffcf4e3d27dfa9fe7 "bibtex Team111finalreport"
+  "Team111finalreport.out" 1689831494 6103 4c262d57d3dc31dc5d9aa21a2ef05569 "pdflatex"
+  "Team111finalreport.tex" 1689831481 56029 c785b5865f9747054f93cadd856325ab ""
+  "c:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Final Report/Team111finalreport.tex" 1689831481 56029 c785b5865f9747054f93cadd856325ab ""
   (generated)
   "Team111finalreport.aux"
   "Team111finalreport.log"

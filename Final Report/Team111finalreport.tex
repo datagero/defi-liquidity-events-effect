@@ -297,7 +297,7 @@ We prepared three Horizon Tables (refbase, ref500, ref3000) for each mint of ref
 In conclusion, our detailed data profiling has enabled us to unearth critical insights into block intervals, transaction types, reference blocks, and target variables. Despite certain challenges such as missing values and high correlation among variables, strategic management of these issues ensures minimal data loss. This thorough comprehension of our data lays a robust foundation for the subsequent stages of our data exploration and analysis pipeline.
 
 
-\section{In-Depth: Modelling Approach}
+\section*{\textbf{In-Depth: Modelling Approach}}
 Our study aims to investigate the relationship between liquidity pool size and trading volume using regression models. Specifically, we employ an Ordinary Least Squares (OLS) regression approach. 
 
 The OLS regression model is suitable for this study due to its simplicity, interpretability, and wide usage in econometric analysis. While other models like Poisson regression, negative binomial regression, or logistic regression could be considered, these are more suited for count data or binary outcomes, rather than our continuous outcome of interest.
@@ -599,6 +599,7 @@ The effects of BTC-ETH price volatility on trading volume compared to liquidity 
 
 % \textbf{Adapting Mathematical Formulas:} We adapted the formulas from the Uniswap v3 liquidity math paper for calculating impermanent loss and changes in holdings after a price change. This adaptation helped us demonstrate P&L calculations and provided a deeper understanding of Uniswap's dynamic \cite{Elsts2021} .
 
+Time-Series Specific Analysis: If your data has a temporal component, consider analyzing autocorrelation and partial autocorrelation plots of the residuals. This will help you check for any leftover temporal structure in your errors which, if present, suggests there may be room to improve your model.
 
 
 \bibliographystyle{plain} % You could use plain, unsrt, alpha, abbrv etc. 
