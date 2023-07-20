@@ -52,9 +52,9 @@
 
 Decentralized Finance (DeFi), hosting about 48.78 billion USD in total value (as of April 23, 2023\cite{defillama}), relies heavily on liquidity pools in decentralized exchanges like Uniswap for efficient crypto trading. These pools, using an automated market maker model, earn from trading fees, participation rewards, and interest, distributed among liquidity providers based on their pool share\cite{Miori2022,Aigner2021,Xu2023}.
 
-This study primarily \textbf{aims to examine the influence of pool size on trading volume, specifically in BTC-ETH liquidity pools in exchanges like Uniswap}. It hypothesizes a direct correlation between pool size and trading volume, supported by existing studies\cite{Miori2022,Heimbach2022}. This understanding could optimize liquidity provision, enhance DeFi market efficiency, and benefit stakeholders. For instance, liquidity providers could improve fee returns and risk management, traders could refine strategies, and DeFi platforms could develop more effective liquidity pools\cite{Makarov2022,Miori2023}.
+This study primarily \textbf{aims to examine the influence of pool size on trading volume, specifically in BTC-ETH liquidity pools in exchanges like Uniswap}. It hypothesizes a direct correlation between pool size and trading volume, supported by existing studies\cite{Miori2022,Heimbach2022}. Our study confirms a strong relationship between liquidity pool sizes and trading volumes in BTC-ETH pools, providing valuable insights for market participants and future research. This understanding could optimize liquidity provision, enhance DeFi market efficiency, and benefit stakeholders. For instance, liquidity providers could improve fee returns and risk management, traders could refine strategies, and DeFi platforms could develop more effective liquidity pools\cite{Makarov2022,Miori2023}.
 
-\section*{\textbf{Uniswap Liquidity Pools: An Overview}}
+\section{\textbf{Uniswap Liquidity Pools: An Overview}}
 
 Various DeFi platforms cater to different needs. Uniswap, a popular choice, provides a user-friendly interface and a broad spectrum of token pairs. Other platforms like Curve Finance and Balancer offer low-slippage trades and customizable pools, respectively\cite{Xu2023}.
 
@@ -70,8 +70,7 @@ Here, \(x\) and \(y\) denote the quantities of Token X and Y in the pool, and \(
 
 Uniswap operates without a central authority, ensuring privacy, fund control, and a diverse range of tokens\cite{Miori2023}. Centralized exchanges (CEX), though offering faster transaction speeds and better customer support, may pose security risks as they hold user funds\cite{Makarov2022}. Liquidity pools in DEXs enable direct interaction with smart contracts, ensuring continuous liquidity but exposing liquidity providers to impermanent loss risks\cite{Aigner2021, Heimbach2022}. Prices are influenced by trade size, market conditions, supply-demand dynamics, and external price changes\cite{Miori2022,Heimbach2022,Miori2023}.
 
-\pagebreak
-\section*{\textbf{Analytical Methodology and Achievements}}
+\section{\textbf{Analytical Methodology}}
 
 A thorough analysis of the interconnectedness between Uniswap v3 pools and a systematic selection of subsets of pools for analysis is required. This will be done over different time periods, using similar methodologies as found in recent studies \cite{Miori2022}. The relationship between liquidity, trading volume, and price stability in pools will be examined, along with an investigation of how liquidity pool size impacts trading volume.
 
@@ -115,7 +114,7 @@ A thorough analysis of the interconnectedness between Uniswap v3 pools and a sys
 
 Our work provides a significant contribution by offering an open framework that allows other researchers and professionals to conduct further research in this field. This outcome not only answers our problem statement but also opens avenues for future exploration\cite{Miori2022}.
 
-\section*{\textbf{Challenges and Insights}}
+\subsection{\textbf{Challenges and Insights}}
 
 Our main challenges were data collection and processing due to intricate engineering and the rate limits of the Etherscan free-tier API\cite{etherscanAPI}. Nonetheless, we overcame these hurdles and made significant progress in understanding liquidity pool dynamics\cite{Miori2022,Aigner2021,Miori2023}.
 
@@ -124,14 +123,23 @@ We embraced two time concepts—"trading clock" and "time horizon"—which enabl
 We successfully addressed complexities in understanding entry-level liquidity pool mathematics and integrated the associated formulas into calculations.py functions. This step significantly enriched our feature derivation and bolstered our overall analysis\cite{Elsts2021,Aigner2021}.
 For instance, we tackled the complexity of tick math, which involves mapping discrete ticks to continuous prices. This step, guided by the Uniswap v3 liquidity math paper, was essential for interpreting Uniswap data and indexes \cite{Elsts2021}. In addition, we adjusted raw price ratios for token decimals to get human-readable prices, a process critical for presenting our analyses \cite{Elsts2021}.
 
-[Place this into our context: It is also important to acknowledge the economic and security risks inherent to these protocols. Economic risks such as yield dilution, conversion risk, exchange risk, counterparty risk, and liquidation risk all pose challenges to the sustainability and effectiveness of yield farming \cite{Xu2023}. Moreover, security risks, including flash loan attacks, rug pulls, reentrancy, and key exploits are also prevalent in the yield farming landscape \cite{Xu2023}]
+\textbf{Key Note:} Our models and code implementation have been designed with a focus on programming and data structure, and while they provide valuable insights, further improvement is needed to enhance the accuracy and completeness of our results. We encourage peer review and rigorous testing of our calculations.py module, as well as a deeper understanding of the underlying liquidity mathematics as outlined in the Uniswap v3 liquidity math paper \cite{Elsts2021,Miori2023}.
 
-\textbf{Key Note:}
-\begin{itemize}
-\item Our main focus during the development process was programming and data structure, leading to our code's modular design. Consequently, the mathematical formulas used in the feature engineering stage were not rigorously tested or based on an in-depth understanding of the underlying liquidity mathematics. There is room for improvement, and we encourage peer-review of the calculations.py module. The modular nature of our model presents a prime opportunity for further research\cite{Elsts2021,Miori2023}.
-\item Our models, although providing useful insights, might benefit from a more detailed understanding of the underlying liquidity mathematics, as provided by the Uniswap v3 liquidity math paper \cite{Elsts2021}. We encourage rigorous testing and peer review of our calculations.py module to ensure accuracy and completeness of our results\cite{Elsts2021,Miori2023}.
-\end{itemize}
-\section*{\textbf{Dataset}}
+\section{\textbf{Engineering Ecosystem}}
+
+Data engineering and feature extraction are crucial elements for building robust predictive models. In the case of analyzing BTC-ETH trading volume on Uniswap, several aspects of data must be considered.
+
+First, let's consider the nature of the data we are dealing with. Uniswap is a decentralized exchange that operates on an automated market-making (AMM) model, and its Version 3 (v3) utilizes a novel mechanism of concentrated liquidity pools. The structure and dynamics of these liquidity pools play a crucial role in trading volumes \cite{Miori2023}. We must extract relevant data from these pools, including their sizes, trading volumes, and related metrics, for accurate analysis. Understanding DeFi's goals and mechanisms from a broad perspective is also valuable \cite{Makarov2022}.
+
+Moreover, it's important to incorporate data from different sources, considering not just the pools of interest but also neighboring pools and other prominent exchanges such as Binance. This kind of broad-spectrum data helps in capturing spillover effects, which are significant drivers of trading volume \cite{Miori2023}. For example, we can study the effects of trading volume and the activities from interconnected DeFi protocols and stablecoins \cite{Miori2022}.
+
+Feature selection is a crucial part of the process. Stepwise regression can be an effective tool for optimizing the model and refining the set of independent variables \cite{Miori2023}. We should also account for factors like network effects, economies of scale, and concentration issues that can influence liquidity provision \cite{Makarov2022, Miori2022}.
+
+From a risk perspective, we should account for external risks to liquidity providers like arbitrage opportunities, fraudulent DEXs, regulatory risks, censorship risks, etc. \cite{Aigner2021}. Systemic risks from interconnected DeFi protocols and stablecoins could also impact trading activity \cite{Makarov2022}. Additionally, economic risks like yield dilution, conversion risk, exchange risk, counterparty risk, and liquidation risk pose challenges and should be considered \cite{Xu2023}.
+
+For the implementation part, we can take advantage of mathematical equations and formulations. For example, we can use equations to calculate the amounts of assets based on liquidity, price range, and the current price \cite{Elsts2021}. Formulas for calculating impermanent loss and changes in holdings after a price change could also be useful in our analysis \cite{Elsts2021, Aigner2021, Heimbach2022}.
+
+\subsection{\textbf{Dataset}}
 
 In line with the \textit{"DeFi modeling and forecasting trading volume" (2023)} study\cite{Miori2023}, we gathered and structured trade data spanning a minimum of 6 months. Our GitHub repository provides more details and the code used to gather this information\cite{TeamRepo}. Our dataset incorporates information from the following sources:
 
@@ -153,91 +161,78 @@ In line with the \textit{"DeFi modeling and forecasting trading volume" (2023)} 
   \label{tab:dataset-description}
   \end{table}
 
-
-\section*{\textbf{Key Variables}}
+\subsection{\textbf{Key Variables}}
 
 \textbf{Target Variable:} The key dependent variable in our study is the trading volume of liquidity pools (amountUSD) over specific blocks. We propose several models for different time horizons to investigate how the relationships evolve over time.
 
-\textbf{Independent Variables:} The independent variables are constructed from various features and are grouped as follows:
+\textbf{Independent Variables:} Constructed from various features and are grouped as follows:
 
 \begin{enumerate}[label=\arabic*. ,itemsep=0pt, topsep=0pt]
-\item \textbf{Direct Pool Features (41):} These include measures such as volatility, rate, number of trades, and average trade size.
-\item \textbf{CEX Spillover Effects (6):} This category includes variables like actual coin trade volume on Centralized Exchanges (CEX), which can influence liquidity pools on decentralized platforms.
+\item \textbf{Direct Pool Features (41):} Measures such as volatility, rate, number of trades, and average trade size.
+\item \textbf{CEX Spillover Effects (6):} Variables like actual coin trade volume on Centralized Exchanges (CEX), which can influence liquidity pools on decentralized platforms.
 \end{enumerate}
 
-\section*{\textbf{Engineering Ecosystem}}
 
-Data engineering and feature extraction are crucial elements for building robust predictive models. In the case of analyzing BTC-ETH trading volume on Uniswap, several aspects of data must be considered.
+\section{\textbf{In-Depth: Feature Engineering}}
 
-First, let's consider the nature of the data we are dealing with. Uniswap is a decentralized exchange that operates on an automated market-making (AMM) model, and its Version 3 (v3) utilizes a novel mechanism of concentrated liquidity pools. The structure and dynamics of these liquidity pools play a crucial role in trading volumes \cite{Miori2023}. We must extract relevant data from these pools, including their sizes, trading volumes, and related metrics, for accurate analysis. Understanding DeFi's goals and mechanisms from a broad perspective is also valuable \cite{Makarov2022}.
+Feature engineering is key in deciphering the intricate dynamics between variables in our analysis, with particular focus on historical patterns in the Decentralized Exchange (DEX) pools and the influence of Centralized Exchange (CEX) activities.
 
-Moreover, it's important to incorporate data from different sources, considering not just the pools of interest but also neighboring pools and other prominent exchanges such as Binance. This kind of broad-spectrum data helps in capturing spillover effects, which are significant drivers of trading volume \cite{Miori2023}. For example, we can study the effects of trading volume and the activities from interconnected DeFi protocols and stablecoins \cite{Miori2022}.
+Initially, we define all blocks within our analysis scope. Subsequently, we establish the Reference blocks, followed by determining the interval between reference blocks, encompassing all blocks within this range.
 
-Feature selection is a crucial part of the process. Stepwise regression can be an effective tool for optimizing the model and refining the set of independent variables \cite{Miori2023}. We should also account for factors like network effects, economies of scale, and concentration issues that can influence liquidity provision \cite{Makarov2022, Miori2022}.
-
-From a risk perspective, we should account for external risks to liquidity providers like arbitrage opportunities, fraudulent DEXs, regulatory risks, censorship risks, etc. \cite{Aigner2021}. Systemic risks from interconnected DeFi protocols and stablecoins could also impact trading activity \cite{Makarov2022}. Additionally, economic risks like yield dilution, conversion risk, exchange risk, counterparty risk, and liquidation risk pose challenges and should be considered \cite{Xu2023}.
-
-For the implementation part, we can take advantage of mathematical equations and formulations. For example, we can use equations to calculate the amounts of assets based on liquidity, price range, and the current price \cite{Elsts2021}. Formulas for calculating impermanent loss and changes in holdings after a price change could also be useful in our analysis \cite{Elsts2021, Aigner2021, Heimbach2022}.
-
-\section*{\textbf{In-Depth: Feature Engineering}}
-
-Feature engineering plays a crucial role in capturing the dynamics and relationships between variables in our analysis. The focus lies on engineering features that capture historical patterns of the DEX pools and spillover effects from CEX activity.
-
-To start with, we can first define all the blocks in scope, then move to define the Reference blocks, and finally, the interval between reference blocks (which will be all the blocks in the interval).
-
-Let's assume $B$ is the entire sequence of blocks within the scope of analysis and $K$ is the total number of blocks under study. We can represent this in the following way:
+Let's symbolize the entire sequence of blocks within our analysis scope as $B$ and denote the total number of blocks under scrutiny as $K$. We can represent this in the following manner:
 
 \begin{equation}
 B = \{b_k\}_{k=1}^{K} \text{ where each } b_k \text{ is a block within the scope of analysis}
 \end{equation}
 
-In the construction of a time-series data model, the "Reference Block" acts as a chronological reference point. These blocks are key markers within the blockchain, identified based on Mint Operations when users provide liquidity to different pools on the decentralized exchange (DEX), such as Uniswap. The Reference Blocks are categorized into "same" and "other" pools. We position the most recent at the top and with an index of 0, so the sequence of blocks is ordered in decreasing chronological order.
+In the construction of a time-series data model, the "Reference Block" serves as a time marker. These blocks, identified by Mint Operations, act as pivot points within the blockchain when users infuse liquidity into different pools on the DEX, such as Uniswap. Since we aim to study the iteraction and effects within and across pools, the Reference Blocks are further classified into "same" and "other" pools, arranged in reverse chronological order, with the latest block placed at the top and assigned an index of 0.
 
 \begin{equation}
-R_{s} = \{b_{s}\}_{s=1}^{S} \text{ where each } b_{s} \in B \text{ and is a reference block in the "same" pool}
+R_{s} = \{b_{s}\}_{s=1}^{S} \text{ where each } b_{s} \text{ is a block in } B \text{ and serves as a reference block in the "same" pool}
 \end{equation}
 
 \begin{equation}
-R_{o} = \{b_{o}\}_{o=1}^{O} \text{ where each } b_{o} \in B \text{ and is a reference block in the "other" pool}
+R_{o} = \{b_{o}\}_{o=1}^{O} \text{ where each } b_{o} \text{ is a block in } B \text{ and serves as a reference block in the "other" pool}
 \end{equation}
 
-Here, $S$ and $O$ are the total number of reference blocks in the "same" and "other" pools respectively.
+Here, $S$ and $O$ represent the total count of reference blocks in the "same" and "other" pools respectively.
 
-Finally, the intervals between these reference blocks, which contain all blocks between $b_i$ and $b_j$ (inclusive of $b_i$), can be defined as the sequence of block numbers between $b_i$ and $b_j$. This can be expressed as:
+The intervals between these reference blocks can be represented as a sequence of block numbers between $b_i$ and $b_j$ (including $b_i$). This is defined as:
 
 \begin{equation}
 I = \{b_{ij}\}_{\substack{i=0,j=i+1 \ i,j\leq N}}^N
 \end{equation}
 
-In this formula, $b_{ij}$ represents the sequence of blocks from $b_i$ to $b_{j-1}$, inclusive of $b_i$ and exclusive of $b_j$. This correctly captures the notion of an interval being all blocks "between" $b_i$ and $b_j$ in the blockchain sequence.
+Here, $b_{ij}$ refers to the sequence of blocks from $b_i$ to $b_{j-1}$, including $b_i$ but excluding $b_j$, accurately encapsulating the concept of an interval.
 
-Block Reference Interval chains for the "same" and "other" pools' mint operations generate sequences of block numbers. These chains include the last N reference blocks and every block in between, where N signifies the number of lags or intervals analyzed for the direct features. Let $C_{s}$ and $C_{o}$ be the chains of "same" and "other" pools, which can be mathematically defined as:
+Block Reference Interval chains derived from the "same" and "other" pools' mint operations generate sequences of block numbers, encompassing the last N reference blocks and every block between them, where N denotes the number of lags or intervals assessed for the direct features. We denote these chains of "same" and "other" pools as $C_{s}$ and $C_{o}$ respectively, and they can be defined as follows:
+
 \begin{equation}
 C = \{b_{i}\}_{i=0}^{N} \text{ where each } b_{i} \text{ is a block} \in \{R_s, R_o\} \text{ and } b_{i} > b_{i+1} \text{ for } i \in \{0,1,...,N-1\}
 \end{equation}
 
-Time horizons, representing future periods or timeframes for predictions or analyses of target variables, are constructed by starting from the first Reference Block and increasing the block count by M until the next reference block is reached. M represents the number of blocks or periods between reference points in constructing time horizons, influencing the construction of the dependent variable. Choosing an appropriate value for M is essential in determining the length and granularity of the time horizons and impacts the level of detail and prediction accuracy in the analysis or predictions.
+Future periods, or time horizons, are constructed for predictions or analyses of target variables by commencing from the first Reference Block and incrementing the block count by M until the succeeding reference block is reached. Here, M signifies the number of blocks or periods between reference points, shaping the construction of the dependent variable. The optimal choice of M determines the time horizon length and granularity, impacting the analysis' detail level and prediction accuracy.
 
 \begin{equation}
 H_{M} = \{b_{0}+kM\}_{k=0}^{K} \text{ with } K = \min \left( K_{\text{max}}, \left\lfloor \frac{\text{distance to next reference block}}{M} \right\rfloor \right)
 \end{equation}
 
 \begin{figure}[htbp]
-\begin{minipage}{0.5\textwidth}
-\centering
-\includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram/engineer.png}
-\caption{Data Engineering}
-\label{fig:data-diagram-engineer}
-\end{minipage}
-\begin{minipage}{0.45\textwidth}
-\centering
-\includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram/features.png}
-\caption{Feature Engineering}
-\label{fig:data-diagram-features}
-\end{minipage}
-\end{figure}
+  \begin{minipage}{0.5\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram/engineer.png}
+  \caption{Data Engineering}
+  \label{fig:data-diagram-engineer}
+  \end{minipage}
+  \begin{minipage}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/data-diagram/features.png}
+  \caption{Feature Engineering}
+  \label{fig:data-diagram-features}
+  \end{minipage}
+  \end{figure}
 
-The Horizon Block Table captures the dynamics and relationships between the same/other/both pools by evaluating their respective target variables and features at different horizons and lags. The granularity level varies for each component within the Horizon Block Table, as illustrated in the following table:
+The Horizon Block Table encapsulates the dynamics and relationships between the "same," "other," and "both" pools by assessing their respective target variables and features at different horizons and lags. The granularity level varies for each component within the Horizon Block Table, as illustrated in the following table:
 
 \begin{equation}
 HBT = \{ (H_{M}, F_{\text{DEX}}, F_{\text{DP}}, F_{\text{CEX}}) \} \text{ for each horizon } H_{M} 
@@ -260,22 +255,20 @@ CEX spillover features & Horizon block level \\
 \label{table:granularity}
 \end{table}
 
-This granularity distinction allows for comprehensive examination of the behavior and interactions of the "same" and "other" pools at different levels within the time-series data model. The Horizon Block Table provides insights into the dynamics of the analyzed data, revealing the collaborative or competitive dynamics between the "same" and "other" pools throughout the time series.
+This granularity distinction enables a comprehensive examination of the "same" and "other" pool behaviors and interactions at various levels within the time-series data model. The Horizon Block Table illuminates the data dynamics, unraveling the cooperative or competitive dynamics between the "same" and "other" pools over the time series.
 
-TODO -> Table of the values we use on our project. Mention that the combination provides a rich set of models for analysis
+\section{Data Profiling Report}
+Our data profiling report details our analyses concerning block intervals, transaction types, reference blocks, and target variables. This examination aids in establishing a comprehensive understanding of our dataset, facilitating robust model fitting and further analysis.
 
-\section*{Data Profiling Report}
-This report provides an analysis of our data profiling exercise, focusing on block intervals, transaction types, reference blocks, and target variables. We aim to develop a comprehensive understanding of our dataset, paving the way for more robust model fitting and further analysis.
-
-The data merging process between Uniswap transactions and Etherscan demonstrated a high match rate of transactions for the six-month analysis period, affirming the integrity of our dataset. Further cleaning and integrity checks were performed on each of the sources for facilitating subsequent processing.
+The merging process of Uniswap transactions and Etherscan data showed a high match rate of transactions for the six-month analysis period, validating our dataset's integrity. Additional cleaning and integrity checks were carried out on each data source to aid future processing.
 
 \subsection{Block Intervals and Transactions}
-The dataset encompasses block intervals ranging from 0 to 3, where block time refers to the number of blocks between reference blocks that carry out a mint operation, in both the same and other pools. A pattern of increasing block time and transaction count is observed as we transition from the most recent to preceding intervals. The maximum block time recorded is 8,497 for the 500 pool and 8,460 for the 3000 pool, both at intervals 2 and 3. The maximum row count approximates 1,115, indicating substantial data captured within these intervals.
+The dataset comprises block intervals ranging from 0 to 3, with block time representing the number of blocks between reference blocks that carry out a mint operation in both "same" and "other" pools. A pattern of increasing block time and transaction count is observed as we move from recent to preceding intervals. 
 
-Transaction data, classified as 'burns', 'mints', and 'swaps', reveals 'swaps' to be the prevalent transaction type across all dates and both the 500 and 3000 pools. However, the volume of each transaction type exhibits variations over time, illustrating the dynamic nature of the market. The 500 pool consistently records higher transaction volumes across all types and dates, implying a greater liquidity or popularity of the 500 pool. The number of burns and mints transactions generally balance, signifying an equilibrium between supply inflow (mints) and outflow (burns), with occasional deviations.
+Transactions are classified into 'burns', 'mints', and 'swaps', with 'swaps' being the most common transaction type across all dates and pools. The volume of each transaction type varies over time, indicating market dynamics. 
 
 \subsection{Reference Blocks}
-Reference blocks form a critical component in our analysis. Our dataset accommodates different numbers of reference blocks for the 500 (3,242) and 3000 (4,986) pools, with each block serving as a reference point for recording block time and transaction count. An unusual surge in mint activity recorded in July 2022 merits further investigation to uncover potential market influences or events during that period.
+Reference blocks form a critical component in our analysis. Our dataset accommodates different numbers of reference blocks for the 500 (3,242 transactions) and 3000 (4,986 transactions) pools, with each block serving as a reference point for recording block time and transaction count. An unusual surge in mint activity recorded in July 2022 merits further investigation to uncover potential market influences or events during that period [TODO-Appendix]
 
 \subsection{Target Variables}
 The target variables in our dataset comprise 'cum\_volume\_500', 'cum\_volume\_3000', and 'cum\_volume\_base' for the 500, 3000, and both reference pools, respectively. These variables encapsulate cumulative volumes across different pools and underpin our forthcoming modeling and analysis.
@@ -284,8 +277,8 @@ The target variables in our dataset comprise 'cum\_volume\_500', 'cum\_volume\_3
 Prior to the modeling phase, it was essential to address records with missing values in the independent variables. Specifically, we identified null values in the volatility (same pool) and avg-USD/rate-USD (other pool) metrics. We deployed Python utility functions customized for Pandas DataFrame to conduct the initial data cleaning and preprocessing. These tasks comprised identifying and addressing missing values, eliminating correlated columns, and aggregating data at specific intervals.
 
 \begin{itemize}
-    \item \textbf{Handling Missing Values:} [CHECK THIS SECTION] Certain columns such as 'rate-USD-iother\_01', 'avg-USD-iother\_01', 'vol\_0\_1', 'vol\_0\_2', 'vol\_0\_3' contained null values, which we replaced with zeros to render the dataset suitable for model fitting. However, a few columns like 'slother\_3', 'rate-count-iother\_23', 'wlother\_3' continued to accommodate a significant number of null values. Further decisions regarding these null values remain unindicated.
-    \item \textbf{Correlated Features:} [Insert Matrix] We identified columns such as 'blsame\_2', 'blsame\_3', 'blother\_2', 'blother\_3', 'vol\_0\_1', 'vol\_0\_2' as highly correlated, leading to their removal from the dataset to prevent multicollinearity during model fitting.
+    \item \textbf{Handling Missing Values:} [CHECK THIS SECTION] Certain columns such as 'rate-USD-iother\_01', 'avg-USD-iother\_01', 'vol\_0\_1', 'vol\_0\_2', 'vol\_0\_3' contained null values, which we replaced with zeros to render the dataset suitable for model fitting.
+    \item \textbf{Correlated Features:} We identified columns such as 'blsame\_2', 'blsame\_3', 'blother\_2', 'blother\_3', 'vol\_0\_1', 'vol\_0\_2' as highly correlated, leading to their removal from the dataset to prevent multicollinearity during model fitting.
     \item \textbf{Column Aggregation:} We aggregated certain columns that shared prefixes like 'rate-count-isame\_', 'rate-count-iother\_', 'binance-btc-', summing up their data in new columns appended with '03'. We subsequently dropped the original columns.
     \item \textbf{Data Loss Assessment:} We meticulously tracked the change in row count during the data cleaning process, which led to an insignificant data loss of 0.09\% observations, denoting a successful data cleaning operation with the majority of the data preserved.
 \end{itemize}
@@ -297,47 +290,71 @@ We prepared three Horizon Tables (refbase, ref500, ref3000) for each mint of ref
 In conclusion, our detailed data profiling has enabled us to unearth critical insights into block intervals, transaction types, reference blocks, and target variables. Despite certain challenges such as missing values and high correlation among variables, strategic management of these issues ensures minimal data loss. This thorough comprehension of our data lays a robust foundation for the subsequent stages of our data exploration and analysis pipeline.
 
 
-\section*{\textbf{In-Depth: Modelling Approach}}
-Our study aims to investigate the relationship between liquidity pool size and trading volume using regression models. Specifically, we employ an Ordinary Least Squares (OLS) regression approach. 
+\section{\textbf{In-Depth: Modelling Approach}}
 
-The OLS regression model is suitable for this study due to its simplicity, interpretability, and wide usage in econometric analysis. While other models like Poisson regression, negative binomial regression, or logistic regression could be considered, these are more suited for count data or binary outcomes, rather than our continuous outcome of interest.
-In addition, through OLS we can compare our analysis with other academic work (reference), which is imporant given the lack of research on this area and the novelity of approaches.
+We are studying the correlation between the size of liquidity pools and trading volume using Ordinary Least Squares (OLS) regression models. The OLS method is favored due to its simplicity, interpretability, and widespread use in econometric analysis. Despite other models like Poisson regression, negative binomial regression, and logistic regression being available, they are more fitting for count data or binary outcomes, not our continuous outcome of interest. Plus, OLS aligns our research with other academic works\cite{Miori2023}, essential for the scarcity of research in this area.
 
-The application of OLS to time-series models requires additional considerations due to the sequential nature of time-series data. Traditional regression techniques can fail to account for this temporal element. Hence, we have used methods that incorporate time trends and seasonal patterns. However, we can use OLS regression if we have reason to believe our time-series data follows a linear trend, bearing in mind issues such as autocorrelation and non-stationarity.
+The application of OLS to time-series models involves addressing temporal elements like time trends and seasonal patterns. However, OLS can still be used if our time-series data is believed to follow a linear trend, while considering issues such as autocorrelation and non-stationarity.
 
+\subsection{\textbf{Model Construction and Evaluation}}
 
-\subsection{Ordinary Least Squares (OLS) Regression Method}
+We define a set of pools, denoted as \(P\), where \(p \in P=\{500,3000,\text{both}\}\). This allows for individual, interaction, and aggregate metrics within and across two pools, enabling a comprehensive study and insights into spillover effects. 
 
-Ordinary Least Squares (OLS) is a technique used in linear regression to estimate unknown parameters. The method works by minimizing the sum of the squared residuals. In this context, residuals are the differences between the observed and predicted values. The objective function to minimize is expressed as follows:
+A reference pool \(P_r\) is introduced, with \(P_r \in P\) and \(P_r \neq \text{both}\), denoting a pool where a reference mint operation occurs. This results in \(len(P) * len(P_r)\) possible combinations (i.e., 3*2=6).
 
-\begin{equation}
-\min_{\beta} ||Y - X\beta||^2
-\end{equation}
+The response variable in our model, \(Y_{p_{\text{horizon}}}\), denotes the cumulative volume for a pool at a given horizon. The explanatory variables are structured to discriminate "same" and "other" pool features using Block Interval Chains which were derived from the feature engineering process.
 
-where:
-- $Y$ is the dependent variable
-- $X$ is the matrix of independent variables
-- $\beta$ is the vector of parameters to estimate.
+In particular, we use the sequences of block numbers generated by the chains for the "same" and "other" pools' mint operations, denoted \(C_s\) and \(C_o\) respectively, to define the explanatory variables \(X\). 
 
-\subsection{Model Structure and Variable Definitions}
+To incorporate temporal dependencies and dynamics in the model, we introduce spot lagged variables of the explanatory variables. These spot lagged variables, denoted as \(\widetilde{i(i-1)}X_s\) and \(\widetilde{i(i-1)}X_o\), represent the values of the explanatory variables at different lags relative to the prediction horizon, for the "same" and "other" pools respectively.
 
-We define a set of pools, denoted as \(P\), where \(p \in P=\{500,3000,\text{both}\}\). This accommodates individual, interaction and aggregate metrics within and across two pools, enabling comprehensive study and insights into spillover effects. 
+We stadarize the independent variables to make the fitted coefficients easier to compare to each other, because they're all on the same scale. For example, a coefficient of 0.5 means that a one standard deviation increase in the corresponding feature leads to a 0.5 increase in the predicted dependent variable, assuming all other variables are held constant.
 
-A reference pool \(P_r\) is introduced, with \(P_r \in P\) and \(P_r \neq \text{both}\), denoting a pool where a reference mint operation occurs. There are thus \(len(P) * len(P_r)\) possible combinations (i.e., 3*2=6).
-
-The response variable in our model, \(Y_{p_{\text{horizon}}}\), denotes the cumulative volume for a pool at a given horizon. The explanatory variables are structured to discriminate "same" and "other" pool features using Block Interval Chains. 
+Further, as described in Section \ref{sec:model-optimization}, we opt to perform a logarithmic transformation using base 10 on the response variables, similar to the approach outlined in \cite{Miori2023}.
 
 The OLS regression model used in our study is expressed as follows:
 
 \begin{equation}
-Y_{p_{\text{horizon}}} = \beta_0 + \beta_1 \cdot \widetilde{01}X + \beta_2 \cdot \widetilde{12}X + \beta_3 \cdot \widetilde{23}X + \ldots + \epsilon
-\end{equation}
+  \log(Y_{p_{\text{horizon}}}) = \beta_0 + \sum_{i=1}^{n} \left(\beta_i^s \cdot \widetilde{i(i-1)}X_s + \beta_i^o \cdot \widetilde{i(i-1)}X_o\right) + \sum_{j=1}^{m} \beta_{n+j} \cdot X_j + \epsilon
+  \end{equation}
+  
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|p{0.6\linewidth}|}
+    \hline
+    \textbf{Variable} & \textbf{Definition} \\
+    \hline
+    \(\log(Y_{p_{\text{horizon}}})\) & Logarithm of the dependent variable to be predicted at the prediction horizon \(p_{\text{horizon}}\) \\
+    \(\beta_0\) & Intercept term: Expected value of \(\log(Y_{p_{\text{horizon}}})\) when all variables are zero \\
+    \(\widetilde{i(i-1)}X_s\), \(\widetilde{i(i-1)}X_o\) & Spot lagged variables: Values of \(X\) at different lags relative to the prediction horizon for the "same" and "other" pools, respectively \\
+    \(\beta_i^s\), \(\beta_i^o\) & Coefficients associated with each spot lagged variable of \(X\), capturing their effects on the predicted value of \(\log(Y_{p_{\text{horizon}}})\) \\
+    \(X_j\) & Additional independent variables or non-lagged variables of \(X\) included in the model \\
+    \(\beta_{n+j}\) & Coefficients associated with each additional independent variable, indicating their effects on \(\log(Y_{p_{\text{horizon}}})\) \\
+    \(\epsilon\) & Error term or residual: Accounting for unexplained variation in \(\log(Y_{p_{\text{horizon}}})\) not captured by the model \\
+    \hline
+    \end{tabular}
+    \caption{Variable definitions}
+    \label{tab:variables}
+  \end{table}
 
-In this equation, \(\beta_0\), \(\beta_1\), \(\beta_2\), \(\beta_3\), etc., represent the coefficients associated with each spot lagged variable, while \(\epsilon\) is the error term or residual.
+We trained and evaluated models for different target variables and horizons, incorporating lagged variables to predict trading volumes at various time horizons. Model performance was assessed using several metrics.
 
-\subsection{Model Testing and Performance Metrics}
-
-We constructed and evaluated OLS regression models for different target variables and horizons. Lagged variables were incorporated into the models to predict trading volumes at different time horizons. The models' performance was measured using metrics like R-squared, adjusted R-squared, mean absolute error (MAE), mean squared error (MSE), and root mean squared error (RMSE). We limited our horizon analysis to 30, equivalent to 300 blocks.
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|p{0.35\linewidth}|p{0.55\linewidth}|}
+  \hline
+  \textbf{Metric} & \textbf{Purpose} \\
+  \hline
+  R-squared & Represents the proportion of the variance for a dependent variable that's explained by an independent variable \\
+  Adjusted R-squared & Adjusts the R-squared for the number of predictors in the model \\
+  Mean Absolute Error (MAE) & Measures the average magnitude of the errors in a set of predictions \\
+  Mean Squared Error (MSE) & Measures the average of the squares of the errors \\
+  Root Mean Squared Error (RMSE) & Square root of the MSE, measuring the standard deviation of residuals \\
+  \hline
+  \end{tabular}
+  \caption{Evaluation metrics}
+  \label{tab:metrics}
+  \end{table}  
 
 \subsection{Train/Test Split and Cross-Validation}
 
@@ -345,47 +362,50 @@ The Train/Test Split methodology assessed the model's ability to generalize to u
 
 Cross-validation was applied to assess the OLS model for each horizon. We employed GroupKFold, a form of k-fold cross-validation, to prevent data leakage between training and testing sets. This ensured groups were not split between these sets. We defined groups according to the block reference number. For each fold, the data was split, features standardized, target variables transformed, and an OLS regression model fitted. R-squared and adjusted R-squared were computed for both training and test sets. This process was repeated for each horizon, resulting in trained models and performance metrics. Cross-validation aids in estimating model performance, identifying overfitting, and ensuring reliable generalization across different data subsets.
 
-\section{Model Optimization and Selection}
+\subsection{Model Optimization}\label{sec:model-optimization}
+
+Model training involved an iterative "All Horizon Runs" (as in Figure \ref{fig:ols-all-horizons}) approach to explore different modeling techniques, followed by a "Best Horizon Run" to optimize models based on performance. We used the coefficient of determination, R-squared, to gauge model performance, ensuring the model was well-specified and likely to generalize well to new data. 
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[trim=0 0 0 0, clip, width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/OLS_allhorizons_r2.png}
+  \caption{OLS Horizon Analysis}
+  \label{fig:ols-all-horizons}
+\end{figure}
 
 The coefficient of determination, also known as R2 score, quantifies the amount of variance in the dependent variable predictable from the independent variable(s). It ranges from 0 to 1, where 0 means the model explains none of the response data's variability around its mean, and 1 means it explains all the variability. However, R2 can be negative when the model fits poorly and performs worse than a horizontal line (the mean of the dependent variable). This may occur when the model's predictions are consistently far off, causing large errors, or when overfitting occurs on the training data, resulting in poor performance on the test data.
 
 Our iterative "All Horizon Runs" and "Best Horizon Run" approaches allowed us to explore different modeling techniques and optimize the models based on performance. The results informed the selection of the most suitable models for predicting the target variables.
 
-\subsection{Model Training for All Horizon Runs}
+The "Best Horizon Run", focused on identifying the optimal model for specific combinations of horizon and target variables. The 'step-wise' model with parameters \texttt{pool = 3000} and \texttt{target\_variable = 'cum\_volume\_500'} outperformed others in both training and testing environments. We concentrated on \texttt{horizon = 150}, which displayed higher mean $R^2$ values of 0.203 in both training and testing data, indicating superior generalization and predictive accuracy. Other models, in contrast, yielded lower mean $R^2$ values, with some even producing negative values in the testing data, indicating suboptimal performance and poor generalization to unseen data.
 
-The initial phase of the model training, termed as "All Horizon Runs", was directed towards training Ordinary Least Squares (OLS) models across all horizons. The models utilised target variables with data preprocessing being performed beforehand. The model performance was examined through a 5-fold cross-validation strategy, deploying metrics such as R-squared, adjusted R-squared, and Mean Squared Error (MSE). A variety of visualization tools facilitated the comparison of models' performance over different horizons and target variables.
+The small differences between \(R^2\) and \(R^2_{adj}\) for both the overall data and the specific combination suggest that the 'step-wise' model is not overfitting due to the inclusion of too many predictors. This is a positive indication that the model is well-specified and likely to generalize well to new data. This supports the selection of the 'step-wise' model for the specific combination of parameters, as the model appears to have a good balance between complexity (number of predictors) and performance (as measured by \(R^2_{adj}\)).
 
-\subsection{Optimising the Best Horizon Run}
+In order to manage multicollinearity, we performed a correlation analysis and calculated the Variance Inflation Factor (VIF) as per the equation:
 
-The subsequent stage, referred to as the "Best Horizon Run", aimed to determine the optimum model for specific combinations of horizon and target variables. The 'step-wise' model with parameters \texttt{pool = 3000} and \texttt{target\_variable = 'cum\_volume\_500'} demonstrates superior performance in both the train and test environments. We focus on \texttt{horizon = 150}, which exhibits higher mean $R^2$ values of 0.203 in both the training and testing data, indicating better generalization and predictive accuracy. In comparison, other models yield lower mean $R^2$ values, particularly a negative value in the testing data, suggesting suboptimal performance and poorer generalization to unseen data.
-
-The relatively small differences between \(R^2\) and \(R^2_{adj}\) for both the overall data and the specific combination suggest that the 'step-wise' model is not overfitting due to the inclusion of too many predictors. This is a positive indication that the model is well-specified and likely to generalize well to new data. This support the selection of the 'step-wise' model for the specific combination of parameters, as the model appears to have a good balance between complexity (number of predictors) and performance (as measured by \(R^2_{adj}\)).
-
-The subsequent process involved an extensive data analysis phase, incorporating correlation analysis and Variance Inflation Factor (VIF) calculations. Strategies to mitigate multicollinearity and enhance model performance were deployed, including the removal of highly correlated variables and data aggregation.
-
-\subsection{Addressing Multicollinearity and Refinement of Models}
-% After running again the All Horizon Runs with the optimised featues, we selected model [____] due to [____].
-A key aspect of model refinement was the management of multicollinearity, a circumstance where high correlation is exhibited between two or more variables. This was tackled by discarding certain columns and aggregating feature intervals. To evaluate the impact of multicollinearity on the variance of the estimated regression coefficients, a correlation matrix and Variance Inflation Factor (VIF) analysis were performed pre and post-adjustment. High VIF values suggest high multicollinearity, calculated using the following formula:
 \begin{equation}
-VIF(k) = \frac{1}{1 - R^2_k}
+  VIF(k) = \frac{1}{1 - R^2_k}
 \end{equation}
-where $R^2_k$ is the coefficient of determination of a predictor in a model that includes all other predictors. 
 
-Before Multicollinearity Reduction: VIF counts for thresholds: [1, 5, inf]
-1: 0, 5: 21, inf: 22
+with $R^2_k$ being the determination coefficient for each predictor.
 
-After Multicollinearity Reduction: VIF counts for thresholds: [1, 5, inf]
-1: 0, 5: 24, inf: 2
+The condition \( \text{VIF} < b \) compares the Variance Inflation Factor (VIF) to a threshold value \( b \), where values less than 1 indicate low or no multicollinearity, values between 1 and 5 suggest moderate multicollinearity, and values greater than 5 indicate high multicollinearity.
 
-(2 (rate-count-iother, blother\_1) variables with high VI)
+\begin{table}[h]
+\centering
+\begin{tabular}{lcc}
+\hline
+ b & \textbf{Before Reduction} & \textbf{After Reduction} \\
+\hline
+\textbf{No/Low} & 0 & 0 \\
+\textbf{Moderate} & 21 & 24 \\
+\textbf{High} & 22 & 2 \\
+\hline
+\end{tabular}
+\caption{VIF Counts for Thresholds [1, 5, inf]}
+\end{table}
 
-
-By analysing feature correlations and VIF, multicollinearity was identified. Features demonstrating high multicollinearity were removed (cols\_drop\_correlated = ['blsame\_2', 'blsame\_3', 'blother\_2', 'blother\_3', 'vol\_0\_1', 'vol\_0\_2',
-                        'binance-count-01', 'binance-count-12', 'binance-count-23',
-                        'rate-USD-isame\_01', 'rate-USD-isame\_12', 'rate-USD-isame\_23',
-                        'rate-USD-iother\_01', 'rate-USD-iother\_12', 'rate-USD-iother\_23')
-
-Following the methodology outlined by \cite{Miori2023}, we further reduced multicollinearity by aggregating certain intervals (cols\_aggregate\_intervals\_range = ['rate-count-isame\_', 'rate-count-iother\_', 'binance-btc-')
+Two variables ('rate-count-iother', 'blother\_1') remained with high VIF. Following a correlation analysis, certain highly correlated features were removed. Further reduction of multicollinearity was achieved by aggregating certain intervals, a methodology based on \cite{Miori2023}. See Figure~\ref{fig:correlation-matrix} for the correlation matrix.
 
 \begin{figure}[htbp]
   \centering
@@ -394,40 +414,39 @@ Following the methodology outlined by \cite{Miori2023}, we further reduced multi
   \label{fig:correlation-matrix}
 \end{figure}
 
-\subsection{Feature Selection via Step-wise Regression}
+\section{\textbf{Feature Selection and Residual Analysis}}
 
-The step-wise feature selection process is a robust method for fitting regression models. This iterative process involved adding or removing variables based on the t-statistics of their estimated coefficients. The least significant features were systematically eliminated and the model retrained, until all remaining features were deemed significant. This approach aids in preventing overfitting and improves model interpretability.
-Hello
+The step-wise feature selection process was used to fit regression models. We systematically removed the least significant features and retrained the model until all remaining features were deemed significant. This approach helps prevent overfitting and enhances model interpretability.
+
+
+Residual analysis helped inspect the distribution of residuals for any patterns or anomalies. We validated model assumptions: a zero mean error term, constant variance, a normal error distribution, and no correlation between consecutive residuals (autocorrelation). Residuals randomly dispersed around zero signify an appropriate model for the data. If not, it could be a sign that the model's assumptions have been violated.
+
+To identify and address heteroscedasticity, we examine the distribution of error terms. Upon observing a non-linear distribution, we opt to perform a logarithmic transformation using base 10 on the response variables, similar to the approach outlined in \cite{Miori2023}. This transformation aids in stabilizing the variance and aligning the errors with the assumptions of the regression model as illustrated on Figures~\ref{fig:residual-one-horizon} and ~\ref{fig:residual-all-horizons}.
+
 \begin{figure}[htbp]
+  \begin{minipage}{0.5\textwidth}
   \centering
-  \includegraphics[trim=0 0 0 0, clip, width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/OLS_allhorizons_r2.png}
-  \caption{OLS Horizon Analysis}
-  \label{fig:ols-all-horizons}
-\end{figure}
+  \includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/residuals.png}
+  \caption{Residuals: One Horizon}
+  \label{fig:residual-one-horizon}
+  \end{minipage}
+  \begin{minipage}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/residuals_all_horizons.png}
+  \caption{Residuals: All Horizons}
+  \label{fig:residual-all-horizons}
+  \end{minipage}
+  \end{figure}
 
-\section{Analysis and Discussion}
-
-This section discusses the significance of our model refinement process, its findings, and provides an interpretation of the predictor coefficients. The effectiveness of the multicollinearity reduction process is examined first, followed by a residual analysis. A step-by-step description of each predictor is also provided.
-
-\subsection{Mitigation of Multicollinearity}
-Our process for reducing multicollinearity significantly improved the model. Initially, several variables with perfect multicollinearity (infinite VIF) were observed, along with a considerable number of variables in the high VIF category. This indicated a high degree of multicollinearity. However, following the reduction process, no variables exhibited high VIF, and most variables fell into the low VIF category, signaling the effective mitigation of multicollinearity in the data.
-
-\subsection{Residual Analysis}
-Following the mitigation of multicollinearity, we re-ran the models and conducted a residual analysis to inspect the distribution of residuals for any patterns or anomalies. This process is critical to validate the model's assumptions: a zero mean error term, constant variance, a normal error distribution, and no correlation between consecutive residuals (autocorrelation).
-
-\subsection{OLS Regression Model}
-Our OLS regression model indicates a significant overall relationship (F-statistic = 57.38, p \textless{} 0.001), with an R-squared value of 0.238. This suggests that the predictors collectively explain 23.8\% of the variance in the dependent variable.
-
-\subsection{Predictor Coefficients}
-Predictor coefficients, as seen in Table \ref{tab:predictor-coefficients}, represent the mean change in the response for one unit of change in the predictor, while other predictors in the model are kept constant. For instance, for every unit increase in 'avg-USD-iother\_01', the log of 'cum\_volume\_500' increases by 0.1750, assuming all other predictors are constant.
-
-A Durbin-Watson statistic of 1.517, close to 2, indicates that there is no significant autocorrelation in the residuals. However, the Prob (Omnibus) and Prob (JB) probabilities being 0 suggests that the residuals are not normally distributed.
+\subsection{Interpretation of Predictor Coefficients}
+When interpreting the predictor coefficients in our OLS regression model for "Best Horizon Run" (using a 'step-wise' model with parameters \texttt{pool = 3000} and \texttt{target\_variable = 'cum\_volume\_500'}), we observe a significant overall relationship (F-statistic = 57.38, p \textless{} 0.001), and an R-squared value of 0.238, indicating that the predictors collectively account for 23.8% of the variance in the dependent variable.
 
 \begin{table}[htbp]
   \centering
   \begin{tabular}{|l|c|c|c|c|}
   \hline
   \textbf{Predictor}        & \textbf{Coef} & \textbf{Std Err} & \textbf{P-value} & \textbf{Significance} \\
+  \hline
   Constant                  & 6.1377        & 0.026            & 0.000            & True                  \\
   avg-USD-iother\_01       & 0.1750        & 0.013            & 0.000            & True                  \\
   blother\_1               & -0.1919       & 0.018            & 0.000            & True                  \\
@@ -443,58 +462,34 @@ A Durbin-Watson statistic of 1.517, close to 2, indicates that there is no signi
   \label{tab:predictor-coefficients}
 \end{table}
 
+We standardized the features before fitting the model, considering this in the interpretation of the coefficients. The predictor coefficients, as shown in Table ~\ref{tab:predictor-coefficients}, represent the change in the response variable for a one standard deviation change in the corresponding predictor, while holding all other predictors in the model constant. For example, for every one standard deviation increase in 'avg-USD-iother\_01', the logarithm of 'cum\_volume\_500' is expected to increase by 0.1750, assuming all other predictors remain constant.
+
+\subsection{Model Evolution and Detailed Performance Analysis}
+
+Our model's development comprised three distinct stages: an initial stage incorporating all available features, a subsequent phase addressing multicollinearity, and a final stage involving stepwise regression to choose the most statistically significant features.
+
+The model's performance was evaluated based on several criteria: horizon sizes, R-squared values, different data pools, and various target variables. As the horizon extended, predictability, as indicated by \( R^2 \) values, generally decreased, which is consistent with the increased difficulty in predicting further into the future. However, 'all\_features' and 'step-wise' run types with the 'cum\_volume\_300' target variable in the 5000 pool demonstrated consistent high \( R^2 \) values across various horizons, suggesting that our model still exhibited good fit and predictive power even for longer horizons.
+
+Interestingly, we observed negative \( R^2 \) values in some instances, particularly within the test set. This suggests that these models performed worse than a simplistic model based on averages, indicating a potential overfitting issue during the training phase, where the models could not generalize effectively to unseen data.
+
+When comparing the 500 and 3000 pools, the larger pool generally provided higher \( R^2 \) values. This might suggest that having more reference mints in pool 3000 leads to more accurate predictions. Additionally, for both pools, the 'cum\_volume\_500' target variable typically yielded higher \( R^2 \) values, hinting at a stronger correlation with the selected features.
+
+\section{\textbf{Discussion and Conclusion}}
+
+The reduction of multicollinearity had a notable impact on improving our model, as evidenced by the substantial reduction of variables with high Variance Inflation Factor (VIF) values. The final model demonstrated robustness and good predictive power across different time horizons.
+
+The highest coefficient in the model is associated with the \(\widetilde{01}X\) spot lagged variable. This suggests that the immediate past period has the most significant influence on future trading volume, a finding that aligns with established financial theories on market behavior.
+
+Residual analysis revealed a slight trend, with residuals mostly positive for lower predicted values and mostly negative for higher predicted values. This pattern indicates potential underprediction and overprediction, respectively, suggesting room for model refinement.
+
+Our study convincingly demonstrates a substantial relationship between liquidity pool sizes and trading volumes. While some models showed evidence of overfitting, our findings reinforce the potential of pool sizes as a robust predictor of trading volumes in our selected markets. These insights expand the understanding of liquidity pool influence and provide valuable guidance for market participants and future research endeavors.
+
+
+
 \subsection{Feature Importance}
 [TODO] Understanding the variables contributing significantly to the predictive power of our model can guide feature selection and model refinement. This can be accomplished through permutation importance or coefficient estimates, subject to the model and the specific context.
 
-\subsection{Residual Dispersion Analysis}
-Further analysis of residuals allows for understanding their dispersion. Residuals randomly dispersed around zero signify an appropriate model for the data. If not, it could be a sign that the model's assumptions have been violated.
-
-  \begin{figure}[htbp]
-    \begin{minipage}{0.5\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/residuals.png}
-    \caption{Residuals: One Horizon}
-    \label{fig:residual-one-horizon}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{C:/Users/MatiasVizcaino/repos/6203-DataAnalyticsBusiness-Project/Other Resources/residuals_all_horizons.png}
-    \caption{Residuals: All Horizons}
-    \label{fig:residual-all-horizons}
-    \end{minipage}
-    \end{figure}
-
-\subsection{Residual Analysis Insights}
-From the one horizon plot, residuals appear scattered around the center line of 0, without an obvious pattern, suggesting our model's assumptions (linearity, independence, and homoscedasticity) are likely met. However, a slight trend is observed: residuals are mostly positive for lower predicted values and mostly negative for higher predicted values, indicating potential underprediction and overprediction respectively.
-
-The all horizons plot shows that residuals are distributed around zero across all horizons. However, a larger spread of residuals is noted for smaller horizons, suggesting less accurate model predictions. It also shows a trend where residuals for smaller horizons are skewed towards positive values, and residuals for larger horizons are skewed towards negative values.
-
-\subsection{Refinement Based on Residual Analysis}
-These insights from the residual analysis can guide further refinement of the models. For example, exploring different models or additional features for smaller horizons could improve prediction accuracy.
-
-\section{Performance Analysis and Discussion}
-
-
-Our models have evolved through three stages: 'all\_features', 'multicollinearity', and 'stepwise'. Initially, all available features were used then multicollinearity was addressed, and finally, a stepwise regression was applied to select the most statistically significant features. Each stage aimed to improve the model's interpretability and predictive power.
-
-We analyze the performance of our models across different aspects: horizon sizes, R-squared values, data pools, and target variables, and identify the high-performing categories.
-
-\subsection{Performance Across Horizons}
-As the horizon expands, the predictability of target variables (indicated by \( R^2 \) values) generally decreases. However, some combinations of run types and target variables maintain high \( R^2 \) values across larger horizons. For instance, 'all\_features' and 'step-wise' run type with 'cum\_volume\_300' target variable in the pool 3000 data set consistently exhibits high \( R^2 \) values across various horizons.
-
-\subsection{Negative R-squared Values}
-Negative \( R^2 \) values, mostly in the test set, suggest certain models perform worse than a simplistic average-based model, indicating a failure to generalize to unseen data.
-
-\subsection{Comparing Pools}
-Comparing pool 500 and pool 3000, pool 3000 generally yields higher \( R^2 \) values. This suggests that reference mints in pool 3000 may lead to better predictions.
-
-\subsection{Comparison of Target Variables}
-For both pools, the 'cum\_volume\_500' target variable tends to yield higher \( R^2 \) values than 'cum\_volume\_3000', possibly suggesting a stronger correlation with the selected features.
-
-\subsection{High Performing Categories}
-Combinations with 'cum\_volume\_500' target variable frequently demonstrate good \( R^2 \) values, suggesting stronger predictability or a stronger linear relationship with the chosen features. The 'all\_features' run type often appears among these high-performing combinations, indicating that including all features often yields better results. However, generalization to the testing data is a challenge, indicating a need for model refinement. 
-
-\section*{Going Forward}
+\section{Going Forward}
 
 To summarize, the learnings from this project, particularly regarding data engineering and feature generation, are substantial. This largely unexplored field of financial technology presents vast opportunities for fresh findings and contributions to the existing body of knowledge. Our initial results are promising, and we're eager to delve into the forthcoming phases of our project, emphasizing model optimization and refining our analysis and conclusions.
 
@@ -529,7 +524,7 @@ While Ordinary Least Squares (OLS) regression is a good starting point, it might
 
 % Given the negative R^2 values, it might also be worth revisiting the data cleaning and preprocessing steps. Ensuring the quality and correctness of the data is crucial for any machine learning task. 
 
-\section*{\textbf{Future Extensions}}
+\section{\textbf{Future Extensions}}
 Future extension:
 
 Future extensions may include price divergences in BTC-ETH exchanges and pools, as arbitrage opportunities may also drive activity.
@@ -542,9 +537,9 @@ Future extensions may include price divergences in BTC-ETH exchanges and pools, 
 
 [A key concept to understand in this analysis is the notion of impermanent loss. The impermanent loss function for Uniswap v2 liquidity providers is a notable concept to be included in the discussion \cite{Aigner2021}. The role of yield farming protocols, their classification, and their sources of yield are also significant considerations in this analysis \cite{Xu2023}]
 
-\section*{Appendix}
+\section{Appendix}
 
-From the transaction data, we created 8,228 reference blocks that correspond to each mint operation. These blocks were then used to engineer features to calculate metrics for the same pool and other pools. These features capture data about liquidity pools and calculate metrics such as volatility, traded volume rate, trades count, and average volume. To expand the analysis, we have also included lagged features for the previous three mint operations. Table \ref{table:chains} serves as our block reference table.
+From the transaction data, we created 8,228 reference blocks that correspond to each mint operation. These blocks were then used to engineer features to calculate metrics for the same pool and other pools. These features capture data about liquidity pools and calculate metrics such as volatility, traded volume rate, trades count, and average volume. To expand the analysis, we have also included lagged features for the previous three mint operations. Table ~\ref{table:chains} serves as our block reference table.
 \begin{table}[htbp]
   \centering
   \small
@@ -601,10 +596,14 @@ The effects of BTC-ETH price volatility on trading volume compared to liquidity 
 
 Time-Series Specific Analysis: If your data has a temporal component, consider analyzing autocorrelation and partial autocorrelation plots of the residuals. This will help you check for any leftover temporal structure in your errors which, if present, suggests there may be room to improve your model.
 
+These insights from the residual analysis can guide further refinement of the models. For example, exploring different models or additional features for smaller horizons could improve prediction accuracy.
+
+
+In conducting this macroeconomic study, we acknowledge and address various challenges and risks associated with decentralized finance (DeFi) protocols. One of the main challenges lies in understanding and managing the economic risks inherent in yield farming, including yield dilution, conversion risk, exchange risk, counterparty risk, and liquidation risk. These risks can have significant implications for the sustainability and effectiveness of yield farming practices within the DeFi ecosystem \cite{Xu2023}.
+
+Furthermore, we recognize the importance of addressing security risks in our analysis. Flash loan attacks, rug pulls, reentrancy vulnerabilities, and key exploits are prevalent security risks within the yield farming landscape. Mitigating these risks and ensuring the security of DeFi protocols are crucial for maintaining the stability and integrity of the overall system \cite{Xu2023}.
 
 \bibliographystyle{plain} % You could use plain, unsrt, alpha, abbrv etc. 
 \bibliography{export}
 
-% \usepackage[style=verbose-note, url=true]{biblatex}
-%
 \end{document}

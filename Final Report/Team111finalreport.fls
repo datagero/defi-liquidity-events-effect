@@ -233,10 +233,10 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\graphics-c
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\color.cfg
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\color.cfg
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\color.cfg
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex-dev\graphics\mathcolor.ltx
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex-dev\graphics\mathcolor.ltx
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex-dev\graphics\mathcolor.ltx
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex-dev\graphics\mathcolor.ltx
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\graphics\mathcolor.ltx
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\graphics\mathcolor.ltx
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\graphics\mathcolor.ltx
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\graphics\mathcolor.ltx
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\amsmath\amsmath.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\amsmath\amsmath.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\amsmath\amsmath.sty
@@ -470,7 +470,6 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\pgf\utilit
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\pgf\utilities\pgfrcs.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\pgf\utilities\pgfrcs.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\utilities\pgfutil-common.tex
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\utilities\pgfutil-common-lists.tex
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\utilities\pgfutil-latex.def
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\utilities\pgfrcs.code.tex
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\utilities\pgfrcs.code.tex
@@ -483,7 +482,7 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\syst
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\systemlayer\pgfsys.code.tex
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\systemlayer\pgfsys.code.tex
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\utilities\pgfkeys.code.tex
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\utilities\pgfkeysfiltered.code.tex
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\utilities\pgfkeyslibraryfiltered.code.tex
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\systemlayer\pgf.cfg
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\systemlayer\pgfsys-pdftex.def
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\pgf\systemlayer\pgfsys-pdftex.def
@@ -619,6 +618,17 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\kvoptions\
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\ltxcmds\ltxcmds.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\kvsetkeys\kvsetkeys.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\ltxcmds\ltxcmds.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\kvoptions\kvoptions.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\pd1enc.def
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\pd1enc.def
@@ -635,19 +645,6 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\intcalc\
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\intcalc\intcalc.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\intcalc\intcalc.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\intcalc\intcalc.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\etexcmds\etexcmds.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\infwarerr\infwarerr.sty
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\generic\iftex\iftex.sty
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\puenc.def
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\puenc.def
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\hyperref\puenc.def
@@ -765,7 +762,7 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT .\Team111finalreport.aux
-INPUT Team111finalreport.aux
+INPUT .\Team111finalreport.aux
 INPUT Team111finalreport.aux
 OUTPUT Team111finalreport.aux
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
@@ -788,11 +785,11 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\e
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
 INPUT .\Team111finalreport.out
-INPUT Team111finalreport.out
+INPUT .\Team111finalreport.out
 INPUT .\Team111finalreport.out
 INPUT Team111finalreport.out
 INPUT .\Team111finalreport.out
-INPUT Team111finalreport.out
+INPUT .\Team111finalreport.out
 INPUT .\Team111finalreport.out
 INPUT Team111finalreport.out
 OUTPUT Team111finalreport.pdf
@@ -805,7 +802,6 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
-INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr9.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr6.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi9.tfm
@@ -815,7 +811,9 @@ INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex9.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx9.tfm
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT C:\Users\MatiasVizcaino\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti10.tfm
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\engineer.png
@@ -831,8 +829,14 @@ INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Res
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\data-diagram\features.png
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
-INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
@@ -841,33 +845,26 @@ INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Res
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
 INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\correlation_matrix_final.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\OLS_allhorizons_r2.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
+INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
 INPUT C:\Users\MatiasVizcaino\AppData\Local\Programs\MiKTeX\tex\latex\base\omlcmr.fd
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
-INPUT C:\Users\MatiasVizcaino\repos\6203-DataAnalyticsBusiness-Project\Other Resources\residuals_all_horizons.png
 INPUT .\Team111finalreport.bbl
-INPUT Team111finalreport.bbl
+INPUT .\Team111finalreport.bbl
 INPUT .\Team111finalreport.bbl
 INPUT Team111finalreport.bbl
 INPUT Team111finalreport.aux
