@@ -176,11 +176,6 @@ def advanced_plot_dataframes(metrics_df, df_pool_counter_dict, r2_col='r2', outp
                 ax2.bar(df_pool_counter.index, df_pool_counter[pool_counter], bottom=bottom, alpha=0.3, label=f'Pool {pool_counter}', width=8, color=pallete_pools[h])
                 bottom += df_pool_counter[pool_counter]
             ax2.legend()
-            # Add label to x-axis (only in the middle subplot)
-            if count == (len(pools) * len(split_types)) // 2:
-                ax.set_xlabel('Horizon')
-            else:
-                ax.set_xticklabels([])
 
             # Add label to y-axis (only in the first subplot of each pool)
             if count % len(pools) == 0:

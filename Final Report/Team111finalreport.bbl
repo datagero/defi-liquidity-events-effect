@@ -50,8 +50,16 @@ Deborah Miori and Mihai Cucuringu.
   inspired by the above paper, from which the main methodology is borrowed,
   replicated, and expanded.
 
+\bibitem{ProjectData}
+Matias Vizcaino, Walter~Jack Simmons, and Vitor de~Matos~Castilho.
+\newblock Data extracted and cleansed.
+\newblock
+  \url{https://drive.google.com/drive/folders/1y5ZwLZK9GQYsCNYSY--4VQMg80dnuwuU?usp=sharing}.
+\newblock \par Note: The dataset used in this project was obtained through data
+  extraction and cleansing processes.
+
 \bibitem{TeamRepo}
-Matias Vizcaino.
+Matias Vizcaino, Walter~Jack Simmons, and Vitor de~Matos~Castilho.
 \newblock Team111repo.
 \newblock \url{https://github.gatech.edu/MGT-6203-Summer-2023-Canvas/Team-111}.
 \newblock \par Note: The GitHub repository associated with this project

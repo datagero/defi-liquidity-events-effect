@@ -7,7 +7,7 @@ from matplotlib.lines import Line2D
 
 key_dates = {
     'terra_luna': '2022-05-12',
-    'the_merge': '2022-09-30',
+    'the_merge': '2022-09-06',
 }
 # Create a dictionary to store the colors for each key date
 colors = {

@@ -147,7 +147,7 @@ For the implementation part, we can take advantage of mathematical equations and
 
 \subsection{\textbf{Data Sources}}
 
-In line with the \textit{"DeFi modeling and forecasting trading volume" (2023)} study\cite{Miori2023}, we gathered and structured trade data spanning a minimum of 6 months. Further details on information gathering and engineering involved can be found in our GitHub repository\cite{TeamRepo}. 
+In line with the \textit{"DeFi modeling and forecasting trading volume" (2023)} study\cite{Miori2023}, we gathered and structured trade data spanning a minimum of 6 months. Further details on information gathering and engineering involved can be found in our GitHub repository\cite{TeamRepo}. The raw, cleased and processed data can be accessed in the project Google Drive \cite{ProjectData}.
 
 Our analysis incorporates information from the below sources.
 
@@ -215,7 +215,7 @@ C = \{b_{i}\}_{i=0}^{N} \text{ with each } b_{i} \in \{R_s, R_o\} \text{ and } b
 H_{M} = \{b_{0}+kM\}_{k=0}^{K} \text{ with } K = \min \left( K_{\text{max}}, \left\lfloor \frac{\text{distance to next reference block}}{M} \right\rfloor \right)
 \end{equation}
 
-The Horizon Block Table (Appendix Table \ref{tab:horizon-table}) encapsulates relationships between "same," "other," and "both" pools by assessing their variables and features at different horizons and lags. The granularity level varies for each component  \ref{tab:granularity}; this distinction in granularity unravels the cooperative or competitive dynamics between the "same" and "other" pools over the time series, enabling a comprehensive examination of pool behaviors and interactions
+The Horizon Block Table (Appendix Table \ref{tab:horizon-table}) encapsulates relationships between "same," "other," and "both" pools by assessing their variables and features at different horizons and lags. The granularity level varies for each component  \ref{tab:granularity}; this distinction in granularity unravels the cooperative or competitive dynamics between the "same" and "other" pools over the time series, enabling a comprehensive examination of pool behaviors and interactions.
 
 \begin{equation}
   HBT = \{ (H_{M}, F_{\text{DEX}}, F_{\text{DP}}, F_{\text{CEX}}) \} \text{ for each horizon } H_{M} 
@@ -236,10 +236,9 @@ The Horizon Block Table (Appendix Table \ref{tab:horizon-table}) encapsulates re
   \end{minipage}
 \end{figure}
 
-  
-  
 \begin{table}[htbp]
 \centering
+\small
 \begin{tabular}{|c|c|}
 \hline
 \textbf{Component} & \textbf{Granularity Level} \\
@@ -260,17 +259,13 @@ CEX spillover features & Horizon block level \\
 
 \subsection{Time and Pool Selection}
 
-Our dataset ranges from 01-April-2022 to 30-September-2022. This range includes the Terra-Luna collapse on 20-July-2022, which is a significant event in the DeFi ecosystem, and finished just before The Merge on 04-October-2022, which is a significant event in the Ethereum ecosystem. Refer to Appendix Figure \ref{fig:pool-transactions} for a visualization of the transaction types against time.
+Our dataset ranges from 01-April-2022 to 30-September-2022. This range includes the Terra-Luna collapse on 20-July-2022, which is a significant event in the DeFi ecosystem, and finished just after The Merge on 06-September-2022, which is a significant event in the Ethereum ecosystem. Refer to Appendix Figure \ref{fig:pool-transactions} for a visualization of the transaction types against time. The join process of Uniswap transactions and Etherscan data showed a 100\% match rate of transactions for the six-month analysis period, validating our dataset's integrity. Additional cleaning and integrity checks were carried out on each data source to aid future processing.
 
-We defined a set of pools from the WBTC-WETH exchange, \(P\), where \(p \in P=\{500,3000,\text{both}\}\), facilitating individual, interaction, and aggregate metrics within and across these pools. Transaction types primarily consist of 'burns', 'mints', and 'swaps', with 'swaps' dominating in frequency. The volume of each transaction type varies over time, indicating market dynamics. 
+We defined a set of pools from the WBTC-WETH exchange, \(P\), where \(p \in P=\{500,3000,\text{both}\}\), facilitating individual, interaction, and aggregate metrics within and across these pools. A reference pool \(P_r\) is introduced, with \(P_r \in P\) and \(P_r \neq \text{both}\), denoting a pool where a reference mint operation occurs. This results in \(len(P) * len(P_r)\) possible combinations (i.e., in our case 3*2=6).
 
-A reference pool \(P_r\) is introduced, with \(P_r \in P\) and \(P_r \neq \text{both}\), denoting a pool where a reference mint operation occurs. This results in \(len(P) * len(P_r)\) possible combinations (i.e., in our case 3*2=6).
+\subsection{Reference Blocks}
 
-The merging process of Uniswap transactions and Etherscan data showed a high match rate of transactions for the six-month analysis period, validating our dataset's integrity. Additional cleaning and integrity checks were carried out on each data source to aid future processing.
-
-\subsection{Reference Blocks and Response variables}
-
-Reference blocks (i.e., those that contain a mint operation) play a crucial role in our analysis. Our dataset houses varying amounts of reference blocks for the 500 (3,242 transactions) and 3000 (4,986 transactions) pools. A particular spike in mint activity in July 2022 raises the need for a deeper probe into potential market events during that period.
+Reference blocks, defined by the presence of a mint operation, serve as significant markers in our analysis. We consolidate mints from the same block into a single transaction for each pool, a process encompassing 2.65\% of all mint activities, aligning with existing literature \cite{Miori2023}. Our dataset includes different volumes of reference blocks for the 500 and 3000 pools (3,242 and 4,986 reference blocks accordingly). A noted surge in mint activity in July 2022 suggests the need for further investigation into possible market occurrences during this timeframe.
 
 \subsection{Block Interval Chains and Block Horizon Table}
 
@@ -280,21 +275,16 @@ We select M=10 to build a Horizon Table for each reference mint (refbase, ref500
 
 \subsection{Response variables}
 
-The response variable in our model, \(Y_{p_{\text{horizon}}}\), denotes the cumulative volume for a pool at a given horizon. Thus, dataset's target variables include 'cum\_volume\_500', 'cum\_volume\_3000', and 'cum\_volume\_base' for each respective reference pool. These variables capture the cumulative volumes across different pools, serving as the backbone for our subsequent modeling.
-
-As described in Section \ref{sec:model-optimization}, we opt to perform a logarithmic transformation using base 10 on the response variables, similar to the approach outlined in \cite{Miori2023}. 
-Thus, our response viariable is defined as \(log(Y_{p_{\text{horizon}}}\)).
+The response variable in our model, \(Y_{p_{\text{horizon}}}\), denotes the cumulative volume for a pool at a given horizon. Thus, target variables include 'cum\_volume\_500', 'cum\_volume\_3000', and 'cum\_volume\_base' for each respective reference pool. These capture the cumulative volumes across different pools, serving as the backbone for our subsequent modeling. As described in Section \ref{sec:model-optimization}, we opt to perform a logarithmic transformation using base 10 on the response variables, similar to the approach outlined in \cite{Miori2023}. Thus, our response viariable is defined as \(log(Y_{p_{\text{horizon}}}\)).
 
 
 \subsection{Data Cleaning and Preparation}
 
-We managed missing values in the volatility and avg-USD/rate-USD metrics by replacing null values with zeroes as these would largely relate to the first time interval. Furthermore, we removed highly correlated columns such as such as 'blsame\_2', 'blsame\_3', 'blother\_2', 'blother\_3', 'vol\_0\_1', 'vol\_0\_2' to avoid multicollinearity and aggregated some columns with shared prefixes: 'rate-count-isame\_', 'rate-count-iother\_', 'binance-btc-'. We subsequently dropped the original columns.
-
-During the cleaning process, we tracked data loss, resulting in a negligible reduction of 0.09\% in the observations, indicating successful data cleaning and preservation.
+We managed missing values in the volatility and avg-USD/rate-USD metrics by replacing null values with zeroes as these would largely relate to the first time interval. Furthermore, we removed highly correlated columns such as 'blsame\_2', 'blsame\_3', 'blother\_2', 'blother\_3', 'vol\_0\_1', 'vol\_0\_2' to avoid multicollinearity and aggregated some columns with shared prefixes: 'rate-count-isame\_', 'rate-count-iother\_', 'binance-btc-'. We subsequently dropped the original columns. During the cleaning process, we tracked data loss, resulting in a negligible reduction of 0.09\% in the observations, indicating successful data cleaning and preservation.
 
 \section{\textbf{In-Depth: Modelling Approach}}
 
-We are studying the correlation between the size of liquidity pools and trading volume using Ordinary Least Squares (OLS) regression models. The OLS method is favored due to its simplicity, interpretability, and widespread use in econometric analysis. Despite the popularity of other models like Poisson regression, negative binomial regression, and logistic regression being available, they are more fitting for count data or binary outcomes, not our continuous outcome of interest. Plus, OLS aligns our research with other academic works\cite{Miori2023}, essential for the scarcity of research in this area. The application of OLS to time-series models involves addressing temporal elements like time trends and seasonal patterns. However, OLS can still be used if our time-series data is believed to follow a linear trend, while considering issues such as autocorrelation and non-stationarity.
+We are studying the correlation between the size of liquidity pools and trading volume using Ordinary Least Squares (OLS) regression models. The OLS method is favored due to its simplicity, interpretability, and widespread use in econometric analysis. Despite the popularity of other models like Poisson regression, negative binomial regression, and logistic regression being available, they are more fitting for count data or binary outcomes, not our continuous outcome of interest. Plus, OLS aligns our research with other academic works\cite{Miori2023}, essential for providing comparable results given the scarcity of research in this area. The application of OLS to time-series models involves addressing temporal elements like time trends and seasonal patterns. However, OLS can still be used if our time-series data is believed to follow a linear trend, while considering issues such as autocorrelation and non-stationarity.
 
 \subsection{\textbf{Model Construction and Evaluation}}
 
@@ -309,16 +299,17 @@ The OLS regression model used in our study is expressed as follows:
   
   \begin{table}[h!]
     \centering
+    \small
     \begin{tabular}{|c|p{0.6\linewidth}|}
     \hline
     \textbf{Variable} & \textbf{Definition} \\
     \hline
-    \(\log(Y_{p_{\text{horizon}}})\) & Logarithm of the dependent variable to be predicted at the prediction horizon \(p_{\text{horizon}}\) \\
+    \(\log(Y_{p_{\text{horizon}}})\) & Logarithm of dependent variable at the prediction horizon \(p_{\text{horizon}}\) \\
     \(\beta_0\) & Intercept term: Expected value of \(\log(Y_{p_{\text{horizon}}})\) when all variables are zero \\
     \(\widetilde{i(i-1)}X_s\), \(\widetilde{i(i-1)}X_o\) & Spot lagged variables: Values of \(X\) at different lags relative to the prediction horizon for the "same" and "other" pools, respectively \\
-    \(\beta_i^s\), \(\beta_i^o\) & Coefficients associated with each spot lagged variable of \(X\), capturing their effects on the predicted value of \(\log(Y_{p_{\text{horizon}}})\) \\
-    \(X_j\) & Additional independent variables or non-lagged variables of \(X\) included in the model \\
-    \(\beta_{n+j}\) & Coefficients associated with each additional independent variable, indicating their effects on \(\log(Y_{p_{\text{horizon}}})\) \\
+    \(\beta_i^s\), \(\beta_i^o\) & Coefficients associated with each spot lagged variable of \(X\) \\
+    \(X_j\) & Additional independent variables or non-lagged variables of \(X\) \\
+    \(\beta_{n+j}\) & Coefficients associated with each additional independent variable \\
     \(\epsilon\) & Error term or residual: Accounting for unexplained variation in \(\log(Y_{p_{\text{horizon}}})\) not captured by the model \\
     \hline
     \end{tabular}
@@ -330,6 +321,7 @@ We trained and evaluated models for different target variables and horizons, inc
 
 \begin{table}[h!]
   \centering
+  \small
   \begin{tabular}{|p{0.35\linewidth}|p{0.55\linewidth}|}
   \hline
   \textbf{Metric} & \textbf{Purpose} \\
@@ -338,7 +330,7 @@ We trained and evaluated models for different target variables and horizons, inc
   Adjusted R-squared & Adjusts the R-squared for the number of predictors in the model \\
   Mean Absolute Error (MAE) & Measures the average magnitude of the errors in a set of predictions \\
   Mean Squared Error (MSE) & Measures the average of the squares of the errors \\
-  Root Mean Squared Error (RMSE) & Square root of the MSE, measuring the standard deviation of residuals \\
+  Root Mean Squared Error (RMSE) & Square root of the MSE, measures the standard deviation of residuals \\
   \hline
   \end{tabular}
   \caption{Evaluation metrics}
@@ -364,10 +356,10 @@ Model training involved an iterative "All Horizon Runs" (as in Figure \ref{fig:o
 
 The coefficient of determination, also known as R2 score, quantifies the amount of variance in the dependent variable predictable from the independent variable(s). It ranges from 0 to 1, where 0 means the model explains none of the response data's variability around its mean, and 1 means it explains all the variability. However, R2 can be negative when the model fits poorly and performs worse than a horizontal line (the mean of the dependent variable). This may occur when the model's predictions are consistently far off, causing large errors, or when overfitting occurs on the training data, resulting in poor performance on the test data.
 
-\subsection{Best Horizon Run}\label{sec:model-optimization}
-The "Best Horizon Run", focused on identifying the optimal model for specific combinations of horizon and target variables. The 'step-wise' model with parameters \texttt{pool = 3000} and \texttt{target\_variable = 'cum\_volume\_500'} outperformed others in both training and testing environments. We concentrated on \texttt{horizon = 150}, which displayed higher mean $R^2$ values of 0.203 in both training and testing data, indicating superior generalization and predictive accuracy. Other models, in contrast, yielded lower mean $R^2$ values, with some even producing negative values in the testing data, indicating suboptimal performance and poor generalization to unseen data.
+\subsection{Best Horizon Run \& Multicollinearity}\label{sec:model-optimization}
+The "Best Horizon Run", focused on identifying the optimal model for specific combinations of horizon and target variables. The 'step-wise' model with parameters \texttt{pool = 3000} and \texttt{target\_variable = 'cum\_volume\_500'} outperformed others in both training and testing environments. We concentrated on \texttt{horizon = 150}, which displayed a relatively consistent mean $R^2$ values of 0.20 in both training and testing data, indicating superior generalization and predictive accuracy. Other models, in contrast, yielded lower mean $R^2$ values, with some even producing negative values in the testing data, indicating suboptimal performance and poor generalization to unseen data.
 
-The small differences between \(R^2\) and \(R^2_{adj}\) for both the overall data and the specific combination suggest that the 'step-wise' model is not overfitting due to the inclusion of too many predictors. This is a positive indication that the model is well-specified and likely to generalize well to new data. This supports the selection of the 'step-wise' model for the specific combination of parameters, as the model appears to have a good balance between complexity (number of predictors) and performance (as measured by \(R^2_{adj}\)).
+The small differences between \(R^2\) and \(R^2_{adj}\) for both the overall data and the specific combination suggest that the 'step-wise' model does not suffer of material information loss when dropping least significant features. This is a positive indication that the model is well-specified and likely to generalize well to new data. This supports the selection of the 'step-wise' model for the specific combination of parameters, as the model appears to have a good balance between complexity (number of predictors) and performance (as measured by \(R^2_{adj}\)).
 
 In order to manage multicollinearity, we performed a correlation analysis and calculated the Variance Inflation Factor (VIF) as per the equation:
 
@@ -377,7 +369,7 @@ In order to manage multicollinearity, we performed a correlation analysis and ca
 
 with $R^2_k$ being the determination coefficient for each predictor.
 
-In Table ~\ref{fig:VIF-analysis}, the condition \( \text{VIF} < b \) compares the Variance Inflation Factor (VIF) to a threshold value \( b \), where values less than 1 indicate low or no multicollinearity, values between 1 and 5 suggest moderate multicollinearity, and values greater than 5 indicate high multicollinearity.
+In Table ~\ref{fig:VIF-analysis}, the condition \( \text{VIF} < b \) compares the Variance Inflation Factor (VIF) to a threshold value \( b \), where values less than 1 indicate low or no multicollinearity, values between 1 and 5 suggest moderate multicollinearity, and values greater than 5 indicate high multicollinearity. Following a correlation analysis (See Figure~\ref{fig:correlation-matrix}), certain highly correlated features were removed. Further reduction of multicollinearity was achieved by aggregating certain intervals, a methodology based on \cite{Miori2023}. Two variables ('rate-count-iother', 'blother\_1') remained with high VIF. 
 
 \begin{table}[h]
 \centering
@@ -390,11 +382,9 @@ In Table ~\ref{fig:VIF-analysis}, the condition \( \text{VIF} < b \) compares th
 \textbf{High} & 22 & 2 \\
 \hline
 \end{tabular}
-\caption{VIF Counts for Thresholds [1, 5, inf]}
+\caption{VIF Counts for Thresholds b in {1, 5, inf}}
 \label{fig:VIF-analysis}
 \end{table}
-
-Two variables ('rate-count-iother', 'blother\_1') remained with high VIF. Following a correlation analysis, certain highly correlated features were removed. Further reduction of multicollinearity was achieved by aggregating certain intervals, a methodology based on \cite{Miori2023}. See Figure~\ref{fig:correlation-matrix} for the correlation matrix.
 
 \begin{figure}[htbp]
   \centering
@@ -403,7 +393,7 @@ Two variables ('rate-count-iother', 'blother\_1') remained with high VIF. Follow
   \label{fig:correlation-matrix}
 \end{figure}
 
-\section{\textbf{Feature Selection and Residual Analysis}}
+\subsection{\textbf{Feature Selection and Residual Analysis}}
 
 The step-wise feature selection process was used to fit regression models. We systematically removed the least significant features and retrained the model until all remaining features were deemed significant. This approach helps prevent overfitting and enhances model interpretability. Details on number of features in Appendix \ref{tab:number-of-features}.
 
@@ -424,7 +414,7 @@ To identify and address heteroscedasticity, we examine the distribution of error
   \end{minipage}
   \end{figure}
 
-\subsection{Model Evolution and Detailed Performance Analysis}
+\section{Model Evolution and Detailed Performance Analysis}
 
 Our model's development comprised three distinct stages (see Figure \ref{fig:ols-all-horizons}): an initial stage incorporating all available features, a subsequent phase addressing multicollinearity, and a final stage involving stepwise regression to choose the most statistically significant features.
 
@@ -432,10 +422,10 @@ The model's performance was evaluated based on several criteria: horizon sizes, 
 
 Interestingly, we observed negative \( R^2 \) values in some instances, particularly within the test set. This suggests that these models performed worse than a simplistic model based on averages, indicating a potential overfitting issue during the training phase, where the models could not generalize effectively to unseen data.
 
-When comparing the 500 and 3000 pools, the larger pool generally provided higher \( R^2 \) values. This might suggest that reference mints in pool 3000 leads to more accurate predictions. Additionally, for both pools, the 'cum\_volume\_500' target variable typically yielded higher \( R^2 \) values, hinting at a stronger correlation with the selected features.
+When comparing the 500 and 3000 pools, the latter pool generally provided higher \( R^2 \) values. This might suggest that reference mints in pool 3000 leads to more accurate predictions. Additionally, for both pools, the 'cum\_volume\_500' target variable typically yielded higher \( R^2 \) values, hinting at a stronger correlation with the selected features.
 
 \subsection{Interpretation of Predictor Coefficients}
-For the OLS regression model of "Best Horizon Run" (step-wise model, parameters \texttt{pool = 3000}, \texttt{target\_variable = 'cum\_volume\_500'}), we see a significant overall relationship (F-statistic = 57.38, p \textless{} 0.001). The R-squared value of 0.238 suggests that the predictors account for 23.8\% of the variance in log of 'cum\_volume\_500'.
+For the OLS regression model of "Best Horizon Run" (step-wise model, parameters \texttt{pool = 3000}, \texttt{target\_variable = 'cum\_volume\_500'}, \texttt{horizon=15}), we see a significant overall relationship (F-statistic = 57.38, p \textless{} 0.001). The R-squared value of 0.238 suggests that the predictors account for 23.8\% of the variance in log of 'cum\_volume\_500'.
 
 Post standardization of features, the coefficients for each predictor (Table ~\ref{tab:predictor-coefficients}) express the change in log of 'cum\_volume\_500' linked to a one standard deviation increase in the respective predictor, while other predictors remain constant.
 
@@ -488,26 +478,22 @@ Addressing the study's objectives:
 
 The model demonstrates robustness and good predictive power across different time horizons. Although a slight trend in the residual analysis hints at potential underprediction and overprediction, these findings importantly reinforce the potential of pool sizes as robust predictors of trading volumes. This offers valuable insights for liquidity providers, traders, DeFi platforms, and future research.
 
-\section{Advancements and Implications for Future Research}
+\section{Advancements, Implications, and Future Research Directions}
 
-This investigation, particularly its contributions to data engineering and feature generation, has significantly propelled the emergent field of financial technology. We would like to acknowledge and extend gratitude towards the authors of "DeFi: modeling and forecasting trading volume on Uniswap v3 liquidity pools (2023)" \cite{Makarov2022,Miori2023} for their invaluable methodology, which guided our replication and validation efforts.
+This investigation contributes to data engineering, feature generation and statistical analysis in the burgeoning field of financial technology. We gratefully acknowledge the authors of "DeFi: modeling and forecasting trading volume on Uniswap v3 liquidity pools (2023)" \cite{Miori2023} for their foundational methodology that guided our work.
 
-Areas for further investigation include rigorous scrutiny of variables with notable VIF values, a move that could potentially reveal new correlations and optimize the model through feature engineering and redundancy elimination. We also propose exploring non-linear models in light of recent studies hinting at non-linear dependencies \cite{Makarov2022,Miori2023}.
-
-While the OLS regression served as an effective initial model, alternative models accommodating non-linear relationships or time-dependence could bring significant improvements.
-
-We encourage further investigations into price divergences in BTC-ETH exchanges and pools, understanding impermanent loss, and analyzing yield farming protocols. Additionally, adaptations of formulas from \cite{Elsts2021} could deepen the understanding of Uniswap's dynamics.
-
-Finally, addressing challenges and risks associated with DeFi protocols, including economic risks inherent in yield farming and various security risks, is crucial \cite{Xu2023}. This study provides a solid foundation for future research endeavors. We encourage researchers to build upon this work to further the understanding and technological advancement of the DeFi ecosystem.
-
-In our view, future research directions should focus on:
+Following the conclusions of our research, we propose several recommendations and areas for future investigation:
 
 \begin{itemize}
-\item \textbf{Model Optimization}: Uncover optimal feature, horizon, and target variable combinations.
-\item \textbf{Experimental Adjustments}: Variations in lag/horizon lengths, quadratic features, and structural shifts.
-\item \textbf{Temporal Scope}: Study recent time frames and significant industry events.
+\item \textbf{Variable Investigation}: Rigorous scrutiny of variables with significant VIF values may uncover new correlations, potentially enhancing the model by eliminating feature redundancy.
+\item \textbf{Model Exploration}: Given recent studies suggesting non-linear dependencies \cite{Makarov2022,Miori2023}, it might be fruitful to explore non-linear models. While the OLS regression has proven effective, incorporating non-linear relationships or time-dependence could bring substantial enhancements.
+\item \textbf{DeFi Dynamics and Risks}: Deeper explorations into price divergences in BTC-ETH exchanges, the understanding of impermanent loss, analysis of yield farming protocols, and addressing the challenges and risks associated with DeFi protocols, such as economic and security risks, could prove beneficial \cite{Elsts2021, Xu2023}.
+\item \textbf{Model Optimization}: Future work could focus on finding optimal feature, horizon, and target variable combinations to improve predictive performance.
+\item \textbf{Experimental Adjustments}: The investigation of variations in lag/horizon lengths, inclusion of quadratic features, and accounting for structural shifts could refine the model.
+\item \textbf{Temporal Scope}: Analyzing recent time frames and significant industry events can give a more updated understanding of DeFi's dynamic ecosystem.
 \end{itemize}
 
+This study provides a robust foundation for these proposed future research directions and encourages researchers to advance our understanding of the DeFi ecosystem.
 
 \newpage
 \section{Appendix}
@@ -544,7 +530,7 @@ Table \ref{tab:chains} serves as our block reference table. This is constructed 
   \label{tab:chains}
 \end{table}
 
-We construct a base Horizon Table \ref{tab:horizon-table} with a starting \texttt{horizon\_blockNumber} of each horizon and map it to the closest \texttt{reference\_blockNumber}, defined by mint operations in the block. This base table is joined with the mint aggregated transaction data to generate our target variables and independent variables that are lagged.
+We construct a base Horizon Table \ref{tab:horizon-table} with a starting \texttt{horizon\_blockNumber} of each horizon and map it to the closest \texttt{reference\_blockNumber}, defined by mint operations in the block. This base table is joined with other aggregated transaction data to generate our target variables and independent variables that are lagged.
 
 \begin{table}[htbp]
   \centering
@@ -590,6 +576,7 @@ To assist in replicability and consistent, we define the "All Horizon Run" and "
 
 \begin{table}[htbp]
   \centering
+  \small
   \begin{tabularx}{\textwidth}{XccccX}
   \toprule
   \textbf{Run} & \textbf{Pools} & \textbf{Target Variables} & \textbf{M} & \textbf{T} & \textbf{K (CV)} \\
