@@ -30,6 +30,7 @@ This repository is organized into several directories:
 https://drive.google.com/drive/folders/1y5ZwLZK9GQYsCNYSY--4VQMg80dnuwuU?usp=sharing
 
 - **:file_cabinet: Data**
+    - [**FeatureDescription.md**](./Code/FeatureDescription.md): Has a breakdown of the features used for the reference paper, and which ones are in-scope for this project.
     - **processed/** Including processed cex_spillovers and direct_pool features when running locally.
     - **processed/features/** Includes final data model writes when running locally.
 
