@@ -11,6 +11,27 @@ from utils.cols_management import explainable_variables, cols_drop_correlated, c
 import utils.ols as ols
 
 
+"""
+This script conducts Ordinary Least Squares (OLS) regression analyses in three primary steps: initial analysis, individual run OLS, and all horizons run OLS.
+The analyses are carried out on datasets from a specific pool of a decentralized exchange to predict cumulative volume. The script consists of the following steps:
+
+first_analysis function: This function starts by loading the data, filtering it based on a single horizon label, replacing null values, and removing rows with nulls in certain fields.
+It then divides the dataset into dependent and explanatory variables. From here, the function drops highly correlated columns from the dataset and aggregates remaining columns by interval.
+It provides a visual representation of the correlations with a heatmap, and calculates Variance Inflation Factors (VIF) to identify multicollinearity among the variables.
+
+individual_run_ols function: This function is similar to first_analysis but goes a step further.
+It uses a stepwise selection method to select the best features for the model, and then runs an OLS regression for a single specified horizon.
+This function also provides a visual representation of the residuals from the model, assisting in understanding the model's performance for the specific horizon.
+
+all_horizons_run_ols function: The final function performs a similar set of steps as individual_run_ols
+but applies the OLS regression model across all horizons in the data,rather than a single horizon.
+This allows it to provide a comprehensive analysis of the model's performance across various prediction horizons.
+It generates plots of residuals for each horizon, facilitating a clear understanding and comparison of model performance across different horizons.
+
+Throughout these steps, the script uses helper functions from a utility module to perform tasks such as replacing nulls, aggregating columns, stepwise selection, and conducting OLS regression.
+"""
+
+
 def calculate_vif(X):
     """
     Calculate Variance Inflation Factor (VIF).

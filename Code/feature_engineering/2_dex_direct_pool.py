@@ -5,6 +5,13 @@ from tqdm import tqdm
 from utils.calculations import *
 from utils.common_functions import merge_nested_dicts
 
+"""
+This script processes data from different pools of a decentralized exchange (DEX) and computes various metrics per transaction hash and interval.
+It loads previously computed interval dataframes, applies various calculations to extract insights (such as trade volume, trade count, and volatility),
+and consolidates the results into a single dataframe per pool. If run directly, the processed data can be saved into a CSV file.
+It is part of a larger system for analyzing DEX data.
+"""
+
 
 class DEX_DirectPoolProcessor:
     def __init__(self, results_dir="DataIterim/interim_results", write=True, sample=False):

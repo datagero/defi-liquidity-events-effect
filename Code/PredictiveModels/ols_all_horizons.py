@@ -4,7 +4,15 @@ from utils.cols_management import cols_drop_correlated, cols_aggregate_intervals
 import utils.ols as ols
 import itertools
 
+"""
+This script performs Ordinary Least Squares (OLS) regression analyses for predicting target variables related to cumulative volumes in different pools of a decentralized exchange.
+It does this under different feature sets: all features, a reduced set with multicollinearity minimized, and a set determined by stepwise selection.
+The script loads processed feature data, prepares the dataframes, trains the models, and makes predictions for all specified horizons.
+It stores the metrics of model performance, and finally, it visualizes the results and identifies the top performing models.
+The script is intended to help understand which features are most predictive of the target variables under different conditions,
+and can be used to inform feature and model selection in machine learning tasks related to decentralized exchange data.
 
+"""
 
 target_variables = ['cum_volume_500', 'cum_volume_3000', 'cum_volume_base']
 

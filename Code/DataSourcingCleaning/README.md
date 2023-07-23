@@ -1,31 +1,41 @@
+# :file_folder: Project Overview: Data
 
-Data Downloads -> For now, we are doing a 24hr extract and matching. This will be increase to at least 6-month period.
+The project involves data extraction from Decentralized Exchanges (DEX) and Centralized Exchanges (CEX) for a duration of 6 months. The data is then matched and processed for further analysis.
 
-The folders binance/ etherscan/ and uniswap/ contain code used to download the relevant data.
+# :inbox_tray: Data Downloads 
 
-DEX - Uniswap's The Graph API (https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3):
+The download scripts are stored in separate folders based on the source:
 
-Provides transaction details, trading volumes, and block information.
-Specifically, we focus on the Uniswap v3 WBTC-WETH liquidity pools of 500 and 3000. The associated token addresses are WBTC (0x2260fac5e5542a773aa44fbcfedf7c193bc2c599) and WETH (0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2).
-Additional attributes available from the API include transaction IDs, timestamps, amounts, and USD equivalents.
+- `binance/`
+- `etherscan/`
+- `uniswap/`
 
-The count of daily transactions for pool 3000 were compared with volumes as displayed in https://www.geckoterminal.com/eth/pools/0xcbcdf9626bc03e24f779434178a73a0b4bad62ed
+## :globe_with_meridians: DEX - Uniswap's The Graph API 
 
-More attributes are available - for a full list, refer to: https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3/graphql?query=query+MyQuery+%7B%0A++pools%0A%7D
-transaction_data = {
-            id
-            timestamp
-            amount0
-            amount1
-            amountUSD
-        }
+API Endpoint: [Uniswap The Graph API](https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3)
 
-Etherscan API (https://api.etherscan.io/api):
+This API provides transaction details, trading volumes, and block information. We focus on the Uniswap v3 WBTC-WETH liquidity pools of 500 and 3000. More attributes are available, refer to the [full list here](https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3/graphql?query=query+MyQuery+%7B%0A++pools%0A%7D).
+
+Example `transaction_data`:
+```json
+{
+    "id": "",
+    "timestamp": "",
+    "amount0": "",
+    "amount1": "",
+    "amountUSD": ""
+}
+```
+
+## :globe_with_meridians: Etherscan API 
+
+API Endpoint: [Etherscan API](https://api.etherscan.io/api)
 
 This API is used to extract corresponding transaction data from Etherscan based on the transaction hashes obtained from Uniswap.
-The data retrieved includes block hashes, block numbers, sender addresses, gas details, transaction hashes, and other related information.
 
-transaction_data = {
+Example `transaction_data`:
+```json
+{
     "blockHash": "The hash of the block where this transaction was in. Null when it's a pending log",
     "blockNumber": "The block number where this transaction was in. Null when it's a pending log",
     "from": "The address of the sender",
@@ -46,24 +56,32 @@ transaction_data = {
     "r": "The R field of the signature",
     "s": "The S field of the signature"
 }
+```
 
+## :globe_with_meridians: CEX - Binance Data Download 
 
-CEX - Binance data download.
-- Scripts were taken from the binance github repository to download-trades: https://github.com/binance/binance-public-data/blob/master/python/README.md
-- The following command was used to trigger downloads of daily zip trades: python Code/binance/download-trade.py -t "spot" -s "ETHBTC" -skip-monthly 1
-- Data was extracted and collated into a single file in: XXX
+Scripts were taken from the Binance [GitHub repository](https://github.com/binance/binance-public-data/blob/master/python/README.md) to download trades.
 
-The schema for binance data is specified in: https://binance-docs.github.io/apidocs/spot/en/#old-trade-lookup-market_data
+Command used for download:
+```bash
+python Code/binance/download-trade.py -t "spot" -s "ETHBTC" -skip-monthly 1
+```
+The extracted data was consolidated into a single file: `XXX`
+
+The schema for binance data is specified in [Binance Docs](https://binance-docs.github.io/apidocs/spot/en/#old-trade-lookup-market_data).
+
+Example `trade_data`:
+```json
 [
   {
     "id": 28457,
     "price": "4.00000100",
     "qty": "12.00000000",
     "quoteQty": "48.000012",
-    "time": 1499865549590, // Trade executed timestamp, as same as `T` in the stream
+    "time": 1499865549590,  // Trade executed timestamp, as same as `T` in the stream
     "isBuyerMaker": true,
     "isBestMatch": true
   }
 ]
-
-The time will be approximated to correspoinding DEX blocks.
+```
+Note: The timestamp will be approximated to corresponding DEX blocks.

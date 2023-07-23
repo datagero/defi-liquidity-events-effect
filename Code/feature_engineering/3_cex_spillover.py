@@ -4,6 +4,17 @@ import numpy as np
 from tqdm import tqdm
 from utils.build_intervals import create_interval_dataframes
 
+"""
+This script loads, processes, and calculates metrics from the data of a Centralized Exchange (CEX),
+specifically Binance, relating to transactions'spillover effects on different pools of a decentralized exchange.
+The script organizes the data into intervals, calculates various metrics such as traded volume, mid price,
+and transaction count for each interval and each pool, and then consolidates the results.
+If the script is run directly, it can optionally save the processed data to a CSV file.
+The calculated metrics can be used for further analysis of the spillover effects of CEX transactions on the DEX pools.
+This script is part of a larger system for analyzing CEX and DEX data.
+"""
+
+
 CLEANSED_FILEPATH = "DataIterim/cleansed"
 ITERIM_RESULTS_DIR = "DataIterim/interim_results"
 PROCESSED_DIR = "Data/processed"

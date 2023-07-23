@@ -5,6 +5,15 @@ from utils.horizon_aggregates import calculate_horizons, organize_target_data_on
 interim_results_dir = "DataIterim/interim_results"
 processed_results_dir = "Data/processed"
 
+"""
+This script serves as the final phase in feature engineering, aggregating and processing the outputs from previous engineering stages,
+along with calculated horizon data. The script's primary task is to calculate the cumulative volume of various pools,
+merging them with Centralized Exchange (CEX) and Decentralized Exchange (DEX) features.
+The processed data is then arranged into Horizon tables for each pool, providing a foundation for subsequent predictive modeling.
+Upon successful execution, the script outputs the processed data into CSV files, each file pertaining to a specific pool.
+This transformation refines the raw and intermediate data into a form that's readily usable for building predictive models.
+"""
+
 def load_data(path, filename):
     """
     Load a CSV file from a directory
