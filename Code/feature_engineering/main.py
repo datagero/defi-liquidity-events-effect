@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from utils.horizon_aggregates import calculate_horizons, organize_target_data_on_horizons
 
-interim_results_dir = "DataIterim/interim_results"
+interim_results_dir = "Data/interim_results"
 processed_results_dir = "Data/processed"
 
 """
@@ -13,6 +13,13 @@ The processed data is then arranged into Horizon tables for each pool, providing
 Upon successful execution, the script outputs the processed data into CSV files, each file pertaining to a specific pool.
 This transformation refines the raw and intermediate data into a form that's readily usable for building predictive models.
 """
+
+# Directory path
+out_directory = 'Data/processed/features'
+
+# Check if the directory exists, if not, create it
+if not os.path.exists(out_directory):
+    os.makedirs(out_directory)
 
 def load_data(path, filename):
     """

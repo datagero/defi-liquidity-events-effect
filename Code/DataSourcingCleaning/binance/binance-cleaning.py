@@ -1,5 +1,13 @@
+import os
 import pandas as pd
 from tqdm import tqdm
+
+# Directory path
+out_directory = 'Data/cleansed'
+
+# Check if the directory exists, if not, create it
+if not os.path.exists(out_directory):
+    os.makedirs(out_directory)
 
 def uniform_distribution(df, time_column, agg_dict, rename_dict=None, interval='S'):
     """
@@ -60,9 +68,9 @@ def main(sample=False):
         for i, chunk in enumerate(df_uniform.groupby(df_uniform.index // chunk_size)):
             chunk_df = chunk[1]
             if i == 0:
-                chunk_df.to_csv('Data/cleansed/binance.csv', index=False)
+                chunk_df.to_csv(f'{out_directory}/binance.csv', index=False)
             else:
-                chunk_df.to_csv('Data/cleansed/binance.csv', index=False, header=False, mode='a')
+                chunk_df.to_csv(f'{out_directory}/binance.csv', index=False, header=False, mode='a')
             pbar.update(len(chunk_df))
     print("binance data cleansing and aggregation completed.")
 

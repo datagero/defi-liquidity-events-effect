@@ -15,8 +15,8 @@ This script is part of a larger system for analyzing CEX and DEX data.
 """
 
 
-CLEANSED_FILEPATH = "DataIterim/cleansed"
-ITERIM_RESULTS_DIR = "DataIterim/interim_results"
+CLEANSED_FILEPATH = "Data/cleansed"
+ITERIM_RESULTS_DIR = "Data/interim_results"
 PROCESSED_DIR = "Data/processed"
 
 class CEX_SpilloverProcessor:

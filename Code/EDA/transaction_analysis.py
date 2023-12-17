@@ -15,8 +15,8 @@ colors = {
     'terra_luna': 'blue',
 }
 
-CLEANSED_FILEPATH = "DataIterim/cleansed"
-RESULTS_DIR = "DataIterim/interim_results"
+CLEANSED_FILEPATH = "Data/cleansed"
+RESULTS_DIR = "Data/interim_results"
 
 df_blocks = pd.read_csv(os.path.join(RESULTS_DIR, "df_blocks.csv"))
 df_blocks_full = pd.read_csv(os.path.join(RESULTS_DIR, "df_blocks_full.csv"))

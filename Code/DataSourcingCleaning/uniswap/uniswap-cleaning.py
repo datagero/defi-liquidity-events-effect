@@ -1,5 +1,13 @@
+import os
 import json
 import pandas as pd
+
+# Directory path
+out_directory = 'Data/cleansed'
+
+# Check if the directory exists, if not, create it
+if not os.path.exists(out_directory):
+    os.makedirs(out_directory)
 
 filepath = "Data/WBTC-WETH.json"
 
@@ -38,4 +46,4 @@ for transaction_type in transaction_types:
     all_transactions_df = pd.concat([all_transactions_df, transaction_df], ignore_index=True)
 
 # Save the DataFrame to a CSV file
-all_transactions_df.to_csv('Data/cleansed/uniswap.csv', index=False)
+all_transactions_df.to_csv(f'{out_directory}/uniswap.csv', index=False)

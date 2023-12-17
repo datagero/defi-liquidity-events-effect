@@ -7,9 +7,13 @@
 
   e.g. STORE_DIRECTORY=/data/ ./download-trade.py
 
+  Command used for download:
+  ```bash
+  python Code/DataSourcingCleaning/binance/download-trade.py -t "spot" -s "ETHBTC" -skip-monthly 1
+  ```
+
 """
 
-import sys
 from datetime import *
 import pandas as pd
 from enums import *

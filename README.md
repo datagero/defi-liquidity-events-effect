@@ -9,8 +9,8 @@ This repository is organized into several directories:
     1. **:hourglass_flowing_sand: DataSourcingCleaning**
         - Contains a dedicated README with instructions and descriptions.
         - Includes three folders for each source (binance, etherscan, uniswap).
-        - Handles data sourcing via APIs/web calls (raw data stored in `DataIterim`).
-        - Processes data cleaning (results stored in `DataIterim/cleansed`).
+        - Handles data sourcing via APIs/web calls (raw data stored in `Data`).
+        - Processes data cleaning (results stored in `Data/cleansed`).
     2. **:gear: FeatureEngineering**
         - To process the Block Interval Chains and Features of analysis, run the following files in order:
             1. **1_dex_interval_dataframes.py** - [Detailed script description](#1_dex_interval_dataframes)
@@ -34,7 +34,7 @@ https://drive.google.com/drive/folders/1y5ZwLZK9GQYsCNYSY--4VQMg80dnuwuU?usp=sha
     - **processed/** Including processed cex_spillovers and direct_pool features when running locally.
     - **processed/features/** Includes final data model writes when running locally.
 
-- **DataIterim** - Holds interim data writes when running locally.
+- **Data** - Holds interim data writes when running locally.
 
 ## :scroll: Script Descriptions
 

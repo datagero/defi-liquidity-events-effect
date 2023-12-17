@@ -1,12 +1,16 @@
+.venv/*
+.vscode/*
+
 #secrets
 environment/*
 
 #big files
 Code/DataSourcingCleaning/binance/data/*
-DataIterim/*
 Data/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+.DS_Store

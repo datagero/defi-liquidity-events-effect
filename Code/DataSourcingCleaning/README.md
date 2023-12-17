@@ -10,6 +10,8 @@ The download scripts are stored in separate folders based on the source:
 - `etherscan/`
 - `uniswap/`
 
+For each, you'll need to run a download script, followed by a cleaning script. Note, for binance the download is made through CLI and we require to unzip/consolidate it before running cleaning scripts, see section below for further info.
+
 ## :globe_with_meridians: DEX - Uniswap's The Graph API 
 
 API Endpoint: [Uniswap The Graph API](https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3)
@@ -62,11 +64,13 @@ Example `transaction_data`:
 
 Scripts were taken from the Binance [GitHub repository](https://github.com/binance/binance-public-data/blob/master/python/README.md) to download trades.
 
-Command used for download:
+Command used for download the transactions on a .zip file:
 ```bash
-python Code/binance/download-trade.py -t "spot" -s "ETHBTC" -skip-monthly 1
+python Code/DataSourcingCleaning/binance/download-trade.py -t "spot" -s "ETHBTC" -skip-monthly 1
 ```
-The extracted data was consolidated into a single file: `XXX`
+
+Then, by running `scope-downloaded-daily-data.py`, the files get unzipped on the `Data\` folder and consolidated into a single file: `binance.csv`
+Finally, need to run the `binance-cleaning.py` script.
 
 The schema for binance data is specified in [Binance Docs](https://binance-docs.github.io/apidocs/spot/en/#old-trade-lookup-market_data).
 

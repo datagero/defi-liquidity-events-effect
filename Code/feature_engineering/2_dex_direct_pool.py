@@ -12,9 +12,15 @@ and consolidates the results into a single dataframe per pool. If run directly, 
 It is part of a larger system for analyzing DEX data.
 """
 
+# Directory path
+out_directory = 'Data/processed'
+
+# Check if the directory exists, if not, create it
+if not os.path.exists(out_directory):
+    os.makedirs(out_directory)
 
 class DEX_DirectPoolProcessor:
-    def __init__(self, results_dir="DataIterim/interim_results", write=True, sample=False):
+    def __init__(self, results_dir="Data/interim_results", write=True, sample=False):
         self.results_dir = results_dir
         self.interval_dataframes = self.load_interval_dataframes()
         self.write = write
@@ -213,7 +219,7 @@ class DEX_DirectPoolProcessor:
 
         # Write resulting dataframe to csv file if write=True
         if self.write:
-            df_direct_pool.to_csv('Data/processed/direct_pool.csv')
+            df_direct_pool.to_csv(f'{out_directory}/direct_pool.csv')
 
 # Only run main function if script is run directly (not imported)
 if __name__ == '__main__':

@@ -1,88 +1,139 @@
+"""
+Uniswap Data Extraction Script
+
+This script is designed for fetching data from Uniswap liquidity pools. It focuses on extracting data for specific time periods and performing basic analysis on various transaction types such as swaps, mints, and burns.
+
+Key Functionalities:
+- Configuration Loading: Uses an environment file to load configuration settings, including the desired time span for data analysis.
+- Data Retrieval: Fetches data for each liquidity pool (LP) tier within the chosen time range, using the Uniswap APIs.
+- Data Storage: Saves the fetched data in a structured JSON format in a specified directory.
+- Transaction Analysis: Processes the data to format transactions, analyze swaps, mints, and burns, and identifies price extremes and transaction counts.
+
+Usage:
+Run the script to analyze Uniswap liquidity pool data for a selected time span. Ensure the environment file is set up correctly with the required configuration.
+
+Note: The script is intended for users with a basic understanding of cryptocurrency transactions and Uniswap's decentralized exchange platform.
+"""
+
+# Make sure to set cwd to project path to run this script
+import sys
+import os
+sys.path.append(os.getcwd())
+
 import time
 import math
 import json
+from dotenv import load_dotenv
 from uniswap_queries import lp_queries, uniswap_transaction_extract
+from environment.time_spans import load_run_config, time_spans
 
-# Timestamp for proposed start and end analysis period
-start = 1640995200 #Sat Jan 01 2022 00:00:00 GMT+0000
-end = 1656633600 #Fri Jul 01 2022 00:00:00 GMT+0000
+# Select the desired time span for analysis
+# Replace 'DEMO' with 'SPAN1' or 'SPAN2' in run_config as needed
+selected_span = load_run_config('environment/run-config.env')
+START = time_spans[selected_span]["start"]
+END = time_spans[selected_span]["end"]
 
-start = 1687129200 #Sun Jun 18 2023 23:00:00 GMT+0000
-end = 1687215600 #Mon Jun 19 2023 23:00:00 GMT+0000
+# Directory where the file will be saved
+directory = "Data"
+file_path = os.path.join(directory, "WBTC-WETH.json")
 
-start = 1648771200 #Fri Apr 01 2022 00:00:00 GMT+0000
-end = 1664582400 #Sat Oct 01 2022 00:00:00 GMT+0000
+def fetch_tier_data(start_timestamp, end_timestamp, tiers):
+    """
+    Fetches data for each liquidity pool (LP) tier within the given time range.
+
+    Args:
+    start_timestamp (int): The start timestamp for data retrieval.
+    end_timestamp (int): The end timestamp for data retrieval.
+    tiers (dict): A dictionary to store data for different tiers.
+
+    Returns:
+    dict: A dictionary with updated data for each tier.
+    """
+    for tier in tiers:
+        tiers[tier] = {}
+        for lp_type, lp_query in lp_queries.items():
+            tiers[tier][lp_type] = uniswap_transaction_extract(lp_type, lp_query, start_timestamp, end_timestamp, tier)
+    return tiers
 
 
-tiers = {500: None, 3000: None}
-for tier in tiers:
-    current_timestamp = int(time.time())
-    twenty_four_hours_ago = current_timestamp - 24 * 60 * 60
-    tiers[tier] = {}
-    for lp_type, lp_query in lp_queries.items():
-        tiers[tier][lp_type] = uniswap_transaction_extract(lp_type, lp_query, twenty_four_hours_ago, current_timestamp, tier)
-        # tiers[tier][lp_type] = uniswap_transaction_extract(lp_type, lp_query, start, end, tier)
-
-pass
-
-# Save tiers to json file
-# json.dump(tiers, open("Data/WBTC-WETH.json", "w"))
-
-
-
+#===================================================================================================#
 # Below some basic analysis to validate against https://www.geckoterminal.com/eth/pools/0xcbcdf9626bc03e24f779434178a73a0b4bad62ed
-swaps = tiers[3000]['swaps']
-swaps = [{**swap, **{'timestamp': time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(swap['timestamp'])))}} for swap in swaps]
-latest_swap = swaps[0]
-swap_price = abs(float(latest_swap['amountUSD']) / float(latest_swap['amount0']))
-swap_price = abs(float(latest_swap['amount1']) / float(latest_swap['amount0']))
-latest_swap['timestamp']
+def format_transactions(transactions):
+    """Converts timestamps in transactions to a readable format."""
+    return [{**transaction, 'timestamp': time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(transaction['timestamp'])))} for transaction in transactions]
 
+def analyze_swaps(swaps):
+    """Analyzes and prints information about swap transactions."""
+    latest_swap = swaps[0]
+    swap_price = abs(float(latest_swap['amountUSD']) / float(latest_swap['amount0']))
+    print(f"Latest Swap Timestamp: {latest_swap['timestamp']}")
+    print(f"Latest Swap Price: {swap_price}")
 
-print(len(tiers[500]['mints']))
-print(len(tiers[3000]['mints']))
+def analyze_mints(mints):
+    """Analyzes and prints information about mint transactions."""
+    for mint in mints:
+        width = int(mint['tickUpper']) - int(mint['tickLower'])
+        mint_price = math.sqrt(abs(int(mint['tickUpper']) * int(mint['tickLower'])))
+        print(f"Mint Width: {width}, Mint Price: {mint_price}")
+        if mint['amount0'] != '0':
+            mint_weth_price = mint_price / float(mint['amountUSD']) * 2
+            print(f"Mint WETH Price: {mint_weth_price}")
 
-mints = tiers[500]['mints']
-mints = [{**mint, **{'timestamp': time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(mint['timestamp'])))}} for mint in mints]
-latest_mint = mints[0]
-# price = abs(float(latest_mint['amount1']) / float(latest_mint['amount0']))
-width = int(latest_mint['tickUpper']) - int(latest_mint['tickLower'])
-mint_price = math.sqrt(int(latest_mint['tickUpper']) * int(latest_mint['tickLower']))
+def analyze_burns(burns):
+    """Analyzes and prints information about burn transactions."""
+    latest_burn = burns[0]
+    burn_price = math.sqrt(int(latest_burn['tickUpper']) * int(latest_burn['tickLower']))
+    print(f"Latest Burn Timestamp: {latest_burn['timestamp']}")
+    print(f"Latest Burn Price: {burn_price}")
 
-for mint in mints:
-    width = int(latest_mint['tickUpper']) - int(latest_mint['tickLower'])
-    print(math.sqrt(abs(int(mint['tickUpper']) * int(mint['tickLower']))))
-    if mint['amount0'] == '0':
-        continue
-    print(float(mint['amountUSD'])/float(mint['amount1']))
+def find_price_extremes(swaps):
+    """Finds the lowest and highest prices in swap transactions."""
+    lowest_price = float('inf')
+    highest_price = -float('inf')
+    for swap in swaps:
+        price = abs(float(swap['amountUSD']) / float(swap['amount0']))
+        lowest_price = min(price, lowest_price)
+        highest_price = max(price, highest_price)
+    print(f"Lowest Price: {lowest_price}")
+    print(f"Highest Price: {highest_price}")
 
+def count_swap_types(swaps):
+    """Counts different types of swap transactions."""
+    sell_count = sum(float(swap["amount0"]) > 0 for swap in swaps)
+    buy_count = sum(float(swap["amount0"]) < 0 for swap in swaps)
+    zero_count = sum(float(swap["amount0"]) == 0 for swap in swaps)
+    print(f"Sell Transactions: {sell_count}, Buy Transactions: {buy_count}, Zero Transactions: {zero_count}")
 
+def run_basic_analysis():
+    # Basic analysis to validate against Gecko Terminal data
+    swaps = format_transactions(tiers[3000]['swaps'])
+    analyze_swaps(swaps)
 
-    mint_price = math.sqrt(int(latest_mint['tickUpper']) * int(latest_mint['tickLower']))
-    mint_weth_price = mint_price / float(mint['amountUSD']) * 2
-    print(mint_weth_price)
-latest_mint['timestamp']
+    print(f"Number of Mints in Tier 500: {len(tiers[500]['mints'])}")
+    print(f"Number of Mints in Tier 3000: {len(tiers[3000]['mints'])}")
 
+    mints = format_transactions(tiers[500]['mints'])
+    analyze_mints(mints)
 
-burns = tiers[3000]['burns']
-burns = [{**burn, **{'timestamp': time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(burn['timestamp'])))}} for burn in burns]
-latest_burn = burns[0]
-# price = abs(float(latest_burn['amount1']) / float(latest_burn['amount0']))
-width = int(latest_burn['tickUpper']) - int(latest_burn['tickLower'])
-burn_price = math.sqrt(int(latest_burn['tickUpper']) * int(latest_burn['tickLower']))
-latest_burn['timestamp']
+    burns = format_transactions(tiers[3000]['burns'])
+    analyze_burns(burns)
 
+    find_price_extremes(swaps)
+    count_swap_types(swaps)
 
-for transaction in swaps:
-    price = abs(float(transaction['amountUSD']) / float(transaction['amount0']))
-    if price < lowest_price:
-        lowest_price = price
-    if price > highest_price:
-        highest_price = price
+if __name__ == "__main__":
+    # Initialize tiers for different liquidity pools
+    tiers = {500: None, 3000: None}
 
-print("Lowest Price:", lowest_price)
-print("Highest Price:", highest_price)
+    # Fetch data for each tier
+    tiers = fetch_tier_data(START, END, tiers)
 
-sell_amount0_count = sum(float(tx["amount0"]) > 0 for tx in swaps)
-buy_amount0_count = sum(float(tx["amount0"]) < 0 for tx in swaps)
-zero_amount0_count = sum(float(tx["amount0"]) == 0 for tx in swaps)
+    # Check if the directory exists, if not, create it
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    # Save the collected tier data to a JSON file
+    with open(file_path, "w") as file:
+        json.dump(tiers, file)
+
+    # run_basic_analysis()

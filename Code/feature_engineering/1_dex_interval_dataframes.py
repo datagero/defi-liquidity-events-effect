@@ -24,8 +24,8 @@ from utils.build_intervals import calculate_intervals, calculate_other_intervals
 
 # Constants
 SHIFT_PERIODS = range(0, 4) # Define shift periods for the intervals
-CLEANSED_FILEPATH = "DataIterim/cleansed"
-RESULTS_DIR = "DataIterim/interim_results"
+CLEANSED_FILEPATH = "Data/cleansed"
+RESULTS_DIR = "Data/interim_results"
 
 
 def validate_block_number_order(df):
