@@ -27,7 +27,7 @@ https://drive.google.com/drive/folders/1y5ZwLZK9GQYsCNYSY--4VQMg80dnuwuU?usp=sha
       ```
 
 2. **Predictive Modeling**:
-    - The `Code/PredictiveModels` directory contains the Ordinary Least Squares (OLS) models. These scripts can be run individually for detailed analysis and experimentation.
+    - The `Code/predictive_models` directory contains the Ordinary Least Squares (OLS) models. These scripts can be run individually for detailed analysis and experimentation.
 
 
 ## :file_folder: Structure
@@ -38,12 +38,12 @@ This repository is organized into several directories:
 
     For detailed script descriptions please refer to the section  - [Detailed script description](#scroll-script-descriptions).
 
-    1. **:hourglass_flowing_sand: data_sourcing_cleaning**
+    1. **:hourglass_flowing_sand: Data Sourcing and Cleaning**
         - Contains a dedicated README with instructions and descriptions.
         - Includes three folders for each source (binance, etherscan, uniswap).
         - Handles data sourcing via APIs/web calls (raw data stored in `Data`).
         - Processes data cleaning (results stored in `Data/cleansed`).
-    2. **:gear: FeatureEngineering**
+    2. **:gear: Feature Engineering**
         - To process the Block Interval Chains and Features of analysis, run the following files in order:
             1. **1_dex_interval_dataframes.py**
             2. **2_dex_direct_pool.py**
@@ -51,7 +51,7 @@ This repository is organized into several directories:
             4. **main.py**
     3. **:bar_chart: EDA**:
         - Produces basic EDA and analysis on the horizons and features.
-    4. **:crystal_ball: PredictiveModels**
+    4. **:crystal_ball: Predictive Models**
         - **utils/** - Contains functions for data cleaning, model construction, and visualization.
             1. **ols_all_horizons.py**
             2. **ols_best_horizon.py**
