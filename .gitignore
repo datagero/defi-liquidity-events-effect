@@ -5,10 +5,10 @@
 .vscode/
 
 # Environment secrets
-environment/
+environment/local-secrets.env
 
 # Large data files and directories
-Code/DataSourcingCleaning/binance/data/
+Code/data_sourcing_cleaning/binance/data/
 Data/
 
 # Byte-compiled, optimized, and DLL files
@@ -21,6 +21,7 @@ __pycache__/
 
 # Temporary files
 tmp/
+Other Resources/
 
 # Specific project files and directories
 Final Report/

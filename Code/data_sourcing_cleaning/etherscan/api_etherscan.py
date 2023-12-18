@@ -138,7 +138,7 @@ if __name__ == "__main__":
     chunk_size = 1000
     max_threads = 1 # Set to 1 to avoid rate limit issues; increase if rate limit is not an issue
     threads = []
-    skip_until_chunk_id = 10000000
+    skip_until_chunk_id = 0
 
     if max_threads > 1: # Use threading
         threads = []

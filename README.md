@@ -3,14 +3,39 @@ Welcome to the official repository for the MSc research project titled "Impact o
 
 For a comprehensive understanding of the project, readers are encouraged to access the full research paper available at the following link: [Impact of Liquidity Pool Size on Trading Volume in BTC-ETH Pools](https://drive.google.com/file/d/1TcIuDAD2635uOJd_I_DwPnwqJiMPvlsI/view?usp=drive_link).
 
-## :file_folder: Structure
+## :Quick Start: How to Run
+
+To extract and clean the data from APIs and custom functions, follow these steps:
+
+1. **Set Up Environment**:
+    - Ensure your `environment/local-secrets.env` file contains an `ETHERSCAN_KEY` (you can obtain this for free from Etherscan).
+    - Verify your configuration settings in `environment/time_spans.py` and `run-config.env`.
+
+2. **Data Sourcing and Cleaning**:
+    - Execute the bulk data sourcing and cleaning process by running the script:
+      ```
+      ./Code/data_sourcing_cleaning/run_source_and_clean.sh
+      ```
+    - Please note that this step can take some time, especially when downloading Etherscan data due to API limits.
+    - For limited time, we offer the source data used for the project at the team's google drive: 
+https://drive.google.com/drive/folders/1y5ZwLZK9GQYsCNYSY--4VQMg80dnuwuU?usp=sharing
+
+1. **Feature Engineering**:
+    - Run the feature engineering processes in bulk using the script:
+      ```
+      ./Code/feature_engineering/run_feature_engineering.sh
+      ```
+
+2. **Predictive Modeling**:
+    - The `Code/PredictiveModels` directory contains the Ordinary Least Squares (OLS) models. These scripts can be run individually for detailed analysis and experimentation.
+
 
 ## :file_folder: Structure
 
 This repository is organized into several directories:
 
 - **:computer: Code**:
-    1. **:hourglass_flowing_sand: DataSourcingCleaning**
+    1. **:hourglass_flowing_sand: data_sourcing_cleaning**
         - Contains a dedicated README with instructions and descriptions.
         - Includes three folders for each source (binance, etherscan, uniswap).
         - Handles data sourcing via APIs/web calls (raw data stored in `Data`).
@@ -30,7 +55,7 @@ This repository is organized into several directories:
 
 - **Other Resources**: Contains self-created diagrams, graphs, and screenshots.
 
-:warning: Data is not versioned controlled in git. Please access data resources (raw, cleansed, processed) in the team's google drive: 
+:warning: Data is not versioned controlled in git. Please [for limited time] access data resources (raw, cleansed, processed) in the team's google drive: 
 https://drive.google.com/drive/folders/1y5ZwLZK9GQYsCNYSY--4VQMg80dnuwuU?usp=sharing
 
 - **:file_cabinet: Data**
@@ -59,3 +84,10 @@ An ETHERSCAN_KEY is required for API downloads and should be stored in the `envi
 - Project Proposal & Proposal Presentation
 - Progress Report
 - Final Report & Final Presentation Slides
+
+
+# :star2: How to Contribute
+
+We welcome contributions from the community. If you're interested in enhancing the analysis, refining models, or adding new features, please feel free to fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
+
+Ensure to update tests as appropriate and adhere to the existing coding style.
