@@ -1,5 +1,5 @@
 # :chart_with_upwards_trend: Impact of Liquidity Pool Size on Trading Volume in BTC-ETH Pools
-Welcome to the official repository for the MSc research project titled "Impact of Liquidity Pool Size on Trading Volume in BTC-ETH Pools." This project is part of the coursework for MGT 6203 at Georgia Tech, conducted during the Summer 2023 semester. The repository contains all data engineering scripts, models, and additional resources used to support the findings and discussions presented in the final paper.
+Welcome to the official repository for the MSc research project titled "Impact of Liquidity Pool Size on Trading Volume in BTC-ETH Pools", conducted during the Summer 2023 semester. The repository contains all data engineering scripts, models, and additional resources used to support the findings and discussions presented in the final paper.
 
 For a comprehensive understanding of the project, readers are encouraged to access the full research paper available at the following link: [Impact of Liquidity Pool Size on Trading Volume in BTC-ETH Pools](https://drive.google.com/file/d/1TcIuDAD2635uOJd_I_DwPnwqJiMPvlsI/view?usp=drive_link).
 
@@ -84,9 +84,8 @@ https://drive.google.com/drive/folders/1y5ZwLZK9GQYsCNYSY--4VQMg80dnuwuU?usp=sha
 An ETHERSCAN_KEY is required for API downloads and should be stored in the `environment/local-secrets.env` file.
 
 ## :trophy: Results & Analysis
-- Project Proposal & Proposal Presentation
-- Progress Report
-- Final Report & Final Presentation Slides
+- [Final Report](https://drive.google.com/file/d/1TcIuDAD2635uOJd_I_DwPnwqJiMPvlsI/view?usp=drive_link)
+- Final Presentation Slides (TBC)
 
 
 # :star2: How to Contribute
