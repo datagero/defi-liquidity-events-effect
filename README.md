@@ -3,7 +3,7 @@ Welcome to the official repository for the MSc research project titled "Impact o
 
 For a comprehensive understanding of the project, readers are encouraged to access the full research paper available at the following link: [Impact of Liquidity Pool Size on Trading Volume in BTC-ETH Pools](https://drive.google.com/file/d/1TcIuDAD2635uOJd_I_DwPnwqJiMPvlsI/view?usp=drive_link).
 
-## :Quick Start: How to Run
+## :running: Quick Start
 
 To extract and clean the data from APIs and custom functions, follow these steps:
 
@@ -35,6 +35,9 @@ https://drive.google.com/drive/folders/1y5ZwLZK9GQYsCNYSY--4VQMg80dnuwuU?usp=sha
 This repository is organized into several directories:
 
 - **:computer: Code**:
+
+    For detailed script descriptions please refer to the section  - [Detailed script description](#scroll-script-descriptions).
+
     1. **:hourglass_flowing_sand: data_sourcing_cleaning**
         - Contains a dedicated README with instructions and descriptions.
         - Includes three folders for each source (binance, etherscan, uniswap).
@@ -42,16 +45,16 @@ This repository is organized into several directories:
         - Processes data cleaning (results stored in `Data/cleansed`).
     2. **:gear: FeatureEngineering**
         - To process the Block Interval Chains and Features of analysis, run the following files in order:
-            1. **1_dex_interval_dataframes.py** - [Detailed script description](#1_dex_interval_dataframes)
-            2. **2_dex_direct_pool.py** - [Detailed script description](#2_dex_direct_pool)
-            3. **3_cex_spillover.py** - [Detailed script description](#3_cex_spillover)
-            4. **main.py** - [Detailed script description](#main_py)
+            1. **1_dex_interval_dataframes.py**
+            2. **2_dex_direct_pool.py**
+            3. **3_cex_spillover.py**
+            4. **main.py**
     3. **:bar_chart: EDA**:
         - Produces basic EDA and analysis on the horizons and features.
     4. **:crystal_ball: PredictiveModels**
         - **utils/** - Contains functions for data cleaning, model construction, and visualization.
-            1. **ols_all_horizons.py** - [Detailed script description](#ols_all_horizons)
-            2. **ols_best_horizon.py** - [Detailed script description](#ols_best_horizon)
+            1. **ols_all_horizons.py**
+            2. **ols_best_horizon.py**
 
 - **Other Resources**: Contains self-created diagrams, graphs, and screenshots.
 
