@@ -1,5 +1,9 @@
 # :chart_with_upwards_trend: Impact of Liquidity Pool Size on Trading Volume in BTC-ETH Pools
-Team 111's group project GitHub repository for MGT 6203 (Canvas) Summer of 2023 semester.
+Welcome to the official repository for the MSc research project titled "Impact of Liquidity Pool Size on Trading Volume in BTC-ETH Pools." This project is part of the coursework for MGT 6203 at Georgia Tech, conducted during the Summer 2023 semester. The repository contains all data engineering scripts, models, and additional resources used to support the findings and discussions presented in the final paper.
+
+For a comprehensive understanding of the project, readers are encouraged to access the full research paper available at the following link: [Impact of Liquidity Pool Size on Trading Volume in BTC-ETH Pools](https://drive.google.com/file/d/1TcIuDAD2635uOJd_I_DwPnwqJiMPvlsI/view?usp=drive_link).
+
+## :file_folder: Structure
 
 ## :file_folder: Structure
 

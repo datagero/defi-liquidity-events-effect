@@ -1,16 +1,26 @@
-.venv/*
-.vscode/*
+# Virtual environment
+.venv/
 
-#secrets
-environment/*
+# Visual Studio Code settings
+.vscode/
 
-#big files
-Code/DataSourcingCleaning/binance/data/*
-Data/*
+# Environment secrets
+environment/
 
-# Byte-compiled / optimized / DLL files
+# Large data files and directories
+Code/DataSourcingCleaning/binance/data/
+Data/
+
+# Byte-compiled, optimized, and DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
+# System files
 .DS_Store
+
+# Temporary files
+tmp/
+
+# Specific project files and directories
+Final Report/

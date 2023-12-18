@@ -4,7 +4,7 @@ Etherscan Transaction Fetcher
 This script retrieves Ethereum transaction details from the Etherscan API. 
 It loads API keys from an environment file, reads transaction hashes from 
 'Data/WBTC-WETH.json', and makes rate-limited requests to Etherscan to 
-fetch transaction details. The results are saved in 'Data/WBTC-WETH_etherscan.json'.
+fetch transaction details. The results are saved in 'Data/all_etherscan/WBTC-WETH_etherscan_XXX.json'.
 
 Prerequisites:
 - A '.env' file with 'ETHERSCAN_KEY'.
@@ -20,8 +20,16 @@ import ratelimit
 import requests
 import time
 import glob
+import threading
 from tqdm import tqdm
 from dotenv import load_dotenv
+
+# Directory path
+out_directory = 'Data/all_etherscan'
+
+# Check if the directory exists, if not, create it
+if not os.path.exists(out_directory):
+    os.makedirs(out_directory)
 
 def load_env_variables(env_file):
     """Load environment variables from a given file."""
@@ -103,6 +111,21 @@ def get_transaction_details(txhash, api_key):
             time.sleep(1)  # Wait for 1 second before retrying
             continue
 
+def process_and_save_chunk(chunk, chunk_id, etherscan_key, semaphore=None):
+
+    def process_and_save_logic(chunk, chunk_id, etherscan_key):
+        etherscan_transaction = process_transactions(chunk, etherscan_key)
+        filename = f"{out_directory}/WBTC-WETH_etherscan_{chunk_id:05d}.json"
+        save_to_json(etherscan_transaction, filename)
+
+    # Execute the block within semaphore context only if semaphore is not None
+    if semaphore:
+        with semaphore:
+            process_and_save_logic(chunk, chunk_id, etherscan_key)
+    else:
+        # If no semaphore, just execute the logic directly
+        process_and_save_logic(chunk, chunk_id, etherscan_key)
+
 # Main execution
 if __name__ == "__main__":
     env_file = 'environment/local-secrets.env'
@@ -111,5 +134,37 @@ if __name__ == "__main__":
 
     tiers = read_data("Data/WBTC-WETH.json")
     transaction_hashes = extract_transaction_hashes(tiers)
-    etherscan_transaction = process_transactions(transaction_hashes, etherscan_key)
-    save_to_json(etherscan_transaction, "Data/WBTC-WETH_etherscan.json")
+
+    chunk_size = 1000
+    max_threads = 1 # Set to 1 to avoid rate limit issues; increase if rate limit is not an issue
+    threads = []
+    skip_until_chunk_id = 10000000
+
+    if max_threads > 1: # Use threading
+        threads = []
+        semaphore = threading.Semaphore(max_threads)
+
+        for i in range(0, len(transaction_hashes), chunk_size):
+            chunk_id = i // chunk_size + 1
+            if chunk_id <= skip_until_chunk_id:
+                continue  # Skip this chunk
+
+            chunk = transaction_hashes[i:i + chunk_size]
+            thread = threading.Thread(target=process_and_save_chunk, args=(chunk, chunk_id, etherscan_key, semaphore))
+            threads.append(thread)
+            thread.start()
+
+        for thread in threads:
+            thread.join()
+    else:
+        # Non-threaded execution
+        for i in range(0, len(transaction_hashes), chunk_size):
+            chunk_id = i // chunk_size + 1
+            if chunk_id <= skip_until_chunk_id:
+                continue  # Skip this chunk
+
+            chunk = transaction_hashes[i:i + chunk_size]
+            process_and_save_chunk(chunk, chunk_id, etherscan_key, None)
+
+    for thread in threads:
+        thread.join()

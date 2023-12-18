@@ -10,7 +10,7 @@ out_directory = 'Data/cleansed'
 if not os.path.exists(out_directory):
     os.makedirs(out_directory)
 
-file_pattern = "Data/WBTC-WETH_etherscan*.json"  # Update the pattern to match your file naming convention
+file_pattern = "Data/all_etherscan/WBTC-WETH_etherscan*.json"  # Update the pattern to match your file naming convention
 data = {}
 # Iterate over the matched files
 for file_name in glob.glob(file_pattern):

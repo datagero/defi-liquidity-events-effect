@@ -23,4 +23,4 @@ MONTHS = list(range(1,13))
 PERIOD_START_DATE = '2020-01-01'
 BASE_URL = 'https://data.binance.vision/'
 START_DATE = datetime.strptime(scope_date[0], '%Y-%m-%d').date() #date(int(YEARS[0]), MONTHS[0], 1)
-END_DATE = datetime.strptime(scope_date[1], '%Y-%m-%d').date() #datetime.date(datetime.now())
+END_DATE = datetime.strptime(scope_date[-1], '%Y-%m-%d').date() #datetime.date(datetime.now())
